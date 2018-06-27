@@ -11,12 +11,12 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
     /// <summary>
     /// コンテンツのツリーリスト
     /// </summary>
-    public class ContentsTree : TreeView
+    public class ContentsTree
     {
         #region プロパティ
 
         public string ContentName { get; set; }
-        public ObservableCollection<ContentsTree> Children { get; set; }
+        public List<ContentsTree> Children { get; set; }
 
         #endregion
 

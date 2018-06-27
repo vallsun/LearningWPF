@@ -10,7 +10,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800">
     <Window.Resources>
-        <vm:MainViewModel x:Key="mainViewModel"/>
     </Window.Resources>
     <Window.DataContext>
         <vm:MainViewModel x:Name="mainVM"/>
@@ -33,12 +32,11 @@
         </Menu>
 
         <TreeView Grid.Row="1" Grid.Column="0"
-                  ItemsSource="{Binding Contents}">
+                  ItemsSource="{Binding Path=Contents, ElementName=mainVM}">
             <TreeView.ItemTemplate>
-            <HierarchicalDataTemplate 
-                                  DataType=":ContentsTree">
-                <TextBlock Text="aaaaa" />
-            </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="contentsModel:ContentsTree" ItemsSource="{Binding Children}">
+                    <TextBlock Text="{Binding Path=ContentName}" />
+                </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
 

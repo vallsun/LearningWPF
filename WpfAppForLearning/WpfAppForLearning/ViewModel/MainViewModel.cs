@@ -8,17 +8,22 @@ using WpfAppForLearning.Modules.ContentsTree.Model;
 
 namespace WpfAppForLearning.ViewModel
 {
-    public class MainViewModel : ObservableCollection<ContentsTree>
+    public class MainViewModel
     {
-        public ObservableCollection<ContentsTree> Contents;
+        public List<ContentsTree> Contents { get; set; }
 
         public MainViewModel()
         {
-            Contents = new ObservableCollection<ContentsTree>()
+            ContentsBuilder();
+        }
+
+        private void ContentsBuilder()
+        {
+            Contents = new List<ContentsTree>()
             {
                 new ContentsTree(){
                     ContentName = "コンテンツ",
-                    Children = new ObservableCollection<ContentsTree>()
+                    Children = new List<ContentsTree>()
                     {
                         new ContentsTree(){ContentName = "カスタムコントロール"},
                         new ContentsTree(){ContentName = "レイアウト"},
