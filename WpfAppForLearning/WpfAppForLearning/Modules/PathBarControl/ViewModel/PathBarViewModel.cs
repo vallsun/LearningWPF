@@ -39,7 +39,8 @@ namespace WpfAppForLearning.Modules.PathBarControl.ViewModel
             Contract.Requires(PathList != null);
             Contract.Requires(!PathList.Any());
 
-            PathList.Insert(PathList.Count, content);
+            //子要素から親に向かってリストの先頭に追加
+            PathList.Insert(0, content);
             if(content.Parent != null)
             {
                 CreatePathList(content.Parent);
