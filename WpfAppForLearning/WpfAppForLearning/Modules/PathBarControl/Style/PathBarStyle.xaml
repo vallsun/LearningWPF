@@ -2,6 +2,23 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:WpfAppForLearning.Modules.PathBarControl.Style">
 
+	
+	<!--パス要素のスタイル-->
+	<Style x:Key="PathBarItemNameStyle"
+		   TargetType="Button">
+		<Setter Property="Background"
+				Value="Transparent" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate>
+					<Border BorderThickness="1">
+						<TextBlock Text="{Binding ContentName}" />
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<!--兄弟リスト表示ボタンのスタイル-->
 	<Style x:Key="PathBarItemComboBoxStyle"
 		   TargetType="ComboBox">
 		<Setter Property="Background"
@@ -9,7 +26,8 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate>
-					<Border Background="Transparent">
+					<Border Background="Transparent"
+							BorderThickness="1">
 						<Path x:Name="Arrow"
 							  HorizontalAlignment="Center"
 							  VerticalAlignment="Center"
@@ -28,7 +46,7 @@
 			<Setter.Value>
 				<ControlTemplate>
 					<StackPanel Orientation="Horizontal">
-						<Button Content="{Binding ContentName}" />
+						<Button Style="{StaticResource PathBarItemNameStyle}" />
 						<ComboBox Style="{StaticResource PathBarItemComboBoxStyle}"
 								  Width="10"/>
 					</StackPanel>
