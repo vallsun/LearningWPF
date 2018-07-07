@@ -47,10 +47,11 @@ namespace WpfAppForLearning.ViewModel
             //コンテンツの生成
             ContentsTree = new Contents();
             PathBar = new PathBarViewModel(this, SelectedItem);
-            SelectedItem = (Content)ContentsTree.SelectedItem;
 
             //イベントハンドラの接続
             PropertyChanged += PathBar.OnSelectedItemChanged;
+
+            SelectedItem = ContentsTree.ContentsTree.First<Content>();
         }
     }
 }
