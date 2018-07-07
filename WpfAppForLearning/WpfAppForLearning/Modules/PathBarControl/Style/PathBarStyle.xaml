@@ -1,0 +1,40 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WpfAppForLearning.Modules.PathBarControl.Style">
+
+	<Style x:Key="PathBarItemComboBoxStyle"
+		   TargetType="ComboBox">
+		<Setter Property="Background"
+				Value="AliceBlue" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate>
+					<Border Background="Transparent">
+						<Path x:Name="Arrow"
+							  HorizontalAlignment="Center"
+							  VerticalAlignment="Center"
+							  Data="M 0 0 L 0 8 L 4 4 Z"
+							  Fill="Black"/>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	
+	<!--パスバー要素のコントロールテンプレート-->
+	<Style x:Key="PathBarItemStyle"
+		   TargetType="ListBoxItem">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate>
+					<StackPanel Orientation="Horizontal">
+						<Button Content="{Binding ContentName}" />
+						<ComboBox Style="{StaticResource PathBarItemComboBoxStyle}"
+								  Width="10"/>
+					</StackPanel>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+    
+</ResourceDictionary>
