@@ -101,7 +101,7 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
     /// <summary>
     /// コンテンツ
     /// </summary>
-    public class Contents : TreeView
+    public class Contents
     {
 
         /// <summary>
@@ -111,13 +111,7 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
 
         public Contents()
         {
-            SelectedItemChanged += OnSelectedItemChanged;
             ContentsBuilder();
-        }
-
-        public void OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            return;
         }
 
         /// <summary>
