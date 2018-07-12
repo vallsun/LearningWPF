@@ -24,11 +24,18 @@ namespace WpfAppForLearning.Modules.CustomControl
         #region 構築・消滅
 
         /// <summary>
-        /// コンストラクタ
+        /// メタデータ
         /// </summary>
         static CustomControlSample()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CustomControlSample), new FrameworkPropertyMetadata(typeof(CustomControlSample)));
+        }
+
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        public CustomControlSample()
+        {
         }
 
         #endregion
