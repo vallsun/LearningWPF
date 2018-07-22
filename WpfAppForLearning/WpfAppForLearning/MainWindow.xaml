@@ -58,7 +58,7 @@
 			</Grid.RowDefinitions>
 			<pathBarControl:PathBarControl Grid.Row="0"
 										   DataContext="{Binding PathBar}"/>
-			<customControl:CustomControlSample Grid.Row="1"/>
+			<customControl:CustomControlSample Grid.Row="1" />
 		</Grid>
         <StatusBar Grid.Row="2"
                    Grid.ColumnSpan="3">

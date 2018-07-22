@@ -12,6 +12,18 @@ namespace WpfAppForLearning.ViewModel
 {
     public class MainViewModel :INotifyPropertyChanged
     {
+        #region フィールド
+
+        /// <summary>
+        /// 選択中のアイテム
+        /// </summary>
+        private Content m_SelectedItem;
+
+        #endregion
+
+
+        #region プロパティ
+
         /// <summary>
         /// コンテンツ
         /// </summary>
@@ -21,12 +33,9 @@ namespace WpfAppForLearning.ViewModel
         /// </summary>
         public PathBarViewModel PathBar { get; set; }
 
-        private static readonly PropertyChangedEventArgs SelectedItemPropertyChangedEventArgs = new PropertyChangedEventArgs(nameof(SelectedItem));
-
-        private Content m_SelectedItem;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
+        /// <summary>
+        /// 選択中のアイテム
+        /// </summary>
         public Content SelectedItem
         {
             get { return this.m_SelectedItem; }
@@ -37,6 +46,14 @@ namespace WpfAppForLearning.ViewModel
                 this.PropertyChanged?.Invoke(this, SelectedItemPropertyChangedEventArgs);
             }
         }
+
+        #endregion
+
+        private static readonly PropertyChangedEventArgs SelectedItemPropertyChangedEventArgs = new PropertyChangedEventArgs(nameof(SelectedItem));
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        
 
 
         /// <summary>

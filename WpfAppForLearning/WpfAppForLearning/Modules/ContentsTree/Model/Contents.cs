@@ -103,7 +103,6 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
     /// </summary>
     public class Contents
     {
-
         /// <summary>
         /// コンテンツ
         /// </summary>
