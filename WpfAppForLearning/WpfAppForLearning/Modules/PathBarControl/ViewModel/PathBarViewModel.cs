@@ -18,13 +18,17 @@ namespace WpfAppForLearning.Modules.PathBarControl.ViewModel
         /// </summary>
         public ObservableCollection<Content> PathList { get; set; }
 
+        public ObservableCollection<PathBarItemViewModel> PathListViewModel { get; set; }
+
         public object Owner { get; set; }
 
         //コンストラクタ
-        public PathBarViewModel(object Owner, Content content)
+        public PathBarViewModel(object owner, Content content)
         {
-            PathList = new ObservableCollection<Content>();
-            if(content != null)
+            Owner = owner;
+           //PathList = new ObservableCollection<Content>();
+            PathListViewModel = new ObservableCollection<PathBarItemViewModel>();
+            if (content != null)
             {
                 CreatePathList(content);
             }
@@ -39,12 +43,23 @@ namespace WpfAppForLearning.Modules.PathBarControl.ViewModel
             Contract.Requires(PathList != null);
             Contract.Requires(!PathList.Any());
 
+            
+
+            //子要素から親要素に向かってリスト先頭に要素を追加
+            PathListViewModel.Insert(0, new PathBarItemViewModel(content));
+            if(content.Parent != null)
+            {
+                CreatePathList(content.Parent);
+            };
+
+            /*
             //子要素から親に向かってリストの先頭に追加
             PathList.Insert(0, content);
             if(content.Parent != null)
             {
                 CreatePathList(content.Parent);
             }
+            */
         }
 
         #region イベントハンドラ
@@ -56,9 +71,11 @@ namespace WpfAppForLearning.Modules.PathBarControl.ViewModel
             {
                 return;
             }
-            PathList.Clear();
+            //PathList.Clear();
+            PathListViewModel.Clear();
             CreatePathList(mainViewModel.SelectedItem);
         }
+
         #endregion
     }
 }

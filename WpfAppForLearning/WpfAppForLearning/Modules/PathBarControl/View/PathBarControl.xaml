@@ -16,8 +16,10 @@
     <Grid>
         <Border CornerRadius="2" Height="35" Background="LightGray">
 			<ListBox Margin="5"
-					 ItemsSource="{Binding PathList}"
-					 ItemContainerStyle="{StaticResource PathBarItemStyle}">
+					 ItemsSource="{Binding PathListViewModel}"
+					 ItemContainerStyle="{StaticResource PathBarItemStyle}"
+					 Background="Transparent"
+					 BorderBrush="Transparent">
 				<ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"/>

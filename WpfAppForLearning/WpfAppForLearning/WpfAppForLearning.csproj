@@ -55,11 +55,19 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Modules\Common\ExtendedControl\BindableSelectedItemTreeView.cs" />
+    <Compile Include="Modules\Common\NotImplementationViewModel.cs" />
+    <Compile Include="Modules\ContentCustomControl\ContentCustomControl.cs" />
+    <Compile Include="Modules\CustomControl\CustomControlViewModel.cs" />
+    <Compile Include="Modules\PathBarControl\Converter\BoolToVisivilityConverter.cs" />
     <Compile Include="Modules\PathBarControl\ViewModel\PathBarItemViewModel.cs" />
     <Compile Include="Modules\PathBarControl\ViewModel\PathBarViewModel.cs" />
     <Compile Include="Modules\PathBarControl\View\PathBarControl.xaml.cs">
       <DependentUpon>PathBarControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\StartControl\StartControl.xaml.cs">
+      <DependentUpon>StartControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\StartControl\StartControlViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -78,6 +86,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Modules\PathBarControl\View\PathBarControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\StartControl\StartControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

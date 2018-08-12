@@ -22,7 +22,7 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
         /// <summary>
         /// 子要素のコレクション
         /// </summary>
-        private ObservableCollection<Content> m_Children = new ObservableCollection<Content>();
+        private ObservableCollection<Content> m_Children = null;
 
         #region プロパティ
 
@@ -122,6 +122,7 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
             var rootContent = new Content()
             {
                 ContentName = "コンテンツ",
+                Children = new ObservableCollection<Content>(),
             };
 
             var customControlCotent = new Content()
@@ -132,7 +133,28 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
             var layoutContent = new Content()
             {
                 ContentName = "レイアウト",
+                Children = new ObservableCollection<Content>(),
             };
+
+            var panelContent = new Content()
+            {
+                ContentName = "パネル(Panel)",
+                Children = new ObservableCollection<Content>(),
+            };
+
+            var stackPanelContent = new Content()
+            {
+                ContentName = "StackPanel",
+            };
+
+            var dockPanelCotent = new Content()
+            {
+                ContentName = "DockPanel",
+            };
+
+            layoutContent.AddChild(panelContent);
+            panelContent.AddChild(stackPanelContent);
+            panelContent.AddChild(dockPanelCotent);
             rootContent.AddChild(customControlCotent);
             rootContent.AddChild(layoutContent);
             ContentsTree.Add(rootContent);
