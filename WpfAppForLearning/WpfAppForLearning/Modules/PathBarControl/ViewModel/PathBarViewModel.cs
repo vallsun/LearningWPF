@@ -31,14 +31,30 @@ namespace WpfAppForLearning.Modules.PathBarControl.ViewModel
         /// <summary>
         /// パスバーを所持するビューモデル
         /// </summary>
-        public object Owner { get; set; }
+        public MainViewModel Owner { get; set; }
+
+        /// <summary>
+        /// 現在選択中のアイテム
+        /// </summary>
+        public Content SelectedItem
+        {
+            get
+            {
+                return Owner.SelectedItem;
+            }
+
+            set
+            {
+                Owner.SelectedItem = value;
+            }
+        }
 
         #endregion
 
         #region 構築・消滅
 
         //コンストラクタ
-        public PathBarViewModel(object owner, Content content)
+        public PathBarViewModel(MainViewModel owner, Content content)
         {
             Owner = owner;
            //PathList = new ObservableCollection<Content>();
@@ -63,7 +79,7 @@ namespace WpfAppForLearning.Modules.PathBarControl.ViewModel
             Contract.Requires(!PathList.Any());
 
             //子要素から親要素に向かってリスト先頭に要素を追加
-            PathListViewModel.Insert(0, new PathBarItemViewModel(content));
+            PathListViewModel.Insert(0, new PathBarItemViewModel(this, content));
             if(content.Parent != null)
             {
                 CreatePathList(content.Parent);

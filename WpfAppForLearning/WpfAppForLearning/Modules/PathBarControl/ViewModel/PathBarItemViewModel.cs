@@ -4,12 +4,19 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using WpfAppForLearning.Modules.ContentsTree.Model;
+using WpfAppForLearning.Modules.PathBarControl.Command;
 
 namespace WpfAppForLearning.Modules.PathBarControl.ViewModel
 {
     public class PathBarItemViewModel
     {
+        /// <summary>
+        /// オーナービューモデル
+        /// </summary>
+        public PathBarViewModel OwnerVM { get; set; }
+
         /// <summary>
         /// 要素に対応するモデル
         /// </summary>
@@ -30,16 +37,22 @@ namespace WpfAppForLearning.Modules.PathBarControl.ViewModel
         /// </summary>
         public bool IsShownSiblingListDisplayButton { get; set; }
 
+        public ICommand PageTransisitonCommand { get; set; }
+
         /// <summary>
         /// コンストラクタ
         /// </summary>
         /// <param name="content"></param>
-        public PathBarItemViewModel(Content content)
+        public PathBarItemViewModel(PathBarViewModel vm, Content content)
         {
+            OwnerVM = vm;
             Model = content;
             Name = content.ContentName;
 
             SiblingListBuilder(content);
+
+            //コマンドのインスタンス化
+            PageTransisitonCommand = new PageTransitionCommand(this);
         }
 
         /// <summary>
@@ -59,7 +72,7 @@ namespace WpfAppForLearning.Modules.PathBarControl.ViewModel
             IsShownSiblingListDisplayButton = true;
             foreach (var contentItem in content.Children)
             {
-                SiblingList.Add(new PathBarItemViewModel(contentItem));
+                SiblingList.Add(new PathBarItemViewModel(OwnerVM, contentItem));
             }
         }
     }

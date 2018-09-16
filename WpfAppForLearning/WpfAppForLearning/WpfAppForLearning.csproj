@@ -58,6 +58,7 @@
     <Compile Include="Modules\Common\NotImplementationViewModel.cs" />
     <Compile Include="Modules\ContentCustomControl\ContentCustomControl.cs" />
     <Compile Include="Modules\CustomControl\CustomControlViewModel.cs" />
+    <Compile Include="Modules\PathBarControl\Command\PageTransitionCommand.cs" />
     <Compile Include="Modules\PathBarControl\Converter\BoolToVisivilityConverter.cs" />
     <Compile Include="Modules\PathBarControl\ViewModel\PathBarItemViewModel.cs" />
     <Compile Include="Modules\PathBarControl\ViewModel\PathBarViewModel.cs" />

@@ -53,34 +53,17 @@
 					<Grid>
 						<ToggleButton Style="{StaticResource ToggleButtonStyle}"
 									  IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, 
-													RelativeSource={RelativeSource TemplatedParent}}"/>
-						<Popup x:Name="Popup"
-							   Placement="Bottom"
-							   IsOpen="{TemplateBinding IsDropDownOpen}"
-							   AllowsTransparency="True"
-							   Focusable="False"
-							   PopupAnimation="Slide">
-							<Grid x:Name="DropDown"
-								  SnapsToDevicePixels="True">
-								<Border x:Name="DropDownBorder"
-										BorderThickness="1" BorderBrush="Black" Background="white">
+													RelativeSource={RelativeSource TemplatedParent}}" />
+						<Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
+							<Grid x:Name="DropDown" SnapsToDevicePixels="True">
+								<Border x:Name="DropDownBorder" BorderThickness="1" BorderBrush="Black" Background="white">
 								</Border>
-								<ScrollViewer Margin="4,6,4,6"
-											  SnapsToDevicePixels="True">
-									<StackPanel IsItemsHost="True"
-												KeyboardNavigation.DirectionalNavigation="Contained" />
+								<ScrollViewer Margin="2" SnapsToDevicePixels="True">
+									<StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
 								</ScrollViewer>
 							</Grid>
 						</Popup>
 					</Grid>
-					
-					<ControlTemplate.Triggers>
-						<Trigger Property="IsMouseOver"
-								 Value="True">
-							<Setter Property="Background"
-									Value="AliceBlue" />
-						</Trigger>
-					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
@@ -92,11 +75,25 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="ListBoxItem">
 					<StackPanel Orientation="Horizontal">
-						<Button Background="Transparent" BorderBrush="Transparent" Content="{Binding Name}"/>
-						<ComboBox Style="{StaticResource PathBarItemComboBoxStyle}" Width="10"
-								  ItemsSource="{Binding SiblingList}"
-								  DisplayMemberPath="Name"
-								  Visibility="{Binding IsShownSiblingListDisplayButton, Converter={StaticResource BoolToVisivilityConverter}}"/>
+						<Button Background="Transparent" BorderBrush="Transparent" Content="{Binding Name}" Command="{Binding PageTransisitonCommand}" />
+						<ComboBox Style="{StaticResource PathBarItemComboBoxStyle}" Width="10" ItemsSource="{Binding SiblingList}" Visibility="{Binding IsShownSiblingListDisplayButton, Converter={StaticResource BoolToVisivilityConverter}}">
+							<!--要素の外観定義-->
+							<ComboBox.ItemContainerStyle>
+								<Style TargetType="ComboBoxItem">
+									<Setter Property="Template">
+										<Setter.Value>
+											<ControlTemplate TargetType="ContentControl">
+												<Button Background="Transparent" HorizontalContentAlignment="Left"
+														BorderBrush="Transparent"
+														Command="{Binding PageTransisitonCommand}">
+													<TextBlock Text="{Binding Name}" HorizontalAlignment="Left" Margin="2,0"/>
+												</Button>
+											</ControlTemplate>
+										</Setter.Value>
+									</Setter>
+								</Style>
+							</ComboBox.ItemContainerStyle>
+						</ComboBox>
 					</StackPanel>
 				</ControlTemplate>
 			</Setter.Value>
