@@ -23,7 +23,6 @@
 								<ItemsPresenter />
 							</ScrollViewer>
 						</Grid>
-						
 					</Border>
 				</ControlTemplate>
 			</Setter.Value>
