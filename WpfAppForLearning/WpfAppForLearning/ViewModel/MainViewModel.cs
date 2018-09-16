@@ -101,6 +101,11 @@ namespace WpfAppForLearning.ViewModel
 
         #region イベントハンドラ
 
+        /// <summary>
+        /// 選択中のアイテムが変更された時の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void OnSelectedItemChanged(object sender, PropertyChangedEventArgs e)
         {
             if(e.PropertyName != "SelectedItem")
