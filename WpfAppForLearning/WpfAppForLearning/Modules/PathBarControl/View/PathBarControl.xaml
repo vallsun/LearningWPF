@@ -14,8 +14,8 @@
 		</ResourceDictionary>
 	</UserControl.Resources>
     <Grid>
-        <Border CornerRadius="2" Height="35" Background="LightGray">
-			<ListBox Margin="5"
+        <Border BorderBrush="Gray" BorderThickness="1" Background="LightGray">
+			<ListBox Margin="5,0"
 					 ItemsSource="{Binding PathListViewModel}"
 					 ItemContainerStyle="{StaticResource PathBarItemStyle}"
 					 Background="Transparent"
