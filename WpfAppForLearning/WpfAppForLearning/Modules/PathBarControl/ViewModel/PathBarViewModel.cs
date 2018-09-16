@@ -11,16 +11,31 @@ using WpfAppForLearning.ViewModel;
 
 namespace WpfAppForLearning.Modules.PathBarControl.ViewModel
 {
+    /// <summary>
+    /// パスバーのビューモデル
+    /// </summary>
     public class PathBarViewModel
     {
+        #region プロパティ
+
         /// <summary>
-        /// 
+        /// パスリストのモデルのコレクション
         /// </summary>
         public ObservableCollection<Content> PathList { get; set; }
 
+        /// <summary>
+        /// パスリストのビューモデルのコレクション
+        /// </summary>
         public ObservableCollection<PathBarItemViewModel> PathListViewModel { get; set; }
 
+        /// <summary>
+        /// パスバーを所持するビューモデル
+        /// </summary>
         public object Owner { get; set; }
+
+        #endregion
+
+        #region 構築・消滅
 
         //コンストラクタ
         public PathBarViewModel(object owner, Content content)
@@ -34,6 +49,10 @@ namespace WpfAppForLearning.Modules.PathBarControl.ViewModel
             }
         }
 
+        #endregion
+
+        #region 内部処理
+
         /// <summary>
         /// パスリストを生成
         /// </summary>
@@ -43,27 +62,23 @@ namespace WpfAppForLearning.Modules.PathBarControl.ViewModel
             Contract.Requires(PathList != null);
             Contract.Requires(!PathList.Any());
 
-            
-
             //子要素から親要素に向かってリスト先頭に要素を追加
             PathListViewModel.Insert(0, new PathBarItemViewModel(content));
             if(content.Parent != null)
             {
                 CreatePathList(content.Parent);
             };
-
-            /*
-            //子要素から親に向かってリストの先頭に追加
-            PathList.Insert(0, content);
-            if(content.Parent != null)
-            {
-                CreatePathList(content.Parent);
-            }
-            */
         }
+
+        #endregion
 
         #region イベントハンドラ
 
+        /// <summary>
+        /// 選択アイテムが変更された時の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void OnSelectedItemChanged(object sender, PropertyChangedEventArgs e)
         {
             var mainViewModel = sender as MainViewModel;
@@ -71,8 +86,8 @@ namespace WpfAppForLearning.Modules.PathBarControl.ViewModel
             {
                 return;
             }
-            //PathList.Clear();
             PathListViewModel.Clear();
+            //パスリストの再生成
             CreatePathList(mainViewModel.SelectedItem);
         }
 
