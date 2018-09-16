@@ -125,9 +125,29 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
                 Children = new ObservableCollection<Content>(),
             };
 
+            var controlCotent = new Content()
+            {
+                ContentName = "コントロール",
+            };
+
+            var userControlCotent = new Content()
+            {
+                ContentName = "ユーザーコントロール",
+            };
+
             var customControlCotent = new Content()
             {
                 ContentName = "カスタムコントロール",
+            };
+
+            var bindingCotent = new Content()
+            {
+                ContentName = "バインディング",
+            };
+
+            var converterCotent = new Content()
+            {
+                ContentName = "コンバータ",
             };
 
             var layoutContent = new Content()
@@ -147,14 +167,29 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
                 ContentName = "StackPanel",
             };
 
-            var dockPanelCotent = new Content()
+            var dockPanelContent = new Content()
             {
                 ContentName = "DockPanel",
             };
 
+            var wrapPanelContent = new Content()
+            {
+                ContentName = "WrapPanel",
+            };
+
+            var CanvasContent = new Content()
+            {
+                ContentName = "Canvas",
+            };
+
             layoutContent.AddChild(panelContent);
             panelContent.AddChild(stackPanelContent);
-            panelContent.AddChild(dockPanelCotent);
+            panelContent.AddChild(dockPanelContent);
+            panelContent.AddChild(wrapPanelContent);
+            panelContent.AddChild(CanvasContent);
+            rootContent.AddChild(controlCotent);
+            rootContent.AddChild(userControlCotent);
+            rootContent.AddChild(bindingCotent);
             rootContent.AddChild(customControlCotent);
             rootContent.AddChild(layoutContent);
             ContentsTree.Add(rootContent);
