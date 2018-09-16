@@ -126,11 +126,11 @@ namespace WpfAppForLearning.Modules.CustomControl
         {
             var listBox = ((CustomControlSample)(((Button)sender).TemplatedParent)).GetTemplateChild("CustomListBox") as ListBox;
             var textBox = ((CustomControlSample)(((Button)sender).TemplatedParent)).GetTemplateChild("myTextBox") as TextBox;
-            if(Value != "")
+            if(textBox.Text != "")
             {
-                listBox.Items.Add(Value);
+                listBox.Items.Add(textBox.Text);
             }
-            Value = "";
+            textBox.Text = "";
         } 
 
         /// <summary>
@@ -141,7 +141,19 @@ namespace WpfAppForLearning.Modules.CustomControl
         private void RemoveClick(object sender, RoutedEventArgs e)
         {
             var listBox = ((CustomControlSample)(((Button)sender).TemplatedParent)).GetTemplateChild("CustomListBox") as ListBox;
+            var index = listBox.Items.IndexOf(listBox.SelectedItem);
             listBox.Items.Remove(listBox.SelectedItem);
+            //要素削除後の選択アイテムの変更
+            if(listBox.Items.Count == 0)
+            {
+                //何も選択しない
+                return;
+            }
+            else if (index > listBox.Items.Count - 1)
+            {
+                index = index - 1;
+            }
+            listBox.SelectedItem = listBox.Items.GetItemAt(index);
         }
 
         #endregion
