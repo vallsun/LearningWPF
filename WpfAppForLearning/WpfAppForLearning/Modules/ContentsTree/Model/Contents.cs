@@ -58,27 +58,21 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
             }
         }
 
+        #endregion
+
+        #region 構築・消滅
+
         /// <summary>
         /// コンストラクタ
         /// </summary>
         /// <param name="parent"></param>
-        public Content(Content parent)
-        {
-            if (parent == null)
-            {
-                return;
-            }
-            Parent = parent;
-        }
-
-        /// <summary>
-        /// コンストラクタ
-        /// </summary>
         public Content()
         {
-            return;
         }
 
+        #endregion
+
+        #region 公開メソッド
 
         /// <summary>
         /// 子要素の追加
