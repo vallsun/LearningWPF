@@ -9,11 +9,12 @@
 		xmlns:extendedControl="clr-namespace:WpfAppForLearning.Modules.Common.ExtendedControl"
 		xmlns:startControl="clr-namespace:WpfAppForLearning.Modules.StartControl"
         xmlns:customControl="clr-namespace:WpfAppForLearning.Modules.CustomControl"
+		xmlns:progressBar="clr-namespace:WpfAppForLearning.Modules.ProgressBar"
         xmlns:contentsModel="clr-namespace:WpfAppForLearning.Modules.ContentsTree.Model"
         xmlns:pathBarControl="clr-namespace:WpfAppForLearning.Modules.PathBarControl.View"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800"
-		Background="IndianRed">
+		Background="DimGray">
 	<Window.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -24,6 +25,9 @@
 			</DataTemplate>
 			<DataTemplate DataType="{x:Type customControl:CustomControlViewModel}">
 				<customControl:CustomControlSample />
+			</DataTemplate>
+			<DataTemplate DataType="{x:Type progressBar:ProgressBarViewModel}">
+				<progressBar:ProgressBar />
 			</DataTemplate>
 			<DataTemplate DataType="{x:Type common:NotImplementationViewModel}">
 				<TextBlock Text="未実装" />

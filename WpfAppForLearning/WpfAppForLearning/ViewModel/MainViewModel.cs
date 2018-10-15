@@ -9,7 +9,9 @@ using WpfAppForLearning.Modules.Common;
 using WpfAppForLearning.Modules.ContentsTree.Model;
 using WpfAppForLearning.Modules.CustomControl;
 using WpfAppForLearning.Modules.PathBarControl.ViewModel;
+using WpfAppForLearning.Properties;
 using WpfAppForLearning.Modules.StartControl;
+using WpfAppForLearning.Modules.ProgressBar;
 
 namespace WpfAppForLearning.ViewModel
 {
@@ -115,18 +117,25 @@ namespace WpfAppForLearning.ViewModel
 
             PathBar.OnSelectedItemChanged(sender, e);
 
-            ContentViewModel = null;
-            switch (SelectedItem.ContentName)
+            //ContentViewModel = null;
+            //選択されたコンテンツに対応するVMを設定する
+            //switch-case文ではcaseに定数値以外を設定できないため、if文で実装する
+            if(SelectedItem.ContentName == "コンテンツ")
             {
-                case "コンテンツ":
-                    ContentViewModel = new StartControlViewModel();
-                    break;
-                case "カスタムコントロール":
-                    ContentViewModel = new CustomControlViewModel();
-                    break;
-                default:
-                    ContentViewModel = new NotImplementationViewModel();
-                    break;
+                ContentViewModel = new StartControlViewModel();
+            }
+            else if (SelectedItem.ContentName == Strings.ContentName_CustomControl)
+            {
+                ContentViewModel = new CustomControlViewModel();
+            }
+            else if (SelectedItem.ContentName == Strings.ContentName_ProgressBar)
+            {
+                ContentViewModel = new ProgressBarViewModel(); 
+            }
+            else
+            {
+                //未実装コンテンツ用のVMを設定
+                ContentViewModel = new NotImplementationViewModel();
             }
         }
 

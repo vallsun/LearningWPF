@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using WpfAppForLearning.Properties;
 
 namespace WpfAppForLearning.Modules.ContentsTree.Model
 {
@@ -121,17 +122,23 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
 
             var controlCotent = new Content()
             {
-                ContentName = "コントロール",
+                ContentName = Strings.ContentName_Control,
+                Children = new ObservableCollection<Content>(),
+            };
+
+            var ProgressBarContent = new Content()
+            {
+                ContentName = Strings.ContentName_ProgressBar,
             };
 
             var userControlCotent = new Content()
             {
-                ContentName = "ユーザーコントロール",
+                ContentName = Strings.ContentName_UserControl,
             };
 
             var customControlCotent = new Content()
             {
-                ContentName = "カスタムコントロール",
+                ContentName = Strings.ContentName_CustomControl,
             };
 
             var bindingCotent = new Content()
@@ -176,11 +183,16 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
                 ContentName = "Canvas",
             };
 
+            //レイアウト
             layoutContent.AddChild(panelContent);
             panelContent.AddChild(stackPanelContent);
             panelContent.AddChild(dockPanelContent);
             panelContent.AddChild(wrapPanelContent);
             panelContent.AddChild(CanvasContent);
+
+            //コントロール
+            controlCotent.AddChild(ProgressBarContent);
+
             rootContent.AddChild(controlCotent);
             rootContent.AddChild(userControlCotent);
             rootContent.AddChild(bindingCotent);
