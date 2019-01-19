@@ -79,6 +79,15 @@ namespace WpfAppForLearning.Properties {
         }
         
         /// <summary>
+        ///   KeyboardNavigation に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ContentName_KeyboardNavigation {
+            get {
+                return ResourceManager.GetString("ContentName_KeyboardNavigation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   ProgressBar に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string ContentName_ProgressBar {

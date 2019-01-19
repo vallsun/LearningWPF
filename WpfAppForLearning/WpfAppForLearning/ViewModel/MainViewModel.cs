@@ -12,6 +12,7 @@ using WpfAppForLearning.Modules.PathBarControl.ViewModel;
 using WpfAppForLearning.Properties;
 using WpfAppForLearning.Modules.StartControl;
 using WpfAppForLearning.Modules.ProgressBar;
+using WpfAppForLearning.Modules.KeyboardNavigation;
 
 namespace WpfAppForLearning.ViewModel
 {
@@ -131,6 +132,10 @@ namespace WpfAppForLearning.ViewModel
             else if (SelectedItem.ContentName == Strings.ContentName_ProgressBar)
             {
                 ContentViewModel = new ProgressBarViewModel(); 
+            }
+            else if(SelectedItem.ContentName == Strings.ContentName_KeyboardNavigation)
+            {
+                ContentViewModel = new KeyboardNavigationViewModel();
             }
             else
             {

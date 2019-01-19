@@ -123,6 +123,9 @@
   <data name="ContentName_CustomControl" xml:space="preserve">
     <value>CustomControl</value>
   </data>
+  <data name="ContentName_KeyboardNavigation" xml:space="preserve">
+    <value>KeyboardNavigation</value>
+  </data>
   <data name="ContentName_ProgressBar" xml:space="preserve">
     <value>ProgressBar</value>
   </data>

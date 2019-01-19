@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="WpfAppForLearning.Modules.KeyboardNavigation.KeyboardNavigationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfAppForLearning.Modules.KeyboardNavigation"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+	<UserControl.DataContext>
+		<local:KeyboardNavigationViewModel/>
+	</UserControl.DataContext>
+    <Grid>
+		<StackPanel>
+			<StackPanel Orientation="Horizontal">
+				<Label Content="Group1のTabNavigationMode:"/>
+				<ComboBox Name="ComboBox1" SelectionChanged="ComboBox_SelectionChanged">
+					<ComboBoxItem Content="Local"/>
+					<ComboBoxItem Content="Contained"/>
+					<ComboBoxItem Content="Continue"/>
+					<ComboBoxItem Content="Cycle"/>
+					<ComboBoxItem Content="Once"/>
+					<ComboBoxItem Content="None"/>
+				</ComboBox>
+			</StackPanel>
+			<StackPanel Orientation="Horizontal">
+				<Label Content="Group2のTabNavigationMode:"/>
+				<ComboBox Name="ComboBox2" SelectionChanged="ComboBox_SelectionChanged">
+					<ComboBoxItem Content="Local"/>
+					<ComboBoxItem Content="Contained"/>
+					<ComboBoxItem Content="Continue"/>
+					<ComboBoxItem Content="Cycle"/>
+					<ComboBoxItem Content="Once"/>
+					<ComboBoxItem Content="None"/>
+				</ComboBox>
+			</StackPanel>
+			<GroupBox Header="Group1">
+				<ListBox x:Name="ListBox1" KeyboardNavigation.TabNavigation="{Binding NavigationMode1, Mode=TwoWay}">
+					<ListBoxItem Content="AAA" TabIndex="1"/>
+					<ListBoxItem Content="AAA" TabIndex="3"/>
+					<ListBoxItem Content="AAA" TabIndex="5"/>
+					<ListBoxItem Content="AAA" TabIndex="7"/>
+					<ListBoxItem Content="AAA" TabIndex="8"/>
+					<ListBoxItem Content="AAA" TabIndex="6"/>
+					<ListBoxItem Content="AAA" TabIndex="4"/>
+					<ListBoxItem Content="AAA" TabIndex="2"/>
+				</ListBox>
+			</GroupBox>
+			<GroupBox Header="Group2">
+				<ListBox x:Name="ListBox2" KeyboardNavigation.TabNavigation="{Binding NavigationMode2, Mode=TwoWay}">
+					<ListBoxItem Content="AAA" TabIndex="1"/>
+					<ListBoxItem Content="AAA" TabIndex="3"/>
+					<ListBoxItem Content="AAA" TabIndex="5"/>
+					<ListBoxItem Content="AAA" TabIndex="7"/>
+					<ListBoxItem Content="AAA" TabIndex="8"/>
+					<ListBoxItem Content="AAA" TabIndex="6"/>
+					<ListBoxItem Content="AAA" TabIndex="4"/>
+					<ListBoxItem Content="AAA" TabIndex="2"/>
+				</ListBox>
+			</GroupBox>
+		</StackPanel>
+	</Grid>
+</UserControl>

@@ -151,6 +151,11 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
                 ContentName = "コンバータ",
             };
 
+            var keyboardNavigationContent = new Content()
+            {
+                ContentName = "KeyboardNavigation"
+            };
+
             var layoutContent = new Content()
             {
                 ContentName = "レイアウト",
@@ -195,8 +200,9 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
 
             rootContent.AddChild(controlCotent);
             rootContent.AddChild(userControlCotent);
-            rootContent.AddChild(bindingCotent);
             rootContent.AddChild(customControlCotent);
+            rootContent.AddChild(bindingCotent);
+            rootContent.AddChild(keyboardNavigationContent);
             rootContent.AddChild(layoutContent);
             ContentsTree.Add(rootContent);
         }
