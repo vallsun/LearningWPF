@@ -40,31 +40,35 @@
 				</Grid.ColumnDefinitions>
 				<GroupBox Grid.Column="0" Header="Group1">
 					<ListBox x:Name="ListBox1" KeyboardNavigation.TabNavigation="{Binding NavigationMode1, Mode=TwoWay}">
-						<ListBoxItem Content="AAA" TabIndex="1"/>
-						<ListBoxItem Content="AAA" TabIndex="3"/>
-						<ListBoxItem Content="AAA" TabIndex="5"/>
-						<ListBoxItem Content="AAA" TabIndex="7"/>
-						<ListBoxItem Content="AAA" TabIndex="8"/>
-						<ListBoxItem Content="AAA" TabIndex="6"/>
-						<ListBoxItem Content="AAA" TabIndex="4"/>
-						<ListBoxItem Content="AAA" TabIndex="2"/>
+						<ListBoxItem Content="TabIndex=1" TabIndex="1"/>
+						<ListBoxItem Content="TabIndex=3" TabIndex="3"/>
+						<ListBoxItem Content="TabIndex=5" TabIndex="5"/>
+						<ListBoxItem Content="TabIndex=7" TabIndex="7"/>
+						<ListBoxItem Content="TabIndex=8" TabIndex="8"/>
+						<ListBoxItem Content="TabIndex=6" TabIndex="6"/>
+						<ListBoxItem Content="TabIndex=4" TabIndex="4"/>
+						<ListBoxItem Content="TabIndex=2" TabIndex="2"/>
 					</ListBox>
 				</GroupBox>
 				<GroupBox Grid.Column="1" Header="Group2">
 					<ListBox x:Name="ListBox2" KeyboardNavigation.TabNavigation="{Binding NavigationMode2, Mode=TwoWay}">
-						<ListBoxItem Content="AAA" TabIndex="1"/>
-						<ListBoxItem Content="AAA" TabIndex="3"/>
-						<ListBoxItem Content="AAA" TabIndex="5"/>
-						<ListBoxItem Content="AAA" TabIndex="7"/>
-						<ListBoxItem Content="AAA" TabIndex="8"/>
-						<ListBoxItem Content="AAA" TabIndex="6"/>
-						<ListBoxItem Content="AAA" TabIndex="4"/>
-						<ListBoxItem Content="AAA" TabIndex="2"/>
+						<ListBoxItem Content="TabIndex=1" TabIndex="1"/>
+						<ListBoxItem Content="TabIndex=3" TabIndex="3"/>
+						<ListBoxItem Content="TabIndex=5" TabIndex="5"/>
+						<ListBoxItem Content="TabIndex=7" TabIndex="7"/>
+						<ListBoxItem Content="TabIndex=8" TabIndex="8"/>
+						<ListBoxItem Content="TabIndex=6" TabIndex="6"/>
+						<ListBoxItem Content="TabIndex=4" TabIndex="4"/>
+						<ListBoxItem Content="TabIndex=2" TabIndex="2"/>
 					</ListBox>
 				</GroupBox>
 			</Grid>
 			<GroupBox Header="説明">
-				
+				<TextBlock TextWrapping="Wrap">
+					画面に配置されたコントロールにTabキー押下時の移動順番が設定されている（TabIndexプロパティ）場合、
+					KeyboardNavigation.TabNavigation添付プロパティの値により、順番が変動する。<LineBreak/>
+					ここでは、二つのListBoxの各アイテムにそれぞれTabIndexを設定した状態で、件の添付プロパティを変更した場合に、Tabキー押下時のフォーカス遷移の挙動がどのように変わるのかを確認する。
+				</TextBlock>
 			</GroupBox>
 			<GroupBox Header="参考情報">
 				<TextBlock>
