@@ -33,29 +33,55 @@
 					<ComboBoxItem Content="None"/>
 				</ComboBox>
 			</StackPanel>
-			<GroupBox Header="Group1">
-				<ListBox x:Name="ListBox1" KeyboardNavigation.TabNavigation="{Binding NavigationMode1, Mode=TwoWay}">
-					<ListBoxItem Content="AAA" TabIndex="1"/>
-					<ListBoxItem Content="AAA" TabIndex="3"/>
-					<ListBoxItem Content="AAA" TabIndex="5"/>
-					<ListBoxItem Content="AAA" TabIndex="7"/>
-					<ListBoxItem Content="AAA" TabIndex="8"/>
-					<ListBoxItem Content="AAA" TabIndex="6"/>
-					<ListBoxItem Content="AAA" TabIndex="4"/>
-					<ListBoxItem Content="AAA" TabIndex="2"/>
-				</ListBox>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="1*"/>
+					<ColumnDefinition Width="1*"/>
+				</Grid.ColumnDefinitions>
+				<GroupBox Grid.Column="0" Header="Group1">
+					<ListBox x:Name="ListBox1" KeyboardNavigation.TabNavigation="{Binding NavigationMode1, Mode=TwoWay}">
+						<ListBoxItem Content="AAA" TabIndex="1"/>
+						<ListBoxItem Content="AAA" TabIndex="3"/>
+						<ListBoxItem Content="AAA" TabIndex="5"/>
+						<ListBoxItem Content="AAA" TabIndex="7"/>
+						<ListBoxItem Content="AAA" TabIndex="8"/>
+						<ListBoxItem Content="AAA" TabIndex="6"/>
+						<ListBoxItem Content="AAA" TabIndex="4"/>
+						<ListBoxItem Content="AAA" TabIndex="2"/>
+					</ListBox>
+				</GroupBox>
+				<GroupBox Grid.Column="1" Header="Group2">
+					<ListBox x:Name="ListBox2" KeyboardNavigation.TabNavigation="{Binding NavigationMode2, Mode=TwoWay}">
+						<ListBoxItem Content="AAA" TabIndex="1"/>
+						<ListBoxItem Content="AAA" TabIndex="3"/>
+						<ListBoxItem Content="AAA" TabIndex="5"/>
+						<ListBoxItem Content="AAA" TabIndex="7"/>
+						<ListBoxItem Content="AAA" TabIndex="8"/>
+						<ListBoxItem Content="AAA" TabIndex="6"/>
+						<ListBoxItem Content="AAA" TabIndex="4"/>
+						<ListBoxItem Content="AAA" TabIndex="2"/>
+					</ListBox>
+				</GroupBox>
+			</Grid>
+			<GroupBox Header="説明">
+				
 			</GroupBox>
-			<GroupBox Header="Group2">
-				<ListBox x:Name="ListBox2" KeyboardNavigation.TabNavigation="{Binding NavigationMode2, Mode=TwoWay}">
-					<ListBoxItem Content="AAA" TabIndex="1"/>
-					<ListBoxItem Content="AAA" TabIndex="3"/>
-					<ListBoxItem Content="AAA" TabIndex="5"/>
-					<ListBoxItem Content="AAA" TabIndex="7"/>
-					<ListBoxItem Content="AAA" TabIndex="8"/>
-					<ListBoxItem Content="AAA" TabIndex="6"/>
-					<ListBoxItem Content="AAA" TabIndex="4"/>
-					<ListBoxItem Content="AAA" TabIndex="2"/>
-				</ListBox>
+			<GroupBox Header="参考情報">
+				<TextBlock>
+					<Hyperlink Name="hyperlink1"
+							   NavigateUri="https://docs.microsoft.com/ja-jp/dotnet/api/system.windows.input.keyboardnavigationmode?view=netframework-4.7.2"
+							   ToolTip="{Binding ElementName=hyperlink1, Path=NavigateUri}"
+							   RequestNavigate="hyperlink_RequestNavigate">
+						KeyboardNavigationMode Enum
+					</Hyperlink>
+					<LineBreak/>
+					<Hyperlink Name="hyperlink2"
+							   NavigateUri="https://docs.microsoft.com/ja-jp/dotnet/framework/wpf/advanced/focus-overview"
+							   ToolTip="{Binding ElementName=hyperlink2, Path=NavigateUri}"
+							   RequestNavigate="hyperlink_RequestNavigate">
+						フォーカスの概要
+					</Hyperlink>
+				</TextBlock>
 			</GroupBox>
 		</StackPanel>
 	</Grid>
