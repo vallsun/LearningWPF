@@ -10,10 +10,10 @@
 		<local:KeyboardNavigationViewModel/>
 	</UserControl.DataContext>
     <Grid>
-		<StackPanel>
+		<StackPanel Margin="5">
 			<StackPanel Orientation="Horizontal">
 				<Label Content="Group1のTabNavigationMode:"/>
-				<ComboBox Name="ComboBox1" SelectionChanged="ComboBox_SelectionChanged">
+				<ComboBox Name="ComboBox1" Width="90" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged">
 					<ComboBoxItem Content="Local"/>
 					<ComboBoxItem Content="Contained"/>
 					<ComboBoxItem Content="Continue"/>
@@ -24,7 +24,7 @@
 			</StackPanel>
 			<StackPanel Orientation="Horizontal">
 				<Label Content="Group2のTabNavigationMode:"/>
-				<ComboBox Name="ComboBox2" SelectionChanged="ComboBox_SelectionChanged">
+				<ComboBox Name="ComboBox2" Width="90" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged">
 					<ComboBoxItem Content="Local"/>
 					<ComboBoxItem Content="Contained"/>
 					<ComboBoxItem Content="Continue"/>
