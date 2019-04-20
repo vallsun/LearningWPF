@@ -6,7 +6,8 @@
 		xmlns:ds="clr-namespace:DevelopmentSupport.FileAccessor;assembly=DevelopmentSupport"
         xmlns:local="clr-namespace:DevelopmentSupportTool"
         mc:Ignorable="d"
-        Title="DevelopmentSupportTool" Width="500" Height="400">
+        Title="DevelopmentSupportTool" Width="500" Height="400"
+		Icon="/Resources/Image/DSIcon.png" Background="#26799f">
     <Grid>
 		<ds:FileAccessView/>
 	</Grid>
