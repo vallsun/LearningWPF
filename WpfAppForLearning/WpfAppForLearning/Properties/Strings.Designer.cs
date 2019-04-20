@@ -79,6 +79,15 @@ namespace WpfAppForLearning.Properties {
         }
         
         /// <summary>
+        ///   DragDropControl に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string ContentName_DragDropControl {
+            get {
+                return ResourceManager.GetString("ContentName_DragDropControl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   KeyboardNavigation に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string ContentName_KeyboardNavigation {

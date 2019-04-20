@@ -156,6 +156,11 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
                 ContentName = "KeyboardNavigation"
             };
 
+            var dragDropControlContent = new Content()
+            {
+                ContentName = Strings.ContentName_DragDropControl,
+            };
+
             var layoutContent = new Content()
             {
                 ContentName = "レイアウト",
@@ -203,6 +208,7 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
             rootContent.AddChild(customControlCotent);
             rootContent.AddChild(bindingCotent);
             rootContent.AddChild(keyboardNavigationContent);
+            rootContent.AddChild(dragDropControlContent);
             rootContent.AddChild(layoutContent);
             ContentsTree.Add(rootContent);
         }

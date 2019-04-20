@@ -13,6 +13,7 @@
 		xmlns:keyboardNavigation="clr-namespace:WpfAppForLearning.Modules.KeyboardNavigation"
         xmlns:contentsModel="clr-namespace:WpfAppForLearning.Modules.ContentsTree.Model"
         xmlns:pathBarControl="clr-namespace:WpfAppForLearning.Modules.PathBarControl.View"
+		xmlns:dragDropControl="clr-namespace:WpfAppForLearning.Modules.DragDropControl"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800"
 		Background="DimGray">
@@ -32,6 +33,9 @@
 			</DataTemplate>
 			<DataTemplate DataType="{x:Type keyboardNavigation:KeyboardNavigationViewModel}">
 				<keyboardNavigation:KeyboardNavigationView />
+			</DataTemplate>
+			<DataTemplate DataType="{x:Type dragDropControl:DragDropControlViewModel}">
+				<dragDropControl:DragDropControl />
 			</DataTemplate>
 			<DataTemplate DataType="{x:Type common:NotImplementationViewModel}">
 				<TextBlock Text="未実装" />

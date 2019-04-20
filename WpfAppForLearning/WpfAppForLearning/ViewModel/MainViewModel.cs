@@ -13,6 +13,7 @@ using WpfAppForLearning.Properties;
 using WpfAppForLearning.Modules.StartControl;
 using WpfAppForLearning.Modules.ProgressBar;
 using WpfAppForLearning.Modules.KeyboardNavigation;
+using WpfAppForLearning.Modules.DragDropControl;
 
 namespace WpfAppForLearning.ViewModel
 {
@@ -136,6 +137,10 @@ namespace WpfAppForLearning.ViewModel
             else if(SelectedItem.ContentName == Strings.ContentName_KeyboardNavigation)
             {
                 ContentViewModel = new KeyboardNavigationViewModel();
+            }
+            else if (SelectedItem.ContentName == Strings.ContentName_DragDropControl)
+            {
+                ContentViewModel = new DragDropControlViewModel();
             }
             else
             {
