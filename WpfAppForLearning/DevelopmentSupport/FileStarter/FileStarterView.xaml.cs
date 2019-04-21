@@ -1,34 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
-namespace DevelopmentSupport.FileAccessor
+namespace DevelopmentSupport.FileStarter
 {
     /// <summary>
-    /// FileAccessView.xaml の相互作用ロジック
+    /// FileStarterView.xaml の相互作用ロジック
     /// </summary>
-    public partial class FileAccessView : UserControl
+    public partial class FileStarterView : UserControl
     {
-        public FileAccessView()
+        public FileStarterView()
         {
             InitializeComponent();
         }
 
         private void UserControl_Drop(object sender, DragEventArgs e)
         {
-            var vm = this.DataContext as FileAccessViewModel;
+            var vm = this.DataContext as FileStarterViewModel;
             var list = vm.FileInfoList;
             var pathList = vm.FileInfoList.Select(x => x.FilePath);
             string[] files = e.Data.GetData(DataFormats.FileDrop) as string[];
             var DuplicateFilePathList = new List<string>();
-
 
             if (files == null)
             {
@@ -36,6 +42,10 @@ namespace DevelopmentSupport.FileAccessor
             }
             foreach (var s in files)
             {
+                if (Directory.Exists(s))
+                {
+                    continue;
+                }
                 if (pathList.Contains(s))
                 {
                     DuplicateFilePathList.Add(s);
@@ -49,22 +59,7 @@ namespace DevelopmentSupport.FileAccessor
                     var icon = System.Drawing.Icon.ExtractAssociatedIcon(s);
                     fileInfo.Icon = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
                 }
-                else if (Directory.Exists(s))
-                {
-                    var shinfo = new SHFILEINFO();
-                    var hImgSmall = Win32.SHGetFileInfo(s, 0, ref shinfo, (uint)Marshal.SizeOf(shinfo), Win32.SHGFI_ICON | Win32.SHGFI_SMALLICON);
-                    var icon = System.Drawing.Icon.FromHandle(shinfo.hIcon);
-                    fileInfo.Icon = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-
-                }
                 list.Add(fileInfo);
-                vm.SychronizeDisplayList();
-
-                var extension = Path.GetExtension(s);
-                if (!vm.ExtensionList.Contains(extension))
-                {
-                    vm.ExtensionList.Add(extension);
-                }
             }
 
             if (DuplicateFilePathList.Any())
@@ -86,34 +81,6 @@ namespace DevelopmentSupport.FileAccessor
             else
                 e.Effects = DragDropEffects.None;
             e.Handled = true;
-        }
-
-        /// <summary>
-        /// コンボボックス項目が選択されたときのイベントハンドラ
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var vm = this.DataContext as FileAccessViewModel;
-            var filterkeyword = e.AddedItems[0].ToString();
-            if (filterkeyword == "(指定なし)")
-            {
-                vm.SychronizeDisplayList();
-                return;
-            }
-            var list = vm.FileInfoList;
-            var filteredList = list.Where(x => Path.GetExtension(x.FilePath) == filterkeyword);
-            if(!filteredList.Any())
-            {
-                MessageBox.Show("該当なし");
-                return;
-            }
-            vm.DisplayFileInfoList.Clear();
-            foreach (var item in filteredList)
-            {
-                vm.DisplayFileInfoList.Add(item);
-            }
         }
     }
 

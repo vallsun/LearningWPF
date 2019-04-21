@@ -3,12 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:ds="clr-namespace:DevelopmentSupport.FileAccessor;assembly=DevelopmentSupport"
+		xmlns:dsFileAccessor="clr-namespace:DevelopmentSupport.FileAccessor;assembly=DevelopmentSupport"
+		xmlns:dsFileStarter="clr-namespace:DevelopmentSupport.FileStarter;assembly=DevelopmentSupport"
         xmlns:local="clr-namespace:DevelopmentSupportTool"
         mc:Ignorable="d"
         Title="DevelopmentSupportTool" Width="500" Height="400"
 		Icon="/Resources/Image/DSIcon.png" Background="#26799f">
     <Grid>
-		<ds:FileAccessView/>
+		<TabControl Margin="5,0,5,5">
+			<TabItem Header="汎用">
+				<dsFileAccessor:FileAccessView/>
+			</TabItem>
+			<TabItem Header="固有">
+				<dsFileStarter:FileStarterView/>
+			</TabItem>
+		</TabControl>
 	</Grid>
 </Window>

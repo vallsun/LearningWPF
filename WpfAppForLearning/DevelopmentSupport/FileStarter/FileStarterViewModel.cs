@@ -3,39 +3,29 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
-namespace DevelopmentSupport.FileAccessor
+namespace DevelopmentSupport.FileStarter
 {
-    public class FileAccessViewModel :BindableBase
+    public class FileStarterViewModel : BindableBase
     {
-
         private ObservableCollection<FileInfo> m_FileInfoList;
-        private ObservableCollection<FileInfo> m_DisplayFileInfoList;
         private FileInfo m_SelectedFileInfo;
-        private ObservableCollection<string> m_ExtensionList;
         public ObservableCollection<FileInfo> FileInfoList { get { return m_FileInfoList; } set { SetProperty(ref m_FileInfoList, value); } }
-        public ObservableCollection<FileInfo> DisplayFileInfoList { get { return m_DisplayFileInfoList; } set { SetProperty(ref m_DisplayFileInfoList, value); } }
         public FileInfo SelectedFileInfo { get { return m_SelectedFileInfo; } set { SetProperty(ref m_SelectedFileInfo, value); } }
-        public ObservableCollection<string> ExtensionList { get { return m_ExtensionList; } set { SetProperty(ref m_ExtensionList, value); } }
         public DelegateCommand ProcessStartCommand { get; private set; }
         public DelegateCommand ProcessCloseCommand { get; private set; }
         public DelegateCommand RemoveItemCommand { get; private set; }
         public DelegateCommand ChangeItemOrderUpperCommand { get; private set; }
         public DelegateCommand ChangeItemOrderLowerCommand { get; private set; }
 
-
-        public FileAccessViewModel()
+        public FileStarterViewModel()
         {
             FileInfoList = new ObservableCollection<FileInfo>();
-            DisplayFileInfoList = new ObservableCollection<FileInfo>();
             SelectedFileInfo = new FileInfo();
-            ExtensionList = new ObservableCollection<string>();
-            ExtensionList.Add("(指定なし)");
             ProcessCloseCommand = new DelegateCommand(ProcessClose, CanProcessClose);
             RemoveItemCommand = new DelegateCommand(RemoveItem, CanRemoveItem);
             ChangeItemOrderUpperCommand = new DelegateCommand(ChangeItemOrderUpper, CanChangeItemOrderUpper);
@@ -78,7 +68,7 @@ namespace DevelopmentSupport.FileAccessor
 
         private void RemoveItem()
         {
-            DisplayFileInfoList.Remove(SelectedFileInfo);
+            FileInfoList.Remove(SelectedFileInfo);
         }
 
         private bool CanChangeItemOrderUpper()
@@ -89,7 +79,7 @@ namespace DevelopmentSupport.FileAccessor
         private void ChangeItemOrderUpper()
         {
             var index = FileInfoList.IndexOf(SelectedFileInfo);
-            DisplayFileInfoList.Move(index, index - 1);
+            FileInfoList.Move(index, index - 1);
         }
         private bool CanChangeItemOrderLower()
         {
@@ -98,7 +88,7 @@ namespace DevelopmentSupport.FileAccessor
         private void ChangeItemOrderLower()
         {
             var index = FileInfoList.IndexOf(SelectedFileInfo);
-            DisplayFileInfoList.Move(index, index + 1);
+            FileInfoList.Move(index, index + 1);
         }
         private bool CanProcessStart()
         {
@@ -106,21 +96,13 @@ namespace DevelopmentSupport.FileAccessor
             {
                 return false;
             }
-            return DisplayFileInfoList.Any() && SelectedFileInfo.Process == null;
+            return FileInfoList.Any() && SelectedFileInfo.Process == null;
         }
         private void ProcessStart()
         {
             Execute();
         }
 
-        public void SychronizeDisplayList()
-        {
-            DisplayFileInfoList.Clear();
-            foreach (var item in FileInfoList)
-            {
-                DisplayFileInfoList.Add(item);
-            }
-        }
     }
 
     public class FileInfo : BindableBase
@@ -136,4 +118,5 @@ namespace DevelopmentSupport.FileAccessor
         public Process Process { get { return m_Process; } set { SetProperty(ref m_Process, value); } }
 
     }
+
 }
