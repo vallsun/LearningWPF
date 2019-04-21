@@ -15,25 +15,26 @@
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="3*"/>
 			<ColumnDefinition Width="1*"/>
 		</Grid.ColumnDefinitions>
-		<TextBlock Text="実行ファイルリスト"/>
-		<Grid Grid.Row="1" Grid.Column="0" Height="200" VerticalAlignment="Top" Background="White">
+		<TextBlock Text="プロジェクトファイルリスト"/>
+		<Grid Grid.Row="1" Grid.Column="0" Height="180" VerticalAlignment="Top" Margin="0,0,10,0" Background="White">
 			<TextBlock Name="WatermarkTextBox" VerticalAlignment="Center" HorizontalAlignment="Center"
 					   Text="ファイルをD&amp;Dで登録してください。" Foreground="Gray"/>
 		</Grid>
-		<ListBox Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Margin="0,0,10,0" Background="Transparent"
-                 ItemsSource="{Binding FileInfoList}"
-				 SelectedItem="{Binding SelectedFileInfo}" MinHeight="200"
+		<ListBox Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Margin="0,0,10,0" Background="Transparent" Height="180"
+                 ItemsSource="{Binding DisplayFileInfoList}"
+				 SelectedItem="{Binding SelectedFileInfo}"
 				 Drop="UserControl_Drop" PreviewDragOver="UserControl_PreviewDragOver" AllowDrop="True">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<ContentControl VerticalAlignment="Top" ToolTip="{Binding FilePath}">
 						<StackPanel Orientation="Horizontal">
-							<Image Source="{Binding Icon}" Width="16" Height="16" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+							<Image Source="{Binding Icon}" Width="16" Height="16" HorizontalAlignment="Center" Margin="0,0,5,0"/>
 							<TextBox Text="{Binding FileName}" TextWrapping="Wrap" HorizontalAlignment="Center"/>
 						</StackPanel>
 						<i:Interaction.Triggers>
@@ -47,17 +48,49 @@
 				</DataTemplate>
 			</ListBox.ItemTemplate>
 		</ListBox>
-		<StackPanel Grid.Row="1" Grid.Column="1">
-			<Button Content="前へ" Command="{Binding ChangeItemOrderUpperCommand}" Margin="0,0,0,5"/>
-			<Button Content="後へ" Command="{Binding ChangeItemOrderLowerCommand}" Margin="0,0,0,5"/>
-			<Button Content="追加" Command="{Binding RemoveItemCommand}" Margin="0,0,0,5"/>
-			<Button Content="削除" Command="{Binding RemoveItemCommand}" Margin="0,0,0,5"/>
-			<Button Content="開始" Command="{Binding ProcessStartCommand}" Margin="0,0,0,5"/>
-			<Button Content="終了" Command="{Binding ProcessCloseCommand}"/>
+		<StackPanel Grid.Row="1" Grid.Column="1" Margin="0,0,0,10">
+			<Button Content="前へ" Command="{Binding ChangeItemOrderUpperCommand}" Margin="0,0,0,5"
+					ToolTip="選択中の要素の順番をひとつ前に移動します。"/>
+			<Button Content="後へ" Command="{Binding ChangeItemOrderLowerCommand}" Margin="0,0,0,5"
+					ToolTip="選択中の要素の順番をひとつ後に移動します。"/>
+			<Button Content="追加" Command="{Binding RemoveItemCommand}" Margin="0,0,0,5"
+					ToolTip="フォルダまたはファイルをリストに追加します。"/>
+			<Button Content="削除" Command="{Binding RemoveItemCommand}" Margin="0,0,0,5"
+					ToolTip="選択中の要素をリストから削除します。"/>
+			<Button Content="開始" Command="{Binding ProcessStartCommand}" Margin="0,0,0,5"
+					ToolTip="選択中の要素を既定のプログラムで実行します。"/>
+			<Button Content="終了" Command="{Binding ProcessCloseCommand}" Margin="0,0,0,10"
+					ToolTip="選択中の要素のプロセスを終了します。"/>
+			<ComboBox ItemsSource="{Binding ExtensionList}" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged"
+				  ToolTip="選択した拡張子でフィルタします。"/>
 		</StackPanel>
-		<ComboBox Grid.Row="2" Width="100" HorizontalAlignment="Left">
-			<ComboBoxItem Content="AAA"/>
-			<ComboBoxItem Content="BBB"/>
-		</ComboBox>
+		<TextBlock Grid.Row="2" Text="実行ファイルリスト" Margin="0,5,0,0"/>
+		<Grid Grid.Row="3" Grid.Column="0" Height="150" VerticalAlignment="Top" Margin="0,0,10,0" Background="White">
+			<TextBlock Name="WatermarkTextBox2" VerticalAlignment="Center" HorizontalAlignment="Center"
+					   Text="ファイルをD&amp;Dで登録してください。" Foreground="Gray"/>
+		</Grid>
+		<ListBox Grid.Row="3" VerticalAlignment="Top" Margin="0,0,10,0" Background="Transparent" Height="150"
+				 ItemsSource="{Binding DisplayExeInfoList}"
+				 SelectedItem="{Binding SelectedExeInfo}"
+				 Drop="ListBox_Drop" PreviewDragOver="UserControl_PreviewDragOver"  AllowDrop="True">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<ContentControl VerticalAlignment="Top" ToolTip="{Binding FilePath}">
+						<StackPanel Orientation="Horizontal">
+							<Image Source="{Binding Icon}" Width="16" Height="16" HorizontalAlignment="Center" Margin="0,0,5,0"/>
+							<TextBox Text="{Binding FileName}" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+						</StackPanel>
+					</ContentControl>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+		<StackPanel Grid.Row="3" Grid.Column="1" Margin="0,0,0,10">
+			<Button Content="実行" Margin="0,0,0,5" IsEnabled="False"
+					ToolTip="選択中の実行ファイルを使用して選択中のプロジェクトファイルを開きます。"/>
+			<Button Content="設定" Margin="0,0,0,5" Command="{Binding SettingProcessStartCommand}"
+					ToolTip="実行ファイルのアプリケーション設定ファイルをテキストエディタで開きます。"/>
+			<TextBox Text="{Binding TextEditorPath}" Margin="0,0,0,5"
+					 ToolTip="アプリケーション設定ファイルパスを入力してください。&#xa;デフォルトは「notepad」です。"/>
+		</StackPanel>
 	</Grid>
 </UserControl>

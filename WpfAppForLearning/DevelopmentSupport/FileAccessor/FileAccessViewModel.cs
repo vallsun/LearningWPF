@@ -14,19 +14,19 @@ namespace DevelopmentSupport.FileAccessor
     public class FileAccessViewModel :BindableBase
     {
 
-        private ObservableCollection<FileInfo> m_FileInfoList;
-        private ObservableCollection<FileInfo> m_DisplayFileInfoList;
-        private FileInfo m_SelectedFileInfo;
-        private ObservableCollection<string> m_ExtensionList;
+        protected ObservableCollection<FileInfo> m_FileInfoList;
+        protected ObservableCollection<FileInfo> m_DisplayFileInfoList;
+        protected FileInfo m_SelectedFileInfo;
+        protected ObservableCollection<string> m_ExtensionList;
         public ObservableCollection<FileInfo> FileInfoList { get { return m_FileInfoList; } set { SetProperty(ref m_FileInfoList, value); } }
         public ObservableCollection<FileInfo> DisplayFileInfoList { get { return m_DisplayFileInfoList; } set { SetProperty(ref m_DisplayFileInfoList, value); } }
         public FileInfo SelectedFileInfo { get { return m_SelectedFileInfo; } set { SetProperty(ref m_SelectedFileInfo, value); } }
         public ObservableCollection<string> ExtensionList { get { return m_ExtensionList; } set { SetProperty(ref m_ExtensionList, value); } }
-        public DelegateCommand ProcessStartCommand { get; private set; }
-        public DelegateCommand ProcessCloseCommand { get; private set; }
-        public DelegateCommand RemoveItemCommand { get; private set; }
-        public DelegateCommand ChangeItemOrderUpperCommand { get; private set; }
-        public DelegateCommand ChangeItemOrderLowerCommand { get; private set; }
+        public DelegateCommand ProcessStartCommand { get; protected set; }
+        public DelegateCommand ProcessCloseCommand { get; protected set; }
+        public DelegateCommand RemoveItemCommand { get; protected set; }
+        public DelegateCommand ChangeItemOrderUpperCommand { get; protected set; }
+        public DelegateCommand ChangeItemOrderLowerCommand { get; protected set; }
 
 
         public FileAccessViewModel()
@@ -59,48 +59,50 @@ namespace DevelopmentSupport.FileAccessor
             bool result = SelectedFileInfo.Process.Start();
         }
 
-        private bool CanProcessClose()
+        protected bool CanProcessClose()
         {
             return SelectedFileInfo != null && SelectedFileInfo.Process != null;
         }
 
-        private void ProcessClose()
+        protected void ProcessClose()
         {
             SelectedFileInfo.Process.CloseMainWindow();
             SelectedFileInfo.Process.Close();
             SelectedFileInfo.Process = null;
         }
 
-        private bool CanRemoveItem()
+        protected bool CanRemoveItem()
         {
             return FileInfoList.Any() && SelectedFileInfo != null;
         }
 
-        private void RemoveItem()
+        protected void RemoveItem()
         {
             DisplayFileInfoList.Remove(SelectedFileInfo);
         }
 
-        private bool CanChangeItemOrderUpper()
+        protected bool CanChangeItemOrderUpper()
         {
-            return FileInfoList.Any() && FileInfoList.IndexOf(SelectedFileInfo) > 0;
+            return FileInfoList.Any() && SelectedFileInfo != null && FileInfoList.IndexOf(SelectedFileInfo) > 0;
         }
 
-        private void ChangeItemOrderUpper()
+        protected void ChangeItemOrderUpper()
         {
             var index = FileInfoList.IndexOf(SelectedFileInfo);
             DisplayFileInfoList.Move(index, index - 1);
         }
-        private bool CanChangeItemOrderLower()
+
+        protected bool CanChangeItemOrderLower()
         {
-            return FileInfoList.Any() && FileInfoList.Count > FileInfoList.IndexOf(SelectedFileInfo) + 1;
+            return FileInfoList.Any() && SelectedFileInfo != null && FileInfoList.Count > FileInfoList.IndexOf(SelectedFileInfo) + 1;
         }
-        private void ChangeItemOrderLower()
+
+        protected void ChangeItemOrderLower()
         {
             var index = FileInfoList.IndexOf(SelectedFileInfo);
             DisplayFileInfoList.Move(index, index + 1);
         }
-        private bool CanProcessStart()
+        protected bool CanProcessStart()
         {
             if (SelectedFileInfo == null)
             {
@@ -108,12 +110,12 @@ namespace DevelopmentSupport.FileAccessor
             }
             return DisplayFileInfoList.Any() && SelectedFileInfo.Process == null;
         }
-        private void ProcessStart()
+        protected void ProcessStart()
         {
             Execute();
         }
 
-        public void SychronizeDisplayList()
+        public void SychronizeDisplayFileList()
         {
             DisplayFileInfoList.Clear();
             foreach (var item in FileInfoList)
@@ -125,15 +127,17 @@ namespace DevelopmentSupport.FileAccessor
 
     public class FileInfo : BindableBase
     {
-        private string m_FilePath;
-        private string m_FileName;
-        private BitmapSource m_Icon;
-        private Process m_Process = null;
+        protected string m_FilePath;
+        protected string m_FileName;
+        protected BitmapSource m_Icon;
+        protected Process m_Process = null;
+        protected Process m_SettingProcess = null;
 
         public string FilePath { get { return m_FilePath; } set { SetProperty(ref m_FilePath, value); } }
         public string FileName { get { return m_FileName; } set { SetProperty(ref m_FileName, value); } }
         public BitmapSource Icon { get { return m_Icon; } set { SetProperty(ref m_Icon, value); } }
         public Process Process { get { return m_Process; } set { SetProperty(ref m_Process, value); } }
+        public Process SettingProcess { get { return m_SettingProcess; } set { SetProperty(ref m_SettingProcess, value); } }
 
     }
 }

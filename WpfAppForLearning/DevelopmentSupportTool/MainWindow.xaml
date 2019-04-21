@@ -7,8 +7,9 @@
 		xmlns:dsFileStarter="clr-namespace:DevelopmentSupport.FileStarter;assembly=DevelopmentSupport"
         xmlns:local="clr-namespace:DevelopmentSupportTool"
         mc:Ignorable="d"
-        Title="DevelopmentSupportTool" Width="500" Height="400"
-		Icon="/Resources/Image/DSIcon.png" Background="#26799f">
+        Title="DevelopmentSupportTool" Width="500" Height="500"
+		Icon="/Resources/Image/DSIcon.png" Background="#26799f"
+		ResizeMode="NoResize">
     <Grid>
 		<TabControl Margin="5,0,5,5">
 			<TabItem Header="汎用">

@@ -1,122 +1,84 @@
 ﻿using DevelopmentSupport.Common;
+using DevelopmentSupport.FileAccessor;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace DevelopmentSupport.FileStarter
 {
-    public class FileStarterViewModel : BindableBase
+    public class FileStarterViewModel : FileAccessViewModel
     {
-        private ObservableCollection<FileInfo> m_FileInfoList;
-        private FileInfo m_SelectedFileInfo;
-        public ObservableCollection<FileInfo> FileInfoList { get { return m_FileInfoList; } set { SetProperty(ref m_FileInfoList, value); } }
-        public FileInfo SelectedFileInfo { get { return m_SelectedFileInfo; } set { SetProperty(ref m_SelectedFileInfo, value); } }
-        public DelegateCommand ProcessStartCommand { get; private set; }
-        public DelegateCommand ProcessCloseCommand { get; private set; }
-        public DelegateCommand RemoveItemCommand { get; private set; }
-        public DelegateCommand ChangeItemOrderUpperCommand { get; private set; }
-        public DelegateCommand ChangeItemOrderLowerCommand { get; private set; }
+        protected ObservableCollection<FileAccessor.FileInfo> m_ExeInfoList;
+        protected ObservableCollection<FileAccessor.FileInfo> m_DisplayExeInfoList;
+        protected FileAccessor.FileInfo m_SelectedExeInfo;
+        protected string m_TextEditorPath = "notepad";
+
+        public ObservableCollection<FileAccessor.FileInfo> ExeInfoList { get { return m_ExeInfoList; } set { SetProperty(ref m_ExeInfoList, value); } }
+        public ObservableCollection<FileAccessor.FileInfo> DisplayExeInfoList { get { return m_DisplayExeInfoList; } set { SetProperty(ref m_DisplayExeInfoList, value); } }
+        public FileAccessor.FileInfo SelectedExeInfo { get { return m_SelectedExeInfo; } set { SetProperty(ref m_SelectedExeInfo, value); } }
+        public string TextEditorPath { get { return m_TextEditorPath; } set { SetProperty(ref m_TextEditorPath, value); } }
+        public DelegateCommand SettingProcessStartCommand { get; protected set; }
 
         public FileStarterViewModel()
+            :base()
         {
-            FileInfoList = new ObservableCollection<FileInfo>();
-            SelectedFileInfo = new FileInfo();
-            ProcessCloseCommand = new DelegateCommand(ProcessClose, CanProcessClose);
-            RemoveItemCommand = new DelegateCommand(RemoveItem, CanRemoveItem);
-            ChangeItemOrderUpperCommand = new DelegateCommand(ChangeItemOrderUpper, CanChangeItemOrderUpper);
-            ChangeItemOrderLowerCommand = new DelegateCommand(ChangeItemOrderLower, CanChangeItemOrderLower);
-            ProcessStartCommand = new DelegateCommand(ProcessStart, CanProcessStart);
+            ExeInfoList = new ObservableCollection<FileAccessor.FileInfo>();
+            DisplayExeInfoList = new ObservableCollection<FileAccessor.FileInfo>();
+            SelectedExeInfo = new FileAccessor.FileInfo();
+
+            SettingProcessStartCommand = new DelegateCommand(SettingProcessStart,CanSettingProcessStart);
         }
 
-        // ListBoxのアイテムをダブルクリックされたら呼ばれるメソッド
-        public void Execute()
+        public void SychronizeDisplayExeList()
         {
-            if (SelectedFileInfo == null)
+            DisplayExeInfoList.Clear();
+            foreach (var item in ExeInfoList)
             {
-                return;
+                DisplayExeInfoList.Add(item);
             }
-            //Processオブジェクトを作成する
-            SelectedFileInfo.Process = new System.Diagnostics.Process();
-            //起動する実行ファイルのパスを設定する
-            SelectedFileInfo.Process.StartInfo.FileName = SelectedFileInfo.FilePath;
-            //コマンドライン引数を指定する
-            //起動する。プロセスが起動した時はTrueを返す。
-            bool result = SelectedFileInfo.Process.Start();
         }
 
-        private bool CanProcessClose()
-        {
-            return SelectedFileInfo != null && SelectedFileInfo.Process != null;
-        }
-
-        private void ProcessClose()
-        {
-            SelectedFileInfo.Process.CloseMainWindow();
-            SelectedFileInfo.Process.Close();
-            SelectedFileInfo.Process = null;
-        }
-
-        private bool CanRemoveItem()
-        {
-            return FileInfoList.Any() && SelectedFileInfo != null;
-        }
-
-        private void RemoveItem()
-        {
-            FileInfoList.Remove(SelectedFileInfo);
-        }
-
-        private bool CanChangeItemOrderUpper()
-        {
-            return FileInfoList.Any() && FileInfoList.IndexOf(SelectedFileInfo) > 0;
-        }
-
-        private void ChangeItemOrderUpper()
-        {
-            var index = FileInfoList.IndexOf(SelectedFileInfo);
-            FileInfoList.Move(index, index - 1);
-        }
-        private bool CanChangeItemOrderLower()
-        {
-            return FileInfoList.Any() && FileInfoList.Count > FileInfoList.IndexOf(SelectedFileInfo) + 1;
-        }
-        private void ChangeItemOrderLower()
-        {
-            var index = FileInfoList.IndexOf(SelectedFileInfo);
-            FileInfoList.Move(index, index + 1);
-        }
-        private bool CanProcessStart()
+        protected bool CanSettingProcessStart()
         {
             if (SelectedFileInfo == null)
             {
                 return false;
             }
-            return FileInfoList.Any() && SelectedFileInfo.Process == null;
+            return DisplayExeInfoList.Any() && SelectedExeInfo.SettingProcess == null;
         }
-        private void ProcessStart()
+        protected void SettingProcessStart()
         {
-            Execute();
+            if (SelectedFileInfo == null)
+            {
+                return;
+            }
+            var configPath = SelectedExeInfo.FilePath + ".config";
+            if (!File.Exists(configPath))
+            {
+                MessageBox.Show("設定ファイルが存在しません。\n指定されたパス:" + configPath);
+                return;
+            }
+
+            if (!File.Exists(TextEditorPath) && TextEditorPath != "notepad")
+            {
+                MessageBox.Show("指定されたテキストエディタが見つかりません。\n指定されたパス：" + TextEditorPath);
+                return;
+            }
+            //Processオブジェクトを作成する
+            SelectedFileInfo.SettingProcess = new System.Diagnostics.Process();
+            //起動する実行ファイルのパスを設定する
+            SelectedFileInfo.SettingProcess.StartInfo.FileName = TextEditorPath;
+            SelectedFileInfo.SettingProcess.StartInfo.Arguments = configPath;
+            //コマンドライン引数を指定する
+            //起動する。プロセスが起動した時はTrueを返す。
+            bool result = SelectedFileInfo.SettingProcess.Start();
         }
-
     }
-
-    public class FileInfo : BindableBase
-    {
-        private string m_FilePath;
-        private string m_FileName;
-        private BitmapSource m_Icon;
-        private Process m_Process = null;
-
-        public string FilePath { get { return m_FilePath; } set { SetProperty(ref m_FilePath, value); } }
-        public string FileName { get { return m_FileName; } set { SetProperty(ref m_FileName, value); } }
-        public BitmapSource Icon { get { return m_Icon; } set { SetProperty(ref m_Icon, value); } }
-        public Process Process { get { return m_Process; } set { SetProperty(ref m_Process, value); } }
-
-    }
-
 }
