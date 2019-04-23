@@ -145,8 +145,10 @@ namespace DevelopmentSupport.FileAccessor
         protected void ChangeItemOrderUpper()
         {
             var index = FileInfoList.IndexOf(SelectedFileInfo);
+            SelectedFileInfo = null;
             FileInfoList.Move(index, index - 1);
             SynchronizeDisplayFileList();
+            SelectedFileInfo = DisplayFileInfoList[index - 1];
         }
 
         protected bool CanChangeItemOrderLower()
@@ -157,8 +159,10 @@ namespace DevelopmentSupport.FileAccessor
         protected void ChangeItemOrderLower()
         {
             var index = FileInfoList.IndexOf(SelectedFileInfo);
+            SelectedFileInfo = null;
             FileInfoList.Move(index, index + 1);
             SynchronizeDisplayFileList();
+            SelectedFileInfo = DisplayFileInfoList[index + 1];
         }
         protected bool CanProcessStart()
         {
