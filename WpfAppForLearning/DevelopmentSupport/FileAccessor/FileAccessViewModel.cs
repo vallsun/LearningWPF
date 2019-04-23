@@ -18,10 +18,13 @@ namespace DevelopmentSupport.FileAccessor
         protected ObservableCollection<FileInfo> m_DisplayFileInfoList;
         protected FileInfo m_SelectedFileInfo;
         protected ObservableCollection<string> m_ExtensionList;
+        protected bool m_IsFiltering = false;
         public ObservableCollection<FileInfo> FileInfoList { get { return m_FileInfoList; } set { SetProperty(ref m_FileInfoList, value); } }
         public ObservableCollection<FileInfo> DisplayFileInfoList { get { return m_DisplayFileInfoList; } set { SetProperty(ref m_DisplayFileInfoList, value); } }
         public FileInfo SelectedFileInfo { get { return m_SelectedFileInfo; } set { SetProperty(ref m_SelectedFileInfo, value); } }
         public ObservableCollection<string> ExtensionList { get { return m_ExtensionList; } set { SetProperty(ref m_ExtensionList, value); } }
+        public bool IsFiltering { get { return m_IsFiltering; } set { SetProperty(ref m_IsFiltering, value); } }
+
         public DelegateCommand ProcessStartCommand { get; protected set; }
         public DelegateCommand ProcessCloseCommand { get; protected set; }
         public DelegateCommand RemoveItemCommand { get; protected set; }
@@ -57,6 +60,36 @@ namespace DevelopmentSupport.FileAccessor
             //コマンドライン引数を指定する
             //起動する。プロセスが起動した時はTrueを返す。
             bool result = SelectedFileInfo.Process.Start();
+            SelectedFileInfo.Processing = true;
+            SelectedFileInfo.Process.EnableRaisingEvents = true;
+            SelectedFileInfo.Process.Exited += Process_Exited;
+
+        }
+
+        // プロセスの終了を捕捉する Exited イベントハンドラ
+        private void Process_Exited(object sender, EventArgs e)
+        {
+            var proc = (System.Diagnostics.Process)sender;
+
+            var process = DisplayFileInfoList.Where(x => x?.Process?.Id == proc?.Id);
+            if (process.Any())
+            {
+                foreach (var item in process)
+                {
+                    item.Process = null;
+                    item.Processing = false;
+                }
+            }
+            process = FileInfoList.Where(x => x?.Process?.Id == proc?.Id);
+            if(!process.Any())
+            {
+                return;
+            }
+            foreach (var item in process)
+            {
+                item.Process = null;
+                item.Processing = false;
+            }
         }
 
         protected bool CanProcessClose()
@@ -69,6 +102,7 @@ namespace DevelopmentSupport.FileAccessor
             SelectedFileInfo.Process.CloseMainWindow();
             SelectedFileInfo.Process.Close();
             SelectedFileInfo.Process = null;
+            SelectedFileInfo.Processing = false;
         }
 
         protected bool CanRemoveItem()
@@ -78,29 +112,53 @@ namespace DevelopmentSupport.FileAccessor
 
         protected void RemoveItem()
         {
+            FileInfoList.Remove(SelectedFileInfo);
             DisplayFileInfoList.Remove(SelectedFileInfo);
+
+            //フィルタの更新
+            var missingKeywordList = new List<string>();
+            foreach (var item in ExtensionList)
+            {
+                missingKeywordList.Add(item);
+            }
+            missingKeywordList.RemoveAt(0);
+            foreach (var item in DisplayFileInfoList)
+            {
+                var extension = Path.GetExtension(item.FilePath);
+                if (ExtensionList.Contains(extension))
+                {
+                    missingKeywordList.Remove(extension);
+                }
+            }
+
+            foreach (var item in missingKeywordList)
+            {
+                ExtensionList.Remove(item);
+            }
         }
 
         protected bool CanChangeItemOrderUpper()
         {
-            return FileInfoList.Any() && SelectedFileInfo != null && FileInfoList.IndexOf(SelectedFileInfo) > 0;
+            return FileInfoList.Any() && SelectedFileInfo != null && FileInfoList.IndexOf(SelectedFileInfo) > 0 && !IsFiltering;
         }
 
         protected void ChangeItemOrderUpper()
         {
             var index = FileInfoList.IndexOf(SelectedFileInfo);
-            DisplayFileInfoList.Move(index, index - 1);
+            FileInfoList.Move(index, index - 1);
+            SynchronizeDisplayFileList();
         }
 
         protected bool CanChangeItemOrderLower()
         {
-            return FileInfoList.Any() && SelectedFileInfo != null && FileInfoList.Count > FileInfoList.IndexOf(SelectedFileInfo) + 1;
+            return FileInfoList.Any() && SelectedFileInfo != null && FileInfoList.Count > FileInfoList.IndexOf(SelectedFileInfo) + 1 && !IsFiltering;
         }
 
         protected void ChangeItemOrderLower()
         {
             var index = FileInfoList.IndexOf(SelectedFileInfo);
-            DisplayFileInfoList.Move(index, index + 1);
+            FileInfoList.Move(index, index + 1);
+            SynchronizeDisplayFileList();
         }
         protected bool CanProcessStart()
         {
@@ -115,7 +173,7 @@ namespace DevelopmentSupport.FileAccessor
             Execute();
         }
 
-        public void SychronizeDisplayFileList()
+        public void SynchronizeDisplayFileList()
         {
             DisplayFileInfoList.Clear();
             foreach (var item in FileInfoList)
@@ -131,12 +189,14 @@ namespace DevelopmentSupport.FileAccessor
         protected string m_FileName;
         protected BitmapSource m_Icon;
         protected Process m_Process = null;
+        protected bool m_Processing = false;
         protected Process m_SettingProcess = null;
 
         public string FilePath { get { return m_FilePath; } set { SetProperty(ref m_FilePath, value); } }
         public string FileName { get { return m_FileName; } set { SetProperty(ref m_FileName, value); } }
         public BitmapSource Icon { get { return m_Icon; } set { SetProperty(ref m_Icon, value); } }
         public Process Process { get { return m_Process; } set { SetProperty(ref m_Process, value); } }
+        public bool Processing { get { return m_Processing; } set { SetProperty(ref m_Processing, value); } }
         public Process SettingProcess { get { return m_SettingProcess; } set { SetProperty(ref m_SettingProcess, value); } }
 
     }

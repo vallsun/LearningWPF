@@ -29,7 +29,7 @@
 				 ScrollViewer.CanContentScroll="True"
 				 ScrollViewer.VerticalScrollBarVisibility="Auto"
 				 ScrollViewer.HorizontalScrollBarVisibility="Disabled" Height="400"
-							 Drop="UserControl_Drop" PreviewDragOver="UserControl_PreviewDragOver" AllowDrop="True">
+				 Drop="UserControl_Drop" PreviewDragOver="UserControl_PreviewDragOver" AllowDrop="True">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<ContentControl Width="80" VerticalAlignment="Top" ToolTip="{Binding FilePath}">
@@ -49,8 +49,8 @@
 			</ListBox.ItemTemplate>
 			<ListBox.ItemsPanel>
 				<ItemsPanelTemplate>
-					<WrapPanel Orientation="Horizontal">
-					</WrapPanel>
+					<WrapPanel Orientation="Horizontal"/>
+
 				</ItemsPanelTemplate>
 			</ListBox.ItemsPanel>
 		</ListBox>
@@ -59,7 +59,7 @@
 					ToolTip="選択中の要素の順番をひとつ前に移動します。"/>
 			<Button Content="後へ" Command="{Binding ChangeItemOrderLowerCommand}" Margin="0,0,0,5"
 					ToolTip="選択中の要素の順番をひとつ後に移動します。"/>
-			<Button Content="追加" Command="{Binding RemoveItemCommand}" Margin="0,0,0,5"
+			<Button Content="追加" Command="{Binding RemoveItemCommand}" Margin="0,0,0,5" IsEnabled="False"
 					ToolTip="フォルダまたはファイルをリストに追加します。"/>
 			<Button Content="削除" Command="{Binding RemoveItemCommand}" Margin="0,0,0,5"
 					ToolTip="選択中の要素をリストから削除します。"/>

@@ -55,7 +55,7 @@ namespace DevelopmentSupport.FileStarter
                     fileInfo.Icon = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
                 }
                 list.Add(fileInfo);
-                vm.SychronizeDisplayFileList();
+                vm.SynchronizeDisplayFileList();
 
                 var extension = Path.GetExtension(s);
                 if (!vm.ExtensionList.Contains(extension))
@@ -109,7 +109,7 @@ namespace DevelopmentSupport.FileStarter
             var filterkeyword = e.AddedItems[0].ToString();
             if (filterkeyword == "(指定なし)")
             {
-                vm.SychronizeDisplayFileList();
+                vm.SynchronizeDisplayFileList();
                 return;
             }
             var list = vm.FileInfoList;

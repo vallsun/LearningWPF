@@ -58,7 +58,7 @@ namespace DevelopmentSupport.FileAccessor
 
                 }
                 list.Add(fileInfo);
-                vm.SychronizeDisplayFileList();
+                vm.SynchronizeDisplayFileList();
 
                 var extension = Path.GetExtension(s);
                 if (!vm.ExtensionList.Contains(extension))
@@ -99,7 +99,8 @@ namespace DevelopmentSupport.FileAccessor
             var filterkeyword = e.AddedItems[0].ToString();
             if (filterkeyword == "(指定なし)")
             {
-                vm.SychronizeDisplayFileList();
+                vm.SynchronizeDisplayFileList();
+                vm.IsFiltering = false;
                 return;
             }
             var list = vm.FileInfoList;
@@ -114,6 +115,7 @@ namespace DevelopmentSupport.FileAccessor
             {
                 vm.DisplayFileInfoList.Add(item);
             }
+            vm.IsFiltering = true;
         }
     }
 
