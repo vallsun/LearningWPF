@@ -8,9 +8,11 @@
         xmlns:local="clr-namespace:DevelopmentSupportTool"
         mc:Ignorable="d"
         Title="DevelopmentSupportTool" Width="500" Height="500"
-		Icon="/Resources/Image/DSIcon.png" Background="#26799f"
-		ResizeMode="NoResize">
-    <Grid>
+		Icon="/Resources/Image/DSIcon3.png" Background="#26799f"
+		ResizeMode="NoResize"
+		SnapsToDevicePixels="True"
+        UseLayoutRounding="True">
+	<Grid>
 		<TabControl Margin="5,0,5,5">
 			<TabItem Header="汎用">
 				<dsFileAccessor:FileAccessView/>

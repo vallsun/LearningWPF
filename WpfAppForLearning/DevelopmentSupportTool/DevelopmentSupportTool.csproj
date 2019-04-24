@@ -106,5 +106,11 @@
   <ItemGroup>
     <Resource Include="Resources\Image\DSIcon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Image\DSIcon2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Image\DSIcon3.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
