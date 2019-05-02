@@ -34,10 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevelopmentSupport, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\DevelopmentSupport.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Expression.Interactions">
       <HintPath>lib\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
@@ -111,6 +107,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Image\DSIcon3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DevelopmentSupport\DevelopmentSupport.csproj">
+      <Project>{ec10d802-fb16-43d2-a8aa-f0ba331cabcf}</Project>
+      <Name>DevelopmentSupport</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,6 +8,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevelopmentSupport", "DevelopmentSupport\DevelopmentSupport.csproj", "{EC10D802-FB16-43D2-A8AA-F0BA331CABCF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevelopmentSupportTool", "DevelopmentSupportTool\DevelopmentSupportTool.csproj", "{52DF18CC-00FE-4040-887F-C9214DE63B13}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EC10D802-FB16-43D2-A8AA-F0BA331CABCF} = {EC10D802-FB16-43D2-A8AA-F0BA331CABCF}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

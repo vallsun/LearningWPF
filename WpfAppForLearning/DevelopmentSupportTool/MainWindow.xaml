@@ -7,7 +7,7 @@
 		xmlns:dsFileStarter="clr-namespace:DevelopmentSupport.FileStarter;assembly=DevelopmentSupport"
         xmlns:local="clr-namespace:DevelopmentSupportTool"
         mc:Ignorable="d"
-        Title="DevelopmentSupportTool" Width="500" Height="500"
+        Title="DevelopmentSupportTool" Width="500" Height="550"
 		Icon="/Resources/Image/DSIcon3.png" Background="#26799f"
 		ResizeMode="NoResize"
 		SnapsToDevicePixels="True"

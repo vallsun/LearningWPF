@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace DevelopmentSupport.FileAccessor
@@ -30,7 +31,8 @@ namespace DevelopmentSupport.FileAccessor
         public DelegateCommand RemoveItemCommand { get; protected set; }
         public DelegateCommand ChangeItemOrderUpperCommand { get; protected set; }
         public DelegateCommand ChangeItemOrderLowerCommand { get; protected set; }
-
+        public DelegateCommand TextCopyCommand { get; protected set; }
+        public DelegateCommand OpenFilePlacementFolderCommand { get; protected set; }
 
         public FileAccessViewModel()
         {
@@ -44,6 +46,8 @@ namespace DevelopmentSupport.FileAccessor
             ChangeItemOrderUpperCommand = new DelegateCommand(ChangeItemOrderUpper, CanChangeItemOrderUpper);
             ChangeItemOrderLowerCommand = new DelegateCommand(ChangeItemOrderLower, CanChangeItemOrderLower);
             ProcessStartCommand = new DelegateCommand(ProcessStart, CanProcessStart);
+            TextCopyCommand = new DelegateCommand(TextCopy, CanTextCopy);
+            OpenFilePlacementFolderCommand = new DelegateCommand(OpenFilePlacementFolder, CanOpenFilePlacementFolder);
         }
 
         // ListBoxのアイテムをダブルクリックされたら呼ばれるメソッド
@@ -177,6 +181,8 @@ namespace DevelopmentSupport.FileAccessor
             Execute();
         }
 
+        #region 公開サービス
+
         public void SynchronizeDisplayFileList()
         {
             DisplayFileInfoList.Clear();
@@ -185,10 +191,40 @@ namespace DevelopmentSupport.FileAccessor
                 DisplayFileInfoList.Add(item);
             }
         }
+
+        #endregion
+
+        #region コマンド
+
+        protected bool CanTextCopy()
+        {
+            return SelectedFileInfo != null;
+        }
+
+        protected void TextCopy()
+        {
+            Clipboard.SetData(DataFormats.Text, SelectedFileInfo.FilePath);
+        }
+
+        protected bool CanOpenFilePlacementFolder()
+        {
+            return SelectedFileInfo != null;
+        }
+
+        protected void OpenFilePlacementFolder()
+        {
+            System.Diagnostics.Process.Start("EXPLORER.EXE", @"/select,""" + SelectedFileInfo.FilePath + @"""");
+        }
+
+
+        #endregion
+
     }
 
     public class FileInfo : BindableBase
     {
+        #region フィールド
+
         protected string m_FilePath;
         protected string m_FileName;
         protected BitmapSource m_Icon;
@@ -196,12 +232,18 @@ namespace DevelopmentSupport.FileAccessor
         protected bool m_Processing = false;
         protected Process m_SettingProcess = null;
 
+        #endregion
+
+        #region プロパティ
+
         public string FilePath { get { return m_FilePath; } set { SetProperty(ref m_FilePath, value); } }
         public string FileName { get { return m_FileName; } set { SetProperty(ref m_FileName, value); } }
         public BitmapSource Icon { get { return m_Icon; } set { SetProperty(ref m_Icon, value); } }
         public Process Process { get { return m_Process; } set { SetProperty(ref m_Process, value); } }
         public bool Processing { get { return m_Processing; } set { SetProperty(ref m_Processing, value); } }
         public Process SettingProcess { get { return m_SettingProcess; } set { SetProperty(ref m_SettingProcess, value); } }
+
+        #endregion
 
     }
 }

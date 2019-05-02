@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:DevelopmentSupport.FileAccessor"
 			 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
 			 xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+			 Name="m_FileAccessViewUserControl">
 	<UserControl.DataContext>
 		<local:FileAccessViewModel/>
 	</UserControl.DataContext>
@@ -47,6 +48,21 @@
 					</ContentControl>
 				</DataTemplate>
 			</ListBox.ItemTemplate>
+			<ListBox.ItemContainerStyle>
+				<Style TargetType="ListBoxItem">
+					<Setter Property="Tag" Value="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" />
+					<Setter Property="ContextMenu">
+						<Setter.Value>
+							<ContextMenu>
+								<MenuItem Header="パスをコピー"
+										  Command="{Binding PlacementTarget.Tag.TextCopyCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+								<MenuItem Header="ファイルの場所をエクスプローラで開く"
+										  Command="{Binding PlacementTarget.Tag.OpenFilePlacementFolderCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+							</ContextMenu>
+						</Setter.Value>
+					</Setter>
+				</Style>
+			</ListBox.ItemContainerStyle>
 			<ListBox.ItemsPanel>
 				<ItemsPanelTemplate>
 					<WrapPanel Orientation="Horizontal"/>
