@@ -82,6 +82,7 @@
 				  ToolTip="選択した拡張子でフィルタします。"/>
 		</StackPanel>
 		<TextBlock Grid.Row="2" Text="実行ファイルリスト" Margin="0,5,0,0"/>
+		<Image Grid.Row="2" Source="../Resources/Image/Chain.png" Height="16"/>
 		<Grid Grid.Row="3" Grid.Column="0" Height="100" VerticalAlignment="Top" Margin="0,0,10,0" Background="White">
 			<TextBlock Name="WatermarkTextBox2" VerticalAlignment="Center" HorizontalAlignment="Center"
 					   Text="ファイルをD&amp;Dで登録してください。" Foreground="Gray"/>
@@ -126,6 +127,8 @@
 		</StackPanel>
 
 		<TextBlock Grid.Row="4" Text="アタッチファイルリスト"  Margin="0,5,0,0"/>
+		<Polygon Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"
+				 Points="0,10 14,10 7,0" Fill="Gray"/>
 		<Grid Grid.Row="5" Grid.Column="0" Height="100" VerticalAlignment="Top" Margin="0,0,10,0" Background="White">
 			<TextBlock Name="WatermarkTextBox3" VerticalAlignment="Center" HorizontalAlignment="Center"
 					   Text="ファイルをD&amp;Dで登録してください。" Foreground="Gray"/>
