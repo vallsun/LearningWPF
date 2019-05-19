@@ -58,6 +58,16 @@
 										  Command="{Binding PlacementTarget.Tag.TextCopyCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
 								<MenuItem Header="ファイルの場所をエクスプローラで開く"
 										  Command="{Binding PlacementTarget.Tag.OpenFilePlacementFolderCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+								<MenuItem Header="ブラウザを指定してリンクを開く"
+										  ItemsSource="{Binding  PlacementTarget.Tag.BrowserList, RelativeSource={RelativeSource AncestorType=ContextMenu}}">
+									<MenuItem.ItemContainerStyle>
+											<Style TargetType="MenuItem">
+												<Setter Property="Header" Value="{Binding Path=Name}"/>
+												<Setter Property="Command" Value="{Binding PlacementTarget.Tag.OpenLinkBySelectedAppCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+											<Setter Property="CommandParameter" Value="{Binding}"/>
+										</Style>
+										</MenuItem.ItemContainerStyle>
+									</MenuItem>
 							</ContextMenu>
 						</Setter.Value>
 					</Setter>

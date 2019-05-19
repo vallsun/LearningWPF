@@ -128,7 +128,7 @@
 
 		<TextBlock Grid.Row="4" Text="アタッチファイルリスト"  Margin="0,5,0,0"/>
 		<Polygon Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center"
-				 Points="0,10 14,10 7,0" Fill="Gray"/>
+				 Points="0,10 14,10 7,0" Fill="Black"/>
 		<Grid Grid.Row="5" Grid.Column="0" Height="100" VerticalAlignment="Top" Margin="0,0,10,0" Background="White">
 			<TextBlock Name="WatermarkTextBox3" VerticalAlignment="Center" HorizontalAlignment="Center"
 					   Text="ファイルをD&amp;Dで登録してください。" Foreground="Gray"/>

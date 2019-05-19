@@ -71,14 +71,9 @@ namespace DevelopmentSupport.FileStarter
                 MessageBox.Show("指定されたテキストエディタが見つかりません。\n指定されたパス：" + TextEditorPath);
                 return;
             }
-            //Processオブジェクトを作成する
-            SelectedFileInfo.SettingProcess = new System.Diagnostics.Process();
-            //起動する実行ファイルのパスを設定する
-            SelectedFileInfo.SettingProcess.StartInfo.FileName = TextEditorPath;
-            SelectedFileInfo.SettingProcess.StartInfo.Arguments = configPath;
-            //コマンドライン引数を指定する
-            //起動する。プロセスが起動した時はTrueを返す。
-            bool result = SelectedFileInfo.SettingProcess.Start();
+
+            StartProcessBySelectedApp(TextEditorPath, configPath);
+
         }
     }
 }
