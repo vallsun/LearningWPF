@@ -21,6 +21,11 @@ namespace DevelopmentSupport.FileAccessor
             InitializeComponent();
         }
 
+        /// <summary>
+        /// ファイルをドラッグした時のイベントハンドラ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UserControl_Drop(object sender, DragEventArgs e)
         {
             var vm = this.DataContext as FileAccessViewModel;
@@ -76,7 +81,10 @@ namespace DevelopmentSupport.FileAccessor
                 }
                 MessageBox.Show(message);
             }
-            this.WatermarkTextBox.Visibility = Visibility.Collapsed;
+            if (vm.FileInfoList.Any())
+            {
+                WatermarkTextBox.Visibility = Visibility.Collapsed;
+            }   
         }
 
         private void UserControl_PreviewDragOver(object sender, DragEventArgs e)
