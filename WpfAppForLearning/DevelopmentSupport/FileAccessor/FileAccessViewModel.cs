@@ -132,15 +132,24 @@ namespace DevelopmentSupport.FileAccessor
             DisplayFileInfoList.Remove(SelectedFileInfo);
 
             //選択アイテムの更新
-            if(index > DisplayFileInfoList.Count)
+            if(DisplayFileInfoList.Count == 0)
+            {
+                //表示対象がない
+                index = -1;
+            }
+            else if (DisplayFileInfoList.Count <= index)
             {
                 index = DisplayFileInfoList.Count - 1;
             }
-            else if(index > 0)
+            else
             {
-                index = index - 1;
+                //何もしない
             }
-            DisplayFileInfoList.ElementAt(index).IsSelected = true;
+
+            if(index >= 0)
+            {
+                DisplayFileInfoList.ElementAt(index).IsSelected = true;
+            }
 
             //フィルタの更新
             var missingKeywordList = new List<string>();
