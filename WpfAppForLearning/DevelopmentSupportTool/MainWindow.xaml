@@ -13,7 +13,20 @@
 		SnapsToDevicePixels="True"
         UseLayoutRounding="True">
 	<Grid>
-		<TabControl Margin="5,0,5,5">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		<Menu BorderBrush="Gray" BorderThickness="1">
+			<MenuItem Header="表示"></MenuItem>
+			<MenuItem Header="ツール">
+				<MenuItem Header="設定">
+					<MenuItem Header="ブラウザ情報の設定"></MenuItem>
+				</MenuItem>
+			</MenuItem>
+			<MenuItem Header="ヘルプ"></MenuItem>
+		</Menu>
+		<TabControl Grid.Row="1" Margin="5,0,5,5">
 			<TabItem Header="汎用">
 				<dsFileAccessor:FileAccessView/>
 			</TabItem>

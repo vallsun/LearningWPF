@@ -47,7 +47,7 @@ namespace DevelopmentSupport.FileAccessor
             ExtensionList.Add("(指定なし)");
             BrowserList = new ObservableCollection<Browser>();
             BrowserList.Add(new Browser() { Name="Chrome", Path= @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" });
-            BrowserList.Add(new Browser() { Name = "InternetExplorer", Path = "C:\\Program Files\\internet explorer\\iexplore.exe" });
+            BrowserList.Add(new Browser() { Name = "InternetExplorer", Path = @"C:\Program Files\internet explorer\iexplore.exe" });
             BrowserList.Add(new Browser() { Name = "FireFox", Path = "" });
 
             ProcessCloseCommand = new DelegateCommand(ProcessClose, CanProcessClose);
@@ -267,7 +267,7 @@ namespace DevelopmentSupport.FileAccessor
 
         protected bool CanOpenLinkBySelectedApp(Browser browser)
         {
-            return (browser != null && SelectedFileInfo != null && SelectedFileInfo.IsLink);
+            return (browser != null && SelectedFileInfo != null && SelectedFileInfo.IsLink && File.Exists(browser.Path));
         }
 
         protected void OpenLinkBySelectedApp(Browser browser)
