@@ -104,6 +104,10 @@ namespace DevelopmentSupport.FileAccessor
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var vm = this.DataContext as FileAccessViewModel;
+            if (!vm.DisplayFileInfoList.Any())
+            {
+                return;
+            }
             var filterkeyword = e.AddedItems[0].ToString();
             if (filterkeyword == "(指定なし)")
             {
