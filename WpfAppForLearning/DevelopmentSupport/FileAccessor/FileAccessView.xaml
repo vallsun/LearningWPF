@@ -8,6 +8,61 @@
 			 xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              mc:Ignorable="d"
 			 Name="m_FileAccessViewUserControl">
+	<UserControl.Resources>
+		<DataTemplate x:Key="MiddleIconItemDataTemplate">
+			<ContentControl Width="80" VerticalAlignment="Top" ToolTip="{Binding FilePath}">
+				<StackPanel>
+					<Image Source="{Binding Icon}" Width="32" Height="32" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+					<TextBox Text="{Binding FileName}" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+				</StackPanel>
+				<i:Interaction.Triggers>
+					<i:EventTrigger EventName="MouseDoubleClick">
+						<ei:CallMethodAction 
+                                    TargetObject="{Binding Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, Path=DataContext}" 
+                                    MethodName="Execute"/>
+					</i:EventTrigger>
+				</i:Interaction.Triggers>
+			</ContentControl>
+		</DataTemplate>
+
+		<!--横方向にリスト要素を列挙表示し右端で折り返す-->
+		<ItemsPanelTemplate x:Key="HorizontalOrientationItemsPanelTemplate">
+			<WrapPanel Orientation="Horizontal"/>
+		</ItemsPanelTemplate>
+
+		<!--縦方向にリスト要素を列挙し表示範囲外の要素を仮想化する-->
+		<ItemsPanelTemplate x:Key="VirticalVirtualizingStackPanelItemsTemplate">
+			<VirtualizingStackPanel/>
+		</ItemsPanelTemplate>
+
+		<DataTemplate x:Key="SmallIconItemDateTemplate">
+			<ContentControl VerticalAlignment="Top" ToolTip="{Binding FilePath}">
+				<Border HorizontalAlignment="Stretch" Background="Transparent">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="20"/>
+							<ColumnDefinition/>
+						</Grid.ColumnDefinitions>
+						<Image Source="{Binding Icon}" Width="16" Height="16" HorizontalAlignment="Center" Margin="0,0,4,0"/>
+						<TextBox Grid.Column="1" Text="{Binding FileName}" HorizontalAlignment="Left"/>
+					</Grid>
+				</Border>
+				<!--
+				<StackPanel Orientation="Horizontal">
+					<Image Source="{Binding Icon}" Width="16" Height="16" HorizontalAlignment="Center"/>
+					<TextBox Text="{Binding FileName}" HorizontalAlignment="Center"/>
+				</StackPanel>
+				-->
+				<i:Interaction.Triggers>
+					<i:EventTrigger EventName="MouseDoubleClick">
+						<ei:CallMethodAction 
+                                    TargetObject="{Binding Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, Path=DataContext}" 
+                                    MethodName="Execute"/>
+					</i:EventTrigger>
+				</i:Interaction.Triggers>
+			</ContentControl>
+		</DataTemplate>
+	</UserControl.Resources>
 	<UserControl.DataContext>
 		<local:FileAccessViewModel/>
 	</UserControl.DataContext>
@@ -30,27 +85,13 @@
 				 ScrollViewer.CanContentScroll="True"
 				 ScrollViewer.VerticalScrollBarVisibility="Auto"
 				 ScrollViewer.HorizontalScrollBarVisibility="Disabled" Height="400"
-				 Drop="UserControl_Drop" PreviewDragOver="UserControl_PreviewDragOver" AllowDrop="True">
-			<ListBox.ItemTemplate>
-				<DataTemplate>
-					<ContentControl Width="80" VerticalAlignment="Top" ToolTip="{Binding FilePath}">
-						<StackPanel>
-							<Image Source="{Binding Icon}" Width="32" Height="32" HorizontalAlignment="Center" Margin="0,0,0,5"/>
-							<TextBox Text="{Binding FileName}" TextWrapping="Wrap" HorizontalAlignment="Center"/>
-						</StackPanel>
-						<i:Interaction.Triggers>
-							<i:EventTrigger EventName="MouseDoubleClick">
-								<ei:CallMethodAction 
-                                    TargetObject="{Binding Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, Path=DataContext}" 
-                                    MethodName="Execute"/>
-							</i:EventTrigger>
-						</i:Interaction.Triggers>
-					</ContentControl>
-				</DataTemplate>
-			</ListBox.ItemTemplate>
+				 Drop="UserControl_Drop" PreviewDragOver="UserControl_PreviewDragOver" AllowDrop="True"
+				 ItemTemplate="{StaticResource SmallIconItemDateTemplate}"
+				 ItemsPanel="{StaticResource VirticalVirtualizingStackPanelItemsTemplate}">
 			<ListBox.ItemContainerStyle>
 				<Style TargetType="ListBoxItem">
 					<Setter Property="Tag" Value="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" />
+					<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
 					<Setter Property="ContextMenu">
 						<Setter.Value>
 							<ContextMenu>
@@ -61,24 +102,18 @@
 								<MenuItem Header="ブラウザを指定してリンクを開く"
 										  ItemsSource="{Binding  PlacementTarget.Tag.BrowserList, RelativeSource={RelativeSource AncestorType=ContextMenu}}">
 									<MenuItem.ItemContainerStyle>
-											<Style TargetType="MenuItem">
-												<Setter Property="Header" Value="{Binding Path=Name}"/>
-												<Setter Property="Command" Value="{Binding PlacementTarget.Tag.OpenLinkBySelectedAppCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+										<Style TargetType="MenuItem">
+											<Setter Property="Header" Value="{Binding Path=Name}"/>
+											<Setter Property="Command" Value="{Binding PlacementTarget.Tag.OpenLinkBySelectedAppCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
 											<Setter Property="CommandParameter" Value="{Binding}"/>
 										</Style>
-										</MenuItem.ItemContainerStyle>
-									</MenuItem>
+									</MenuItem.ItemContainerStyle>
+								</MenuItem>
 							</ContextMenu>
 						</Setter.Value>
 					</Setter>
 				</Style>
 			</ListBox.ItemContainerStyle>
-			<ListBox.ItemsPanel>
-				<ItemsPanelTemplate>
-					<WrapPanel Orientation="Horizontal"/>
-
-				</ItemsPanelTemplate>
-			</ListBox.ItemsPanel>
 		</ListBox>
 		<StackPanel Grid.Column="1" Margin="0,10,10,10">
 			<Button Content="前へ" Command="{Binding ChangeItemOrderUpperCommand}" Margin="0,0,0,5"
