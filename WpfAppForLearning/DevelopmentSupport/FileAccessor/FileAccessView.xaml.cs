@@ -66,6 +66,10 @@ namespace DevelopmentSupport.FileAccessor
                 vm.SynchronizeDisplayFileList();
 
                 var extension = Path.GetExtension(s);
+                if(extension == "")
+                {
+                    extension = "(フォルダ)";
+                }
                 if (!vm.ExtensionList.Contains(extension))
                 {
                     vm.ExtensionList.Add(extension);
