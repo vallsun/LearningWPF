@@ -128,7 +128,7 @@
 					ToolTip="選択中の要素を既定のプログラムで実行します。"/>
 			<Button Content="終了" Command="{Binding ProcessCloseCommand}" Margin="0,0,0,10"
 					ToolTip="選択中の要素のプロセスを終了します。"/>
-			<ComboBox ItemsSource="{Binding ExtensionList}" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged"
+			<ComboBox ItemsSource="{Binding ExtensionList}" DisplayMemberPath="DisplayName" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged"
 				  ToolTip="選択した拡張子でフィルタします。"/>
 		</StackPanel>
 

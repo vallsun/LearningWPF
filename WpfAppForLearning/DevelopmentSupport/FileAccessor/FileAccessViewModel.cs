@@ -18,14 +18,14 @@ namespace DevelopmentSupport.FileAccessor
         protected ObservableCollection<FileInfo> m_FileInfoList;
         protected ObservableCollection<FileInfo> m_DisplayFileInfoList;
         protected FileInfo m_SelectedFileInfo;
-        protected ObservableCollection<string> m_ExtensionList;
+        protected ObservableCollection<Extension> m_ExtensionList;
         protected bool m_IsFiltering = false;
         protected ObservableCollection<Browser> m_BrowserList;
 
         public ObservableCollection<FileInfo> FileInfoList { get { return m_FileInfoList; } set { SetProperty(ref m_FileInfoList, value); } }
         public ObservableCollection<FileInfo> DisplayFileInfoList { get { return m_DisplayFileInfoList; } set { SetProperty(ref m_DisplayFileInfoList, value); } }
         public FileInfo SelectedFileInfo { get { return m_SelectedFileInfo; } set { SetProperty(ref m_SelectedFileInfo, value); } }
-        public ObservableCollection<string> ExtensionList { get { return m_ExtensionList; } set { SetProperty(ref m_ExtensionList, value); } }
+        public ObservableCollection<Extension> ExtensionList { get { return m_ExtensionList; } set { SetProperty(ref m_ExtensionList, value); } }
         public bool IsFiltering { get { return m_IsFiltering; } set { SetProperty(ref m_IsFiltering, value); } }
         public ObservableCollection<Browser> BrowserList { get { return m_BrowserList; } set { SetProperty(ref m_BrowserList, value); } }
 
@@ -43,8 +43,8 @@ namespace DevelopmentSupport.FileAccessor
             FileInfoList = new ObservableCollection<FileInfo>();
             DisplayFileInfoList = new ObservableCollection<FileInfo>();
             SelectedFileInfo = new FileInfo();
-            ExtensionList = new ObservableCollection<string>();
-            ExtensionList.Add("(指定なし)");
+            ExtensionList = new ObservableCollection<Extension>();
+            ExtensionList.Add(new Extension("(指定なし)"));
             BrowserList = new ObservableCollection<Browser>();
             BrowserList.Add(new Browser() { Name="Chrome", Path= @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" });
             BrowserList.Add(new Browser() { Name = "InternetExplorer", Path = @"C:\Program Files\internet explorer\iexplore.exe" });
@@ -152,7 +152,7 @@ namespace DevelopmentSupport.FileAccessor
             }
 
             //フィルタの更新
-            var missingKeywordList = new List<string>();
+            var missingKeywordList = new List<Extension>();
             foreach (var item in ExtensionList)
             {
                 missingKeywordList.Add(item);
@@ -161,9 +161,14 @@ namespace DevelopmentSupport.FileAccessor
             foreach (var item in DisplayFileInfoList)
             {
                 var extension = Path.GetExtension(item.FilePath);
-                if (ExtensionList.Contains(extension))
+	            var extensionItems = ExtensionList.Where(x => x.Name == extension);
+
+				if (extensionItems.Any())
                 {
-                    missingKeywordList.Remove(extension);
+	                foreach (var extItem in extensionItems)
+	                {
+		                missingKeywordList.Remove(extItem);
+	                }
                 }
             }
 
@@ -344,4 +349,44 @@ namespace DevelopmentSupport.FileAccessor
 
         #endregion
     }
+
+	public class Extension : BindableBase
+	{
+		#region フィールド
+
+		/// <summary>
+		/// 拡張子を表す文字列
+		/// </summary>
+		private string m_Name;
+
+		/// <summary>
+		/// 拡張子に対応する文字列
+		/// </summary>
+		private string m_DisplayName;
+
+		#endregion
+
+		#region プロパティ
+
+		public string Name { get { return m_Name; } set { SetProperty(ref m_Name, value); } }
+		public string DisplayName { get { return m_DisplayName; } set { SetProperty(ref m_DisplayName, value); } }
+
+		#endregion
+
+		#region 構築・消滅
+
+		public Extension(string name)
+		{
+			m_Name = name;
+			m_DisplayName = m_Name;
+		}
+
+		public Extension(string name, string displayName)
+		{
+			m_Name = name;
+			m_DisplayName = displayName;
+		}
+
+		#endregion
+	}
 }
