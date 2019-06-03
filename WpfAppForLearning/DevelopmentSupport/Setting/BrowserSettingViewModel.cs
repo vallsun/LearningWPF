@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevelopmentSupport
+namespace DevelopmentSupport.Setting
 {
-    public class Class1
+    public class BrowserSettingViewModel
     {
     }
 }

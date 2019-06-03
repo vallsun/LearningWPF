@@ -12,6 +12,9 @@
 		ResizeMode="NoResize"
 		SnapsToDevicePixels="True"
         UseLayoutRounding="True">
+	<Window.DataContext>
+		<local:MainWindowViewModel/>
+	</Window.DataContext>
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
@@ -20,9 +23,7 @@
 		<Menu BorderBrush="Gray" BorderThickness="1">
 			<MenuItem Header="表示"></MenuItem>
 			<MenuItem Header="ツール">
-				<MenuItem Header="設定">
-					<MenuItem Header="ブラウザ情報の設定"></MenuItem>
-				</MenuItem>
+				<MenuItem Header="設定" Command="{Binding ShowSettingCommand}"/>
 			</MenuItem>
 			<MenuItem Header="ヘルプ"></MenuItem>
 		</Menu>

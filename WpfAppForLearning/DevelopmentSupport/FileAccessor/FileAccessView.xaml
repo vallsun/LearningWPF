@@ -97,6 +97,8 @@
 							<ContextMenu>
 								<MenuItem Header="パスをコピー"
 										  Command="{Binding PlacementTarget.Tag.TextCopyCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+								<MenuItem Header="削除"
+										  Command="{Binding PlacementTarget.Tag.RemoveItemCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
 								<MenuItem Header="ファイルの場所をエクスプローラで開く"
 										  Command="{Binding PlacementTarget.Tag.OpenFilePlacementFolderCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
 								<MenuItem Header="ブラウザを指定してリンクを開く"

@@ -43,12 +43,16 @@ namespace DevelopmentSupport.FileAccessor
             FileInfoList = new ObservableCollection<FileInfo>();
             DisplayFileInfoList = new ObservableCollection<FileInfo>();
             SelectedFileInfo = new FileInfo();
-            ExtensionList = new ObservableCollection<string>();
-            ExtensionList.Add("(指定なし)");
-            BrowserList = new ObservableCollection<Browser>();
-            BrowserList.Add(new Browser() { Name="Chrome", Path= @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" });
-            BrowserList.Add(new Browser() { Name = "InternetExplorer", Path = @"C:\Program Files\internet explorer\iexplore.exe" });
-            BrowserList.Add(new Browser() { Name = "FireFox", Path = "" });
+            ExtensionList = new ObservableCollection<string>
+            {
+                "(指定なし)"
+            };
+            BrowserList = new ObservableCollection<Browser>
+            {
+                new Browser() { Name = "Chrome", Path = @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" },
+                new Browser() { Name = "InternetExplorer", Path = @"C:\Program Files\internet explorer\iexplore.exe" },
+                new Browser() { Name = "FireFox", Path = "" }
+            };
 
             ProcessCloseCommand = new DelegateCommand(ProcessClose, CanProcessClose);
             RemoveItemCommand = new DelegateCommand(RemoveItem, CanRemoveItem);
@@ -73,10 +77,11 @@ namespace DevelopmentSupport.FileAccessor
             SelectedFileInfo.Process.StartInfo.FileName = SelectedFileInfo.FilePath;
             //コマンドライン引数を指定する
             //起動する。プロセスが起動した時はTrueを返す。
-            bool result = SelectedFileInfo.Process.Start();
+
             SelectedFileInfo.Processing = true;
             SelectedFileInfo.Process.EnableRaisingEvents = true;
-            SelectedFileInfo.Process.Exited += Process_Exited;
+            SelectedFileInfo.Process.Exited += new EventHandler(Process_Exited);
+            SelectedFileInfo.Process.Start();
 
         }
 
@@ -100,7 +105,7 @@ namespace DevelopmentSupport.FileAccessor
                 return;
             }
             foreach (var item in process)
-            {
+            {    
                 item.Process = null;
                 item.Processing = false;
             }

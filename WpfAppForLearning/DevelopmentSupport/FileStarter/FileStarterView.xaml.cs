@@ -26,10 +26,9 @@ namespace DevelopmentSupport.FileStarter
             var vm = this.DataContext as FileStarterViewModel;
             var list = vm.FileInfoList;
             var pathList = vm.FileInfoList.Select(x => x.FilePath);
-            string[] files = e.Data.GetData(DataFormats.FileDrop) as string[];
             var DuplicateFilePathList = new List<string>();
 
-            if (files == null)
+            if (!(e.Data.GetData(DataFormats.FileDrop) is string[] files))
             {
                 return;
             }
@@ -131,10 +130,9 @@ namespace DevelopmentSupport.FileStarter
             var vm = this.DataContext as FileStarterViewModel;
             var list = vm.ExeInfoList;
             var pathList = vm.ExeInfoList.Select(x => x.FilePath);
-            string[] files = e.Data.GetData(DataFormats.FileDrop) as string[];
             var DuplicateFilePathList = new List<string>();
 
-            if (files == null)
+            if (!(e.Data.GetData(DataFormats.FileDrop) is string[] files))
             {
                 return;
             }

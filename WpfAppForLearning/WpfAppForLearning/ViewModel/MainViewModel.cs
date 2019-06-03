@@ -155,10 +155,7 @@ namespace WpfAppForLearning.ViewModel
         /// <param name="name"></param>
         public void OnPropertyChanged(string name)
         {
-            if(PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
         #endregion

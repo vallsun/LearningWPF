@@ -31,11 +31,10 @@ namespace DevelopmentSupport.FileAccessor
             var vm = this.DataContext as FileAccessViewModel;
             var list = vm.FileInfoList;
             var pathList = vm.FileInfoList.Select(x => x.FilePath);
-            string[] files = e.Data.GetData(DataFormats.FileDrop) as string[];
             var DuplicateFilePathList = new List<string>();
 
 
-            if (files == null)
+            if (!(e.Data.GetData(DataFormats.FileDrop) is string[] files))
             {
                 return;
             }
@@ -46,9 +45,11 @@ namespace DevelopmentSupport.FileAccessor
                     DuplicateFilePathList.Add(s);
                     continue;
                 }
-                var fileInfo = new FileInfo();
-                fileInfo.FilePath = s;
-                fileInfo.FileName = System.IO.Path.GetFileName(s);
+                var fileInfo = new FileInfo
+                {
+                    FilePath = s,
+                    FileName = System.IO.Path.GetFileName(s)
+                };
                 if (File.Exists(s))
                 {
                     var icon = System.Drawing.Icon.ExtractAssociatedIcon(s);
