@@ -57,10 +57,15 @@ namespace DevelopmentSupport.FileStarter
                 vm.SynchronizeDisplayFileList();
 
                 var extension = Path.GetExtension(s);
-                if (!vm.ExtensionList.Contains(extension))
-                {
-                    vm.ExtensionList.Add(extension);
-                }
+	            var extensionItems = vm.ExtensionList.Where(x => x.Name == extension);
+
+	            if (!extensionItems.Any())
+	            {
+		            foreach (var extItem in extensionItems)
+		            {
+						vm.ExtensionList.Add(extItem);
+					}
+	            }
             }
 
             if (DuplicateFilePathList.Any())
@@ -105,7 +110,11 @@ namespace DevelopmentSupport.FileStarter
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var vm = this.DataContext as FileStarterViewModel;
-            var filterkeyword = e.AddedItems[0].ToString();
+	        if (vm == null)
+	        {
+				return;
+	        }
+            var filterkeyword = ((Extension)e?.AddedItems[0]).DisplayName;
             if (filterkeyword == "(指定なし)")
             {
                 vm.SynchronizeDisplayFileList();

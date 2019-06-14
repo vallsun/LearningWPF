@@ -67,15 +67,21 @@ namespace DevelopmentSupport.FileAccessor
                 vm.SynchronizeDisplayFileList();
 
                 var extension = Path.GetExtension(s);
-                if(extension == "")
+                if (!vm.ExtensionList.Select(x => x.Name).Contains(extension))
                 {
-                    extension = "(フォルダ)";
+	                Extension addExtension;
+
+					if (extension == "")
+	                {
+		                addExtension = new Extension("", "(フォルダ)");
+	                }
+	                else
+	                {
+						addExtension = new Extension(extension);
+					}
+					vm.ExtensionList.Add(addExtension);
                 }
-                if (!vm.ExtensionList.Contains(extension))
-                {
-                    vm.ExtensionList.Add(extension);
-                }
-            }
+			}
 
             if (DuplicateFilePathList.Any())
             {
@@ -113,7 +119,7 @@ namespace DevelopmentSupport.FileAccessor
             {
                 return;
             }
-            var filterkeyword = e.AddedItems[0].ToString();
+            var filterkeyword = ((Extension)e.AddedItems[0]).Name;
             if (filterkeyword == "(指定なし)")
             {
                 vm.SynchronizeDisplayFileList();
