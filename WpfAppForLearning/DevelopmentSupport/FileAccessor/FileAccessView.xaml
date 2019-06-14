@@ -4,11 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DevelopmentSupport.FileAccessor"
+			 xmlns:commonConverter="clr-namespace:DevelopmentSupport.Common.Converters"
 			 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
 			 xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              mc:Ignorable="d"
 			 Name="m_FileAccessViewUserControl">
 	<UserControl.Resources>
+		
+		<!--コンバータ-->
+		<commonConverter:BoolToVisivilityConverter x:Key="BoolToVisivilityConverter"/>
+		<commonConverter:ReverseBoolToVisibilityConverter x:Key="ReverseBoolToVisibilityConverter"/>
+
 		<DataTemplate x:Key="MiddleIconItemDataTemplate">
 			<ContentControl Width="80" VerticalAlignment="Top" ToolTip="{Binding FilePath}">
 				<StackPanel>
@@ -77,7 +83,7 @@
 		</Grid.ColumnDefinitions>
 		<Grid Grid.Column="0" Height="400" VerticalAlignment="Top" Margin="10,10" Background="White">
 			<TextBlock Name="WatermarkTextBox" VerticalAlignment="Center" HorizontalAlignment="Center"
-					   Text="ファイルまたはフォルダをD&amp;Dで登録してください。" Foreground="Gray"/>
+					   Text="ファイルまたはフォルダをD&amp;Dで登録してください。" Foreground="Gray" Visibility="{Binding HasItem, Converter={StaticResource ReverseBoolToVisibilityConverter}, Mode=TwoWay}"/>
 		</Grid>
 		<ListBox Grid.Column="0" VerticalAlignment="Top" Margin="10,10" Background="Transparent"
                  ItemsSource="{Binding DisplayFileInfoList}"
@@ -130,8 +136,11 @@
 					ToolTip="選択中の要素を既定のプログラムで実行します。"/>
 			<Button Content="終了" Command="{Binding ProcessCloseCommand}" Margin="0,0,0,10"
 					ToolTip="選択中の要素のプロセスを終了します。"/>
-			<ComboBox ItemsSource="{Binding ExtensionList}" DisplayMemberPath="DisplayName" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged"
+			<TextBlock Text="拡張子フィルタ"/>
+			<ComboBox Margin="0,0,0,5" ItemsSource="{Binding ExtensionList}" DisplayMemberPath="DisplayName" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged"
 				  ToolTip="選択した拡張子でフィルタします。"/>
+			<TextBlock Text="キーワードフィルタ"/>
+			<TextBox/>
 		</StackPanel>
 
 	</Grid>

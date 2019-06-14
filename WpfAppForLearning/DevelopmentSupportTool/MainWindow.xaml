@@ -27,7 +27,7 @@
 			</MenuItem>
 			<MenuItem Header="ヘルプ"></MenuItem>
 		</Menu>
-		<TabControl Grid.Row="1" Margin="5,0,5,5">
+		<TabControl Grid.Row="1" Margin="2,0,2,2">
 			<TabItem Header="汎用">
 				<dsFileAccessor:FileAccessView/>
 			</TabItem>

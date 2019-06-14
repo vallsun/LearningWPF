@@ -21,6 +21,7 @@ namespace DevelopmentSupport.FileAccessor
         protected ObservableCollection<Extension> m_ExtensionList;
         protected bool m_IsFiltering = false;
         protected ObservableCollection<Browser> m_BrowserList;
+        protected bool m_HasItem;
 
         public ObservableCollection<FileInfo> FileInfoList { get { return m_FileInfoList; } set { SetProperty(ref m_FileInfoList, value); } }
         public ObservableCollection<FileInfo> DisplayFileInfoList { get { return m_DisplayFileInfoList; } set { SetProperty(ref m_DisplayFileInfoList, value); } }
@@ -28,6 +29,7 @@ namespace DevelopmentSupport.FileAccessor
         public ObservableCollection<Extension> ExtensionList { get { return m_ExtensionList; } set { SetProperty(ref m_ExtensionList, value); } }
         public bool IsFiltering { get { return m_IsFiltering; } set { SetProperty(ref m_IsFiltering, value); } }
         public ObservableCollection<Browser> BrowserList { get { return m_BrowserList; } set { SetProperty(ref m_BrowserList, value); } }
+        public bool HasItem { get { return m_HasItem; } set { SetProperty(ref m_HasItem, value); } }
 
         public DelegateCommand ProcessStartCommand { get; protected set; }
         public DelegateCommand ProcessCloseCommand { get; protected set; }
@@ -41,6 +43,7 @@ namespace DevelopmentSupport.FileAccessor
         public FileAccessViewModel()
         {
             FileInfoList = new ObservableCollection<FileInfo>();
+            HasItem = FileInfoList.Any();
             DisplayFileInfoList = new ObservableCollection<FileInfo>();
             SelectedFileInfo = new FileInfo();
             BrowserList = new ObservableCollection<Browser>
@@ -183,6 +186,8 @@ namespace DevelopmentSupport.FileAccessor
             {
                 ExtensionList.Remove(item);
             }
+
+            HasItem = FileInfoList.Any();
         }
 
         protected bool CanChangeItemOrderUpper()
@@ -251,6 +256,37 @@ namespace DevelopmentSupport.FileAccessor
             {
                 DisplayFileInfoList.Add(item);
             }
+        }
+
+        /// <summary>
+        /// 拡張子でフィルタする
+        /// </summary>
+        /// <param name="extnsion"></param>
+        public void FilterByExtension(string extension)
+        {
+            if (!DisplayFileInfoList.Any())
+            {
+                return;
+            }
+            if (extension == "(指定なし)")
+            {
+                SynchronizeDisplayFileList();
+                IsFiltering = false;
+                return;
+            }
+            var list = FileInfoList;
+            var filteredList = list.Where(x => Path.GetExtension(x.FilePath) == extension);
+            if (!filteredList.Any())
+            {
+                MessageBox.Show("該当なし");
+                return;
+            }
+            DisplayFileInfoList.Clear();
+            foreach (var item in filteredList)
+            {
+                DisplayFileInfoList.Add(item);
+            }
+            IsFiltering = true;
         }
 
         #endregion

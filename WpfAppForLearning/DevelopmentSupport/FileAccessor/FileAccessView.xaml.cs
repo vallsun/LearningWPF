@@ -92,10 +92,8 @@ namespace DevelopmentSupport.FileAccessor
                 }
                 MessageBox.Show(message);
             }
-            if (vm.FileInfoList.Any())
-            {
-                WatermarkTextBox.Visibility = Visibility.Collapsed;
-            }   
+
+            WatermarkTextBox.Visibility = vm.FileInfoList.Any() ? Visibility.Collapsed : Visibility.Visible;
         }
 
         private void UserControl_PreviewDragOver(object sender, DragEventArgs e)
@@ -115,30 +113,12 @@ namespace DevelopmentSupport.FileAccessor
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var vm = this.DataContext as FileAccessViewModel;
-            if (!vm.DisplayFileInfoList.Any())
+            if (vm == null)
             {
                 return;
             }
-            var filterkeyword = ((Extension)e.AddedItems[0]).Name;
-            if (filterkeyword == "(指定なし)")
-            {
-                vm.SynchronizeDisplayFileList();
-                vm.IsFiltering = false;
-                return;
-            }
-            var list = vm.FileInfoList;
-            var filteredList = list.Where(x => Path.GetExtension(x.FilePath) == filterkeyword);
-            if(!filteredList.Any())
-            {
-                MessageBox.Show("該当なし");
-                return;
-            }
-            vm.DisplayFileInfoList.Clear();
-            foreach (var item in filteredList)
-            {
-                vm.DisplayFileInfoList.Add(item);
-            }
-            vm.IsFiltering = true;
+            var filterExtension = ((Extension)e.AddedItems[0]).Name;
+            vm.FilterByExtension(filterExtension);
         }
     }
 

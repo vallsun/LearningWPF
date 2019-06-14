@@ -61,6 +61,7 @@
     <Compile Include="Common\BindableBase.cs" />
     <Compile Include="Common\BindableSelectedItemTreeView.cs" />
     <Compile Include="Common\Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Common\Converters\ReverseBoolToVisibilityConverter.cs" />
     <Compile Include="Common\DelegateCommand.cs" />
     <Compile Include="FileAccessor\FileAccessView.xaml.cs">
       <DependentUpon>FileAccessView.xaml</DependentUpon>
