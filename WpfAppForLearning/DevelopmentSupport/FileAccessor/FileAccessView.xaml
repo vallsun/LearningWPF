@@ -137,10 +137,23 @@
 			<Button Content="終了" Command="{Binding ProcessCloseCommand}" Margin="0,0,0,10"
 					ToolTip="選択中の要素のプロセスを終了します。"/>
 			<TextBlock Text="拡張子フィルタ"/>
-			<ComboBox Margin="0,0,0,5" ItemsSource="{Binding ExtensionList}" DisplayMemberPath="DisplayName" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged"
-				  ToolTip="選択した拡張子でフィルタします。"/>
+			<ComboBox Name="m_ExtensionComboBox" Margin="0,0,0,5" 
+					  ItemsSource="{Binding ExtensionList}" DisplayMemberPath="DisplayName"
+					  SelectedIndex="0" ToolTip="選択した拡張子でフィルタします。">
+				<i:Interaction.Triggers>
+					<i:EventTrigger EventName="SelectionChanged">
+						<i:InvokeCommandAction Command="{Binding FilterByExtensionCommand}" CommandParameter="{Binding ElementName=m_ExtensionComboBox, Path=SelectedValue.Name}"/>
+					</i:EventTrigger>
+				</i:Interaction.Triggers>
+			</ComboBox>
 			<TextBlock Text="キーワードフィルタ"/>
-			<TextBox/>
+			<TextBox  Name="m_KeywordFilterTextBox">
+				<i:Interaction.Triggers>
+					<i:EventTrigger EventName="KeyUp">
+						<i:InvokeCommandAction Command="{Binding FilterByKeywordCommand}" CommandParameter="{Binding ElementName=m_KeywordFilterTextBox, Path=Text}"/>
+					</i:EventTrigger>
+				</i:Interaction.Triggers>
+			</TextBox>
 		</StackPanel>
 
 	</Grid>

@@ -104,22 +104,6 @@ namespace DevelopmentSupport.FileAccessor
                 e.Effects = DragDropEffects.None;
             e.Handled = true;
         }
-
-        /// <summary>
-        /// コンボボックス項目が選択されたときのイベントハンドラ
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var vm = this.DataContext as FileAccessViewModel;
-            if (vm == null)
-            {
-                return;
-            }
-            var filterExtension = ((Extension)e.AddedItems[0]).Name;
-            vm.FilterByExtension(filterExtension);
-        }
     }
 
     [StructLayout(LayoutKind.Sequential)]

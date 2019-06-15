@@ -15,6 +15,8 @@ namespace DevelopmentSupport.FileAccessor
     public class FileAccessViewModel :BindableBase
     {
 
+        #region フィールド
+
         protected ObservableCollection<FileInfo> m_FileInfoList;
         protected ObservableCollection<FileInfo> m_DisplayFileInfoList;
         protected FileInfo m_SelectedFileInfo;
@@ -22,6 +24,12 @@ namespace DevelopmentSupport.FileAccessor
         protected bool m_IsFiltering = false;
         protected ObservableCollection<Browser> m_BrowserList;
         protected bool m_HasItem;
+        protected string m_FilterKeyword;
+        protected string m_FilterExtension;
+
+        #endregion
+
+        #region プロパティ
 
         public ObservableCollection<FileInfo> FileInfoList { get { return m_FileInfoList; } set { SetProperty(ref m_FileInfoList, value); } }
         public ObservableCollection<FileInfo> DisplayFileInfoList { get { return m_DisplayFileInfoList; } set { SetProperty(ref m_DisplayFileInfoList, value); } }
@@ -39,9 +47,17 @@ namespace DevelopmentSupport.FileAccessor
         public DelegateCommand TextCopyCommand { get; protected set; }
         public DelegateCommand OpenFilePlacementFolderCommand { get; protected set; }
         public DelegateCommand<Browser> OpenLinkBySelectedAppCommand { get; protected set; }
+        public DelegateCommand<string> FilterByKeywordCommand { get; protected set; }
+        public DelegateCommand<string> FilterByExtensionCommand { get; protected set; }
+
+        #endregion
+
+        #region 構築・消滅
 
         public FileAccessViewModel()
         {
+            m_FilterExtension = "(指定なし)";
+            m_FilterKeyword = "";
             FileInfoList = new ObservableCollection<FileInfo>();
             HasItem = FileInfoList.Any();
             DisplayFileInfoList = new ObservableCollection<FileInfo>();
@@ -67,7 +83,11 @@ namespace DevelopmentSupport.FileAccessor
             TextCopyCommand = new DelegateCommand(TextCopy, CanTextCopy);
             OpenFilePlacementFolderCommand = new DelegateCommand(OpenFilePlacementFolder, CanOpenFilePlacementFolder);
             OpenLinkBySelectedAppCommand = new DelegateCommand<Browser>(OpenLinkBySelectedApp, CanOpenLinkBySelectedApp);
+            FilterByKeywordCommand = new DelegateCommand<string>(FilterByKeywordInternal, CanFilterByKeywordInternal);
+            FilterByExtensionCommand = new DelegateCommand<string>(FilterByExtension, CanFilterByExtension);
         }
+
+        #endregion
 
         // ListBoxのアイテムをダブルクリックされたら呼ばれるメソッド
         public void Execute()
@@ -90,6 +110,7 @@ namespace DevelopmentSupport.FileAccessor
 
         }
 
+        #region 内部処理
         // プロセスの終了を捕捉する Exited イベントハンドラ
         private void Process_Exited(object sender, EventArgs e)
         {
@@ -115,6 +136,30 @@ namespace DevelopmentSupport.FileAccessor
                 item.Processing = false;
             }
         }
+
+        /// <summary>
+        /// フィルタする
+        /// </summary>
+        private void FilterInternal()
+        {
+            var filteredList = FileInfoList.Select(x => x);
+            if (m_FilterExtension == "(指定なし)")
+            {
+                filteredList = filteredList.Where(x => x.FilePath.Contains(m_FilterKeyword));
+            }
+            else
+            {
+                filteredList = filteredList.Where(x => Path.GetExtension(x.FilePath) == m_FilterExtension && x.FilePath.Contains(m_FilterKeyword));
+            }
+            DisplayFileInfoList.Clear();
+            foreach (var item in filteredList)
+            {
+                DisplayFileInfoList.Add(item);
+            }
+            IsFiltering = true;
+        }
+
+        #region コマンド実装
 
         protected bool CanProcessClose()
         {
@@ -247,6 +292,10 @@ namespace DevelopmentSupport.FileAccessor
             return SelectedFileInfo.SettingProcess.Start();
         }
 
+        #endregion
+
+        #endregion
+
         #region 公開サービス
 
         public void SynchronizeDisplayFileList()
@@ -258,40 +307,21 @@ namespace DevelopmentSupport.FileAccessor
             }
         }
 
-        /// <summary>
-        /// 拡張子でフィルタする
-        /// </summary>
-        /// <param name="extnsion"></param>
-        public void FilterByExtension(string extension)
+        public void FilterByKeyword(string keyword)
         {
-            if (!DisplayFileInfoList.Any())
+            if (!FileInfoList.Any())
             {
                 return;
             }
-            if (extension == "(指定なし)")
-            {
-                SynchronizeDisplayFileList();
-                IsFiltering = false;
-                return;
-            }
-            var list = FileInfoList;
-            var filteredList = list.Where(x => Path.GetExtension(x.FilePath) == extension);
-            if (!filteredList.Any())
-            {
-                MessageBox.Show("該当なし");
-                return;
-            }
-            DisplayFileInfoList.Clear();
-            foreach (var item in filteredList)
-            {
-                DisplayFileInfoList.Add(item);
-            }
-            IsFiltering = true;
+
+            CanFilterByKeywordInternal(keyword);
         }
 
         #endregion
 
         #region コマンド
+
+        #region ファイルパスをクリップボードにコピー
 
         protected bool CanTextCopy()
         {
@@ -303,6 +333,10 @@ namespace DevelopmentSupport.FileAccessor
             Clipboard.SetData(DataFormats.Text, SelectedFileInfo.FilePath);
         }
 
+        #endregion
+
+        #region ファイルのあるフォルダを開く
+
         protected bool CanOpenFilePlacementFolder()
         {
             return SelectedFileInfo != null;
@@ -312,6 +346,10 @@ namespace DevelopmentSupport.FileAccessor
         {
             System.Diagnostics.Process.Start("EXPLORER.EXE", @"/select,""" + SelectedFileInfo.FilePath + @"""");
         }
+
+        #endregion
+
+        #region リンクをアプリケーションを指定して開く
 
         protected bool CanOpenLinkBySelectedApp(Browser browser)
         {
@@ -340,7 +378,46 @@ namespace DevelopmentSupport.FileAccessor
 
         }
 
+        #endregion
 
+        #region フィルタ
+
+        /// <summary>
+        /// キーワードフィルタを適用できるか
+        /// </summary>
+        /// <param name="keyword"></param>
+        /// <returns></returns>
+        private bool CanFilterByKeywordInternal(string keyword)
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// キーワードフィルタを適用する
+        /// </summary>
+        /// <param name="keyword"></param>
+        private void FilterByKeywordInternal(string keyword)
+        {
+            m_FilterKeyword = keyword;
+            FilterInternal();
+        }
+
+        private bool CanFilterByExtension(string extension)
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// 拡張子でフィルタする
+        /// </summary>
+        /// <param name="extnsion"></param>
+        private void FilterByExtension(string extension)
+        {
+            m_FilterExtension = extension;
+            FilterInternal();
+        }
+
+        #endregion
 
         #endregion
 
