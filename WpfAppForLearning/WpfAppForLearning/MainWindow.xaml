@@ -1,0 +1,99 @@
+﻿<Window x:Class="WpfAppForLearning.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfAppForLearning"
+        xmlns:vm="clr-namespace:WpfAppForLearning.ViewModel"
+		xmlns:common="clr-namespace:WpfAppForLearning.Modules.Common"
+		xmlns:extendedControl="clr-namespace:WpfAppForLearning.Modules.Common.ExtendedControl"
+		xmlns:startControl="clr-namespace:WpfAppForLearning.Modules.StartControl"
+        xmlns:customControl="clr-namespace:WpfAppForLearning.Modules.CustomControl"
+		xmlns:progressBar="clr-namespace:WpfAppForLearning.Modules.ProgressBar"
+		xmlns:keyboardNavigation="clr-namespace:WpfAppForLearning.Modules.KeyboardNavigation"
+        xmlns:contentsModel="clr-namespace:WpfAppForLearning.Modules.ContentsTree.Model"
+        xmlns:pathBarControl="clr-namespace:WpfAppForLearning.Modules.PathBarControl.View"
+		xmlns:dragDropControl="clr-namespace:WpfAppForLearning.Modules.DragDropControl"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800"
+		Background="DimGray">
+	<Window.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="./Modules/Common/ExtendedControl/Style/BindableSelectedItemTreeViewStyle.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			<DataTemplate DataType="{x:Type startControl:StartControlViewModel}">
+				<startControl:StartControl />
+			</DataTemplate>
+			<DataTemplate DataType="{x:Type customControl:CustomControlViewModel}">
+				<customControl:CustomControlSample />
+			</DataTemplate>
+			<DataTemplate DataType="{x:Type progressBar:ProgressBarViewModel}">
+				<progressBar:ProgressBar />
+			</DataTemplate>
+			<DataTemplate DataType="{x:Type keyboardNavigation:KeyboardNavigationViewModel}">
+				<keyboardNavigation:KeyboardNavigationView />
+			</DataTemplate>
+			<DataTemplate DataType="{x:Type dragDropControl:DragDropControlViewModel}">
+				<dragDropControl:DragDropControl />
+			</DataTemplate>
+			<DataTemplate DataType="{x:Type common:NotImplementationViewModel}">
+				<TextBlock Text="未実装" />
+			</DataTemplate>
+		</ResourceDictionary>
+
+	</Window.Resources>
+	<Window.DataContext>
+		<vm:MainViewModel x:Name="mainVM" />
+	</Window.DataContext>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="1*" />
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Width="2*" />
+		</Grid.ColumnDefinitions>
+		<Menu Grid.Row="0"
+			  Grid.ColumnSpan="3">
+			<MenuItem Header="ファイル" />
+			<MenuItem Header="編集" />
+			<MenuItem Header="ヘルプ" />
+		</Menu>
+		
+		<!--コンテンツナビゲータ-->
+		<extendedControl:BindableSelectedItemTreeView Grid.Row="1" Margin="2,2,1,2"
+													  ItemsSource="{Binding Path=ContentsTree.ContentsTree, ElementName=mainVM}"
+													  BindableSelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+													  Style="{StaticResource BindableSelectedItemTreeView}">
+			<extendedControl:BindableSelectedItemTreeView.ItemTemplate>
+				<HierarchicalDataTemplate DataType="contentsModel:Content" ItemsSource="{Binding Children}">
+					<TextBlock Text="{Binding Path=ContentName}" />
+				</HierarchicalDataTemplate>
+			</extendedControl:BindableSelectedItemTreeView.ItemTemplate>
+		</extendedControl:BindableSelectedItemTreeView>
+
+		<GridSplitter Grid.Row="1" Grid.Column="1"
+					  Width="1" HorizontalAlignment="Stretch" BorderBrush="Transparent" Background="Transparent"/>
+		<Grid Grid.Row="1" Grid.Column="2" >
+			<Grid.RowDefinitions>
+				<RowDefinition Height="auto" />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+
+			<!--パスバー-->
+			<pathBarControl:PathBarControl Grid.Row="0" Margin="0,2,2,0"
+										   DataContext="{Binding PathBar}" />
+			<!--選択中のコンテンツ-->
+			<Border Grid.Row="1" BorderBrush="Gray" BorderThickness="1" Margin="0,2,2,2" Background="White">
+				<ContentControl Content="{Binding ContentViewModel, Mode=OneWay}" />
+			</Border>
+		</Grid>
+		<StatusBar Grid.Row="2" Grid.ColumnSpan="3">
+			<TextBlock Text="ステータス" />
+		</StatusBar>
+	</Grid>
+</Window>

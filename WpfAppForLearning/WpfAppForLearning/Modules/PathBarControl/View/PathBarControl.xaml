@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="WpfAppForLearning.Modules.PathBarControl.View.PathBarControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfAppForLearning.Modules.PathBarControl.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="./../Style/PathBarStyle.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</UserControl.Resources>
+    <Grid>
+        <Border BorderBrush="Gray" BorderThickness="1" Background="LightGray">
+			<ListBox Margin="5,0"
+					 ItemsSource="{Binding PathListViewModel}"
+					 ItemContainerStyle="{StaticResource PathBarItemStyle}"
+					 Background="Transparent"
+					 BorderBrush="Transparent">
+				<ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+        </Border>
+            
+    </Grid>
+</UserControl>
