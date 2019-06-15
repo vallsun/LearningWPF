@@ -129,13 +129,13 @@
 			<Button Content="後へ" Command="{Binding ChangeItemOrderLowerCommand}" Margin="0,0,0,5"
 					ToolTip="選択中の要素の順番をひとつ後に移動します。"/>
 			<Button Content="追加" Command="{Binding RemoveItemCommand}" Margin="0,0,0,5" IsEnabled="False"
-					ToolTip="フォルダまたはファイルをリストに追加します。"/>
+					ToolTip="フォルダまたはファイルをリストに追加します。" Visibility="Collapsed"/>
 			<Button Content="削除" Command="{Binding RemoveItemCommand}" Margin="0,0,0,5"
 					ToolTip="選択中の要素をリストから削除します。"/>
 			<Button Content="開始" Command="{Binding ProcessStartCommand}" Margin="0,0,0,5"
 					ToolTip="選択中の要素を既定のプログラムで実行します。"/>
 			<Button Content="終了" Command="{Binding ProcessCloseCommand}" Margin="0,0,0,10"
-					ToolTip="選択中の要素のプロセスを終了します。"/>
+					ToolTip="選択中の要素のプロセスを終了します。" Visibility="Collapsed"/>
 			<TextBlock Text="拡張子フィルタ"/>
 			<ComboBox Name="m_ExtensionComboBox" Margin="0,0,0,5" 
 					  ItemsSource="{Binding ExtensionList}" DisplayMemberPath="DisplayName"
