@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace DevelopmentSupportTool
 {
@@ -15,14 +16,16 @@ namespace DevelopmentSupportTool
         #region プロパティ
 
         public DelegateCommand ShowSettingCommand { get; private set; }
-
+        public DelegateCommand ShowVersionInfoCommand { get; private set; }
 
         #endregion
+
         #region 構築・消滅
 
         public MainWindowViewModel()
         {
             ShowSettingCommand = new DelegateCommand(ShowSetting, CanShowSetting);
+            ShowVersionInfoCommand = new DelegateCommand(ShowVersion, CanShowVersion);
         }
 
         #endregion
@@ -39,6 +42,21 @@ namespace DevelopmentSupportTool
             var app = App.Current as App;
             app.ShowModalView(new SettingDialogViewModel());
         }
+
+        private bool CanShowVersion()
+        {
+            return true;
+        }
+
+        private void ShowVersion()
+        {
+            //自分自身のバージョン情報を取得する
+            System.Diagnostics.FileVersionInfo ver =
+                System.Diagnostics.FileVersionInfo.GetVersionInfo(
+                System.Reflection.Assembly.GetExecutingAssembly().Location);
+            MessageBox.Show(ver.FileVersion.ToString());
+        }
+
         #endregion
 
 
