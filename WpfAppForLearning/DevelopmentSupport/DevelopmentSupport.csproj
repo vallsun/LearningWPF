@@ -62,7 +62,12 @@
     <Compile Include="Common\BindableSelectedItemTreeView.cs" />
     <Compile Include="Common\Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Common\Converters\ReverseBoolToVisibilityConverter.cs" />
+    <Compile Include="Common\Converters\TreeItemLeftMarginConverter.cs" />
+    <Compile Include="Common\CustomTreeView.xaml.cs">
+      <DependentUpon>CustomTreeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Common\DelegateCommand.cs" />
+    <Compile Include="Common\TreeViewItemExtensions.cs" />
     <Compile Include="FileAccessor\FileAccessView.xaml.cs">
       <DependentUpon>FileAccessView.xaml</DependentUpon>
     </Compile>
@@ -84,6 +89,10 @@
     <Compile Include="Setting\SettingDialogViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Common\CustomTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="FileAccessor\FileAccessView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -107,6 +116,8 @@
   <ItemGroup>
     <Resource Include="Resources\Image\Chain.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Common\Styles\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

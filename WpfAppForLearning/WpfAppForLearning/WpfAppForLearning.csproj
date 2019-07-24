@@ -171,5 +171,11 @@
     <Folder Include="Resources\Images\" />
     <Folder Include="Resources\Styles\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DevelopmentSupport\DevelopmentSupport.csproj">
+      <Project>{ec10d802-fb16-43d2-a8aa-f0ba331cabcf}</Project>
+      <Name>DevelopmentSupport</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

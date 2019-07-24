@@ -68,7 +68,7 @@
 		<extendedControl:BindableSelectedItemTreeView Grid.Row="1" Margin="2,2,1,2"
 													  ItemsSource="{Binding Path=ContentsTree.ContentsTree, ElementName=mainVM}"
 													  BindableSelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-													  Style="{StaticResource BindableSelectedItemTreeView}">
+													  >
 			<extendedControl:BindableSelectedItemTreeView.ItemTemplate>
 				<HierarchicalDataTemplate DataType="contentsModel:Content" ItemsSource="{Binding Children}">
 					<TextBlock Text="{Binding Path=ContentName}" />

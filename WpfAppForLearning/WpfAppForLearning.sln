@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfAppForLearning", "WpfAppForLearning\WpfAppForLearning.csproj", "{ABA19140-3FF4-4A0E-8FBC-D7D07BAFE4B0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EC10D802-FB16-43D2-A8AA-F0BA331CABCF} = {EC10D802-FB16-43D2-A8AA-F0BA331CABCF}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevelopmentSupport", "DevelopmentSupport\DevelopmentSupport.csproj", "{EC10D802-FB16-43D2-A8AA-F0BA331CABCF}"
 EndProject
