@@ -63,9 +63,6 @@
     <Compile Include="Common\Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Common\Converters\ReverseBoolToVisibilityConverter.cs" />
     <Compile Include="Common\Converters\TreeItemLeftMarginConverter.cs" />
-    <Compile Include="Common\CustomTreeView.xaml.cs">
-      <DependentUpon>CustomTreeView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Common\DelegateCommand.cs" />
     <Compile Include="Common\TreeViewItemExtensions.cs" />
     <Compile Include="FileAccessor\FileAccessView.xaml.cs">
@@ -89,10 +86,6 @@
     <Compile Include="Setting\SettingDialogViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Common\CustomTreeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="FileAccessor\FileAccessView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
