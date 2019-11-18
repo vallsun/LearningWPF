@@ -50,7 +50,18 @@
 							<ColumnDefinition/>
 						</Grid.ColumnDefinitions>
 						<Image Source="{Binding Icon}" Width="16" Height="16" HorizontalAlignment="Center" Margin="0,0,4,0"/>
-						<TextBox Grid.Column="1" Text="{Binding FileName}" HorizontalAlignment="Left"/>
+						<TextBox Grid.Column="1" Text="{Binding FileName}" HorizontalAlignment="Left"
+								 BorderBrush="Transparent" Background="Transparent">
+							<i:Interaction.Triggers>
+								<i:EventTrigger EventName="GotFocus">
+									<ei:ChangePropertyAction PropertyName="Background" Value="White"/>
+								</i:EventTrigger>
+								<i:EventTrigger EventName="LostFocus">
+									<ei:ChangePropertyAction PropertyName="Background" Value="Transparent"/>
+								</i:EventTrigger>
+							</i:Interaction.Triggers>
+						</TextBox>
+
 					</Grid>
 				</Border>
 				<i:Interaction.Triggers>
