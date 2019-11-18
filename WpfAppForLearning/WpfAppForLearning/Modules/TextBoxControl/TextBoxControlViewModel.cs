@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfAppForLearning.Models
+namespace WpfAppForLearning.Modules.TextBoxControl
 {
-    class LearningContents
+    public class TextBoxControlViewModel
     {
     }
 }

@@ -17,7 +17,6 @@
         <Border BorderBrush="Gray" BorderThickness="1" Background="LightGray">
 			<ListBox Margin="5,0"
 					 ItemsSource="{Binding PathListViewModel}"
-					 ItemContainerStyle="{StaticResource PathBarItemStyle}"
 					 Background="Transparent"
 					 BorderBrush="Transparent">
 				<ListBox.ItemsPanel>

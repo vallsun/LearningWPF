@@ -92,6 +92,12 @@
     <Compile Include="Modules\KeyboardNavigation\KeyboardNavigationView.xaml.cs">
       <DependentUpon>KeyboardNavigationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\TextBoxControl\ContentToBooleanConverter.cs" />
+    <Compile Include="Modules\TextBoxControl\ContentToTextWrappingEnumConverter.cs" />
+    <Compile Include="Modules\TextBoxControl\TextBoxControl.xaml.cs">
+      <DependentUpon>TextBoxControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TextBoxControl\TextBoxControlViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -133,6 +139,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Modules\TextBoxControl\TextBoxControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -168,6 +178,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Modules\NewFolder1\" />
     <Folder Include="Resources\Images\" />
     <Folder Include="Resources\Styles\" />
   </ItemGroup>

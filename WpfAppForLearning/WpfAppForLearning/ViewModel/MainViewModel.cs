@@ -14,6 +14,7 @@ using WpfAppForLearning.Modules.StartControl;
 using WpfAppForLearning.Modules.ProgressBar;
 using WpfAppForLearning.Modules.KeyboardNavigation;
 using WpfAppForLearning.Modules.DragDropControl;
+using WpfAppForLearning.Modules.TextBoxControl;
 
 namespace WpfAppForLearning.ViewModel
 {
@@ -142,6 +143,11 @@ namespace WpfAppForLearning.ViewModel
             {
                 ContentViewModel = new DragDropControlViewModel();
             }
+            else if(SelectedItem.ContentName == "TextBox")
+            {
+                ContentViewModel = new TextBoxControlViewModel();
+            }
+
             else
             {
                 //未実装コンテンツ用のVMを設定

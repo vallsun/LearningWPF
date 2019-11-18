@@ -70,7 +70,8 @@
 	</Style>
 	
 	<!--パスバー要素のコントロールテンプレート-->
-	<Style x:Key="PathBarItemStyle" TargetType="ListBoxItem">
+	<!--x:Key="PathBarItemStyle"-->
+	<Style TargetType="ListBoxItem">
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="ListBoxItem">

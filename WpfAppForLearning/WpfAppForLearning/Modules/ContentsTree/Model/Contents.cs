@@ -193,6 +193,11 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
                 ContentName = "Canvas",
             };
 
+            var TextBoxContent = new Content()
+            {
+                ContentName = "TextBox",
+            };
+
             //レイアウト
             layoutContent.AddChild(panelContent);
             panelContent.AddChild(stackPanelContent);
@@ -202,6 +207,7 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
 
             //コントロール
             controlCotent.AddChild(ProgressBarContent);
+            controlCotent.AddChild(TextBoxContent);
 
             rootContent.AddChild(controlCotent);
             rootContent.AddChild(userControlCotent);
