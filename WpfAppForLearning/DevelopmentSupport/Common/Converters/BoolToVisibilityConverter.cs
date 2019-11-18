@@ -8,7 +8,7 @@ namespace DevelopmentSupport.Common.Converters
     /// <summary>
     /// bool値をVisibilityに変換するコンバータ
     /// </summary>
-    class BoolToVisivilityConverter : IValueConverter
+    public class BoolToVisivilityConverter : IValueConverter
     {
         /// <summary>
         /// bool値をVisivbilityに変換するコンバータ
