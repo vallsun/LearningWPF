@@ -6,7 +6,7 @@ namespace DevelopmentSupport.Common
     /// <summary>
     /// プロパティをバインド可能なクラス
     /// </summary>
-    public class BindableBase
+    public class BindableBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

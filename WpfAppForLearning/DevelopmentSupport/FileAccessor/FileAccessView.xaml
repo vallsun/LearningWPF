@@ -83,7 +83,8 @@
 		</Grid.ColumnDefinitions>
 		<Grid Grid.Column="0" Height="400" VerticalAlignment="Top" Margin="10,10" Background="White">
 			<TextBlock Name="WatermarkTextBox" VerticalAlignment="Center" HorizontalAlignment="Center"
-					   Text="ファイルまたはフォルダをD&amp;Dで登録してください。" Foreground="Gray" Visibility="{Binding HasItem, Converter={StaticResource ReverseBoolToVisibilityConverter}, Mode=TwoWay}"/>
+					   Text="ファイルまたはフォルダをD&amp;Dで登録してください。" Foreground="Gray"
+					   Visibility="{Binding Path=HasItem, Converter={StaticResource ReverseBoolToVisibilityConverter}, Mode=OneWay}"/>
 		</Grid>
 		<ListBox Grid.Column="0" VerticalAlignment="Top" Margin="10,10" Background="Transparent"
                  ItemsSource="{Binding DisplayFileInfoList}"

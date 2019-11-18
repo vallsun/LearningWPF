@@ -28,72 +28,13 @@ namespace DevelopmentSupport.FileAccessor
         /// <param name="e"></param>
         private void UserControl_Drop(object sender, DragEventArgs e)
         {
-            var vm = this.DataContext as FileAccessViewModel;
-            var list = vm.FileInfoList;
-            var pathList = vm.FileInfoList.Select(x => x.FilePath);
-            var DuplicateFilePathList = new List<string>();
-
-
             if (!(e.Data.GetData(DataFormats.FileDrop) is string[] files))
             {
                 return;
             }
-            foreach (var s in files)
-            {
-                if (pathList.Contains(s))
-                {
-                    DuplicateFilePathList.Add(s);
-                    continue;
-                }
-                var fileInfo = new FileInfo
-                {
-                    FilePath = s,
-                    FileName = System.IO.Path.GetFileName(s)
-                };
-                if (File.Exists(s))
-                {
-                    var icon = System.Drawing.Icon.ExtractAssociatedIcon(s);
-                    fileInfo.Icon = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                }
-                else if (Directory.Exists(s))
-                {
-                    var shinfo = new SHFILEINFO();
-                    var hImgSmall = Win32.SHGetFileInfo(s, 0, ref shinfo, (uint)Marshal.SizeOf(shinfo), Win32.SHGFI_ICON | Win32.SHGFI_SMALLICON);
-                    var icon = System.Drawing.Icon.FromHandle(shinfo.hIcon);
-                    fileInfo.Icon = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
 
-                }
-                list.Add(fileInfo);
-                vm.SynchronizeDisplayFileList();
-
-                var extension = Path.GetExtension(s);
-                if (!vm.ExtensionList.Select(x => x.Name).Contains(extension))
-                {
-	                Extension addExtension;
-
-					if (extension == "")
-	                {
-		                addExtension = new Extension("", "(フォルダ)");
-	                }
-	                else
-	                {
-						addExtension = new Extension(extension);
-					}
-					vm.ExtensionList.Add(addExtension);
-                }
-			}
-
-            if (DuplicateFilePathList.Any())
-            {
-                var message = "下記のアイテムは既に登録済みのため登録されませんでした。\n";
-                foreach (var item in DuplicateFilePathList)
-                {
-                    message += " " + item + "\n";
-                }
-                MessageBox.Show(message);
-            }
-
-            WatermarkTextBox.Visibility = vm.FileInfoList.Any() ? Visibility.Collapsed : Visibility.Visible;
+            var vm = DataContext as FileAccessViewModel;
+            vm?.AddItems(files);
         }
 
         private void UserControl_PreviewDragOver(object sender, DragEventArgs e)
