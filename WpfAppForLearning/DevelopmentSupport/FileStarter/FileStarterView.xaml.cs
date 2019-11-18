@@ -43,16 +43,7 @@ namespace DevelopmentSupport.FileStarter
                     DuplicateFilePathList.Add(s);
                     continue;
                 }
-                var fileInfo = new FileAccessor.FileInfo
-                {
-                    FilePath = s,
-                    FileName = System.IO.Path.GetFileName(s)
-                };
-                if (File.Exists(s))
-                {
-                    var icon = System.Drawing.Icon.ExtractAssociatedIcon(s);
-                    fileInfo.Icon = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                }
+                var fileInfo = new FileAccessor.FileInfo(s);
                 list.Add(fileInfo);
                 vm.SynchronizeDisplayFileList();
 
@@ -156,16 +147,7 @@ namespace DevelopmentSupport.FileStarter
                     DuplicateFilePathList.Add(s);
                     continue;
                 }
-                var fileInfo = new FileAccessor.FileInfo
-                {
-                    FilePath = s,
-                    FileName = System.IO.Path.GetFileName(s)
-                };
-                if (File.Exists(s))
-                {
-                    var icon = System.Drawing.Icon.ExtractAssociatedIcon(s);
-                    fileInfo.Icon = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                }
+                var fileInfo = new FileAccessor.FileInfo(s);
                 list.Add(fileInfo);
                 vm.SychronizeDisplayExeList();
             }

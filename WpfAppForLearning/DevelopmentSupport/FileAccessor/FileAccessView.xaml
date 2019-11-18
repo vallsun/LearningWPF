@@ -99,13 +99,14 @@
 						<Setter.Value>
 							<ContextMenu>
 								<MenuItem Header="パスをコピー"
-										  Command="{Binding PlacementTarget.Tag.TextCopyCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" />
+										  Command="{Binding TextCopyCommand}" />
 								<MenuItem Header="削除"
 										  Command="{Binding PlacementTarget.Tag.RemoveItemCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
 								<MenuItem Header="ファイルの場所をエクスプローラで開く"
-										  Command="{Binding PlacementTarget.Tag.OpenFilePlacementFolderCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+										  Command="{Binding OpenFilePlacementFolderCommand}"/>
 								<MenuItem Header="ブラウザを指定してリンクを開く"
-										  ItemsSource="{Binding  PlacementTarget.Tag.BrowserList, RelativeSource={RelativeSource AncestorType=ContextMenu}}">
+										  ItemsSource="{Binding PlacementTarget.Tag.BrowserList, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+										  IsEnabled="{Binding IsLink}">
 									<MenuItem.ItemContainerStyle>
 										<Style TargetType="MenuItem">
 											<Setter Property="Header" Value="{Binding Path=Name}"/>

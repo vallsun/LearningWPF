@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 
 namespace DevelopmentSupport.FileAccessor
 {
-    public class FileAccessViewModel :BindableBase
+    public class FileAccessViewModel : BindableBase
     {
 
         #region フィールド
@@ -46,11 +46,9 @@ namespace DevelopmentSupport.FileAccessor
         public DelegateCommand RemoveItemCommand { get; protected set; }
         public DelegateCommand ChangeItemOrderUpperCommand { get; protected set; }
         public DelegateCommand ChangeItemOrderLowerCommand { get; protected set; }
-        public DelegateCommand TextCopyCommand { get; protected set; }
-        public DelegateCommand OpenFilePlacementFolderCommand { get; protected set; }
-        public DelegateCommand<Browser> OpenLinkBySelectedAppCommand { get; protected set; }
         public DelegateCommand<string> FilterByKeywordCommand { get; protected set; }
         public DelegateCommand<string> FilterByExtensionCommand { get; protected set; }
+        public DelegateCommand<Browser> OpenLinkBySelectedAppCommand { get; protected set; }
 
         #endregion
 
@@ -63,7 +61,7 @@ namespace DevelopmentSupport.FileAccessor
             FileInfoList = new ObservableCollection<FileInfo>();
             HasItem = FileInfoList.Any();
             DisplayFileInfoList = new ObservableCollection<FileInfo>();
-            SelectedFileInfo = new FileInfo();
+            SelectedFileInfo = new FileInfo("");
             BrowserList = new ObservableCollection<Browser>
             {
                 new Browser() { Name = "Chrome", Path = @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" },
@@ -78,11 +76,9 @@ namespace DevelopmentSupport.FileAccessor
             ChangeItemOrderUpperCommand = new DelegateCommand(ChangeItemOrderUpper, CanChangeItemOrderUpper);
             ChangeItemOrderLowerCommand = new DelegateCommand(ChangeItemOrderLower, CanChangeItemOrderLower);
             ProcessStartCommand = new DelegateCommand(ProcessStart, CanProcessStart);
-            TextCopyCommand = new DelegateCommand(TextCopy, CanTextCopy);
-            OpenFilePlacementFolderCommand = new DelegateCommand(OpenFilePlacementFolder, CanOpenFilePlacementFolder);
-            OpenLinkBySelectedAppCommand = new DelegateCommand<Browser>(OpenLinkBySelectedApp, CanOpenLinkBySelectedApp);
             FilterByKeywordCommand = new DelegateCommand<string>(FilterByKeywordInternal, CanFilterByKeywordInternal);
             FilterByExtensionCommand = new DelegateCommand<string>(FilterByExtension, CanFilterByExtension);
+            OpenLinkBySelectedAppCommand = new DelegateCommand<Browser>(OpenLinkBySelectedApp, CanOpenLinkBySelectedApp);
         }
 
         #endregion
@@ -241,22 +237,36 @@ namespace DevelopmentSupport.FileAccessor
             SelectedFileInfo = DisplayFileInfoList[index + 1];
         }
 
-        protected bool StartProcessBySelectedApp(string path, string arguments)
+        #region リンクをアプリケーションを指定して開く
+
+        protected bool CanOpenLinkBySelectedApp(Browser browser)
         {
-            if (!File.Exists(path))
+            return (browser != null && SelectedFileInfo.IsLink && File.Exists(browser.Path));
+        }
+
+        protected void OpenLinkBySelectedApp(Browser browser)
+        {
+            var textLines = File.ReadAllLines(SelectedFileInfo.FilePath);
+            string urlLine = "";
+            foreach (var line in textLines)
             {
-                return false;
+                if (line.StartsWith("URL="))
+                {
+                    urlLine = line;
+                    break;
+                }
             }
 
-            //Processオブジェクトを作成する
-            SelectedFileInfo.SettingProcess = new System.Diagnostics.Process();
-            //起動する実行ファイルのパスを設定する
-            SelectedFileInfo.SettingProcess.StartInfo.FileName = path;
-            SelectedFileInfo.SettingProcess.StartInfo.Arguments = arguments;
-            //コマンドライン引数を指定する
-            //起動する。プロセスが起動した時はTrueを返す。
-            return SelectedFileInfo.SettingProcess.Start();
+            if (urlLine == "")
+            {
+                return;
+            }
+
+            SelectedFileInfo.StartProcessBySelectedApp(browser.Path, urlLine.Substring(4));
+
         }
+
+        #endregion
 
         #endregion
 
@@ -280,24 +290,7 @@ namespace DevelopmentSupport.FileAccessor
                     DuplicateFilePathList.Add(s);
                     continue;
                 }
-                var fileInfo = new FileInfo
-                {
-                    FilePath = s,
-                    FileName = System.IO.Path.GetFileName(s)
-                };
-                if (File.Exists(s))
-                {
-                    var icon = System.Drawing.Icon.ExtractAssociatedIcon(s);
-                    fileInfo.Icon = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                }
-                else if (Directory.Exists(s))
-                {
-                    var shinfo = new SHFILEINFO();
-                    var hImgSmall = Win32.SHGetFileInfo(s, 0, ref shinfo, (uint)Marshal.SizeOf(shinfo), Win32.SHGFI_ICON | Win32.SHGFI_SMALLICON);
-                    var icon = System.Drawing.Icon.FromHandle(shinfo.hIcon);
-                    fileInfo.Icon = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-
-                }
+                var fileInfo = new FileInfo(s);
                 FileInfoList.Add(fileInfo);
                 SynchronizeDisplayFileList();
 
@@ -409,65 +402,6 @@ namespace DevelopmentSupport.FileAccessor
 
         #endregion
 
-        #region ファイルパスをクリップボードにコピー
-
-        protected bool CanTextCopy()
-        {
-            return SelectedFileInfo != null;
-        }
-
-        protected void TextCopy()
-        {
-            Clipboard.SetData(DataFormats.Text, SelectedFileInfo.FilePath);
-        }
-
-        #endregion
-
-        #region ファイルのあるフォルダを開く
-
-        protected bool CanOpenFilePlacementFolder()
-        {
-            return SelectedFileInfo != null;
-        }
-
-        protected void OpenFilePlacementFolder()
-        {
-            System.Diagnostics.Process.Start("EXPLORER.EXE", @"/select,""" + SelectedFileInfo.FilePath + @"""");
-        }
-
-        #endregion
-
-        #region リンクをアプリケーションを指定して開く
-
-        protected bool CanOpenLinkBySelectedApp(Browser browser)
-        {
-            return (browser != null && SelectedFileInfo != null && SelectedFileInfo.IsLink && File.Exists(browser.Path));
-        }
-
-        protected void OpenLinkBySelectedApp(Browser browser)
-        {
-            var textLines = File.ReadAllLines(SelectedFileInfo.FilePath);
-            string urlLine = "";
-            foreach (var line in textLines)
-            {
-                if (line.StartsWith("URL="))
-                {
-                    urlLine = line;
-                    break;
-                }
-            }
-
-            if(urlLine == "")
-            {
-                return;
-            }
-
-            StartProcessBySelectedApp(browser.Path, urlLine.Substring(4));
-
-        }
-
-        #endregion
-
         #region フィルタ
 
         /// <summary>
@@ -522,6 +456,7 @@ namespace DevelopmentSupport.FileAccessor
         protected bool m_Processing = false;
         protected Process m_SettingProcess = null;
         protected bool m_IsSelected = false;
+        protected bool m_IsLink = false;
 
         #endregion
 
@@ -534,8 +469,90 @@ namespace DevelopmentSupport.FileAccessor
         public bool Processing { get { return m_Processing; } set { SetProperty(ref m_Processing, value); } }
         public Process SettingProcess { get { return m_SettingProcess; } set { SetProperty(ref m_SettingProcess, value); } }
         public bool IsSelected { get { return m_IsSelected; } set { SetProperty(ref m_IsSelected, value); } }
+        public bool IsLink { get { return m_IsLink; } set { SetProperty(ref m_IsLink, value); } }
 
-        public bool IsLink { get { return Path.GetExtension(FilePath) == ".url";  } }
+        public DelegateCommand TextCopyCommand { get; protected set; }
+        public DelegateCommand OpenFilePlacementFolderCommand { get; protected set; }
+
+        #endregion
+
+        #region 構築・消滅
+
+        public FileInfo(string filePath)
+        {
+            FilePath = filePath;
+            FileName = System.IO.Path.GetFileName(filePath);
+            IsLink = Path.GetExtension(filePath) == ".url";
+            if (File.Exists(filePath))
+            {
+                var icon = System.Drawing.Icon.ExtractAssociatedIcon(filePath);
+                Icon = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            }
+            else if (Directory.Exists(filePath))
+            {
+                var shinfo = new SHFILEINFO();
+                var hImgSmall = Win32.SHGetFileInfo(filePath, 0, ref shinfo, (uint)Marshal.SizeOf(shinfo), Win32.SHGFI_ICON | Win32.SHGFI_SMALLICON);
+                var icon = System.Drawing.Icon.FromHandle(shinfo.hIcon);
+                Icon = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            }
+
+            TextCopyCommand = new DelegateCommand(TextCopy, CanTextCopy);
+            OpenFilePlacementFolderCommand = new DelegateCommand(OpenFilePlacementFolder, CanOpenFilePlacementFolder);
+
+        }
+
+        #endregion
+
+        #region コマンド実装
+
+        #region ファイルパスをクリップボードにコピー
+
+        protected bool CanTextCopy()
+        {
+            return true;
+        }
+
+        protected void TextCopy()
+        {
+            Clipboard.SetData(DataFormats.Text, FilePath);
+        }
+
+        #endregion
+
+        #region ファイルのあるフォルダを開く
+
+        protected bool CanOpenFilePlacementFolder()
+        {
+            return true;
+        }
+
+        protected void OpenFilePlacementFolder()
+        {
+            System.Diagnostics.Process.Start("EXPLORER.EXE", @"/select,""" + FilePath + @"""");
+        }
+
+        #endregion
+
+        #endregion
+
+        #region 公開サービス
+
+        public bool StartProcessBySelectedApp(string path, string arguments)
+        {
+            if (!File.Exists(path))
+            {
+                return false;
+            }
+
+            //Processオブジェクトを作成する
+            SettingProcess = new System.Diagnostics.Process();
+            //起動する実行ファイルのパスを設定する
+            SettingProcess.StartInfo.FileName = path;
+            SettingProcess.StartInfo.Arguments = arguments;
+            //コマンドライン引数を指定する
+            //起動する。プロセスが起動した時はTrueを返す。
+            return SettingProcess.Start();
+        }
 
         #endregion
 
@@ -558,7 +575,7 @@ namespace DevelopmentSupport.FileAccessor
         #endregion
     }
 
-	public class Extension : BindableBase
+    public class Extension : BindableBase
 	{
 		#region フィールド
 

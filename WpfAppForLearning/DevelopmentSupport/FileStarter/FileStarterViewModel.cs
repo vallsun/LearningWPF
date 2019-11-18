@@ -31,7 +31,7 @@ namespace DevelopmentSupport.FileStarter
         {
             ExeInfoList = new ObservableCollection<FileAccessor.FileInfo>();
             DisplayExeInfoList = new ObservableCollection<FileAccessor.FileInfo>();
-            SelectedExeInfo = new FileAccessor.FileInfo();
+            SelectedExeInfo = new FileAccessor.FileInfo("");
 
             SettingProcessStartCommand = new DelegateCommand(SettingProcessStart,CanSettingProcessStart);
         }
@@ -72,7 +72,7 @@ namespace DevelopmentSupport.FileStarter
                 return;
             }
 
-            StartProcessBySelectedApp(TextEditorPath, configPath);
+            SelectedFileInfo.StartProcessBySelectedApp(TextEditorPath, configPath);
 
         }
     }
