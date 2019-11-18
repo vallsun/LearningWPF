@@ -87,28 +87,8 @@ namespace DevelopmentSupport.FileAccessor
 
         #endregion
 
-        // ListBoxのアイテムをダブルクリックされたら呼ばれるメソッド
-        public void Execute()
-        {
-            if (SelectedFileInfo == null)
-            {
-                return;
-            }
-            //Processオブジェクトを作成する
-            SelectedFileInfo.Process = new System.Diagnostics.Process();
-            //起動する実行ファイルのパスを設定する
-            SelectedFileInfo.Process.StartInfo.FileName = SelectedFileInfo.FilePath;
-            //コマンドライン引数を指定する
-            //起動する。プロセスが起動した時はTrueを返す。
-
-            SelectedFileInfo.Processing = true;
-            SelectedFileInfo.Process.EnableRaisingEvents = true;
-            SelectedFileInfo.Process.Exited += new EventHandler(Process_Exited);
-            SelectedFileInfo.Process.Start();
-
-        }
-
         #region 内部処理
+
         // プロセスの終了を捕捉する Exited イベントハンドラ
         private void Process_Exited(object sender, EventArgs e)
         {
@@ -260,18 +240,6 @@ namespace DevelopmentSupport.FileAccessor
             SynchronizeDisplayFileList();
             SelectedFileInfo = DisplayFileInfoList[index + 1];
         }
-        protected bool CanProcessStart()
-        {
-            if (SelectedFileInfo == null)
-            {
-                return false;
-            }
-            return DisplayFileInfoList.Any() && SelectedFileInfo.Process == null;
-        }
-        protected void ProcessStart()
-        {
-            Execute();
-        }
 
         protected bool StartProcessBySelectedApp(string path, string arguments)
         {
@@ -296,6 +264,10 @@ namespace DevelopmentSupport.FileAccessor
 
         #region 公開サービス
 
+        /// <summary>
+        /// リストにファイルを追加する
+        /// </summary>
+        /// <param name="files">D&Dの結果</param>
         public void AddItems(string[] files)
         {
             var pathList = FileInfoList.Select(x => x.FilePath);
@@ -359,6 +331,9 @@ namespace DevelopmentSupport.FileAccessor
             HasItem = FileInfoList.Any();
         }
 
+        /// <summary>
+        /// 表示用のファイルリストと同期する
+        /// </summary>
         public void SynchronizeDisplayFileList()
         {
             DisplayFileInfoList.Clear();
@@ -368,6 +343,10 @@ namespace DevelopmentSupport.FileAccessor
             }
         }
 
+        /// <summary>
+        /// キーワードでフィルタする
+        /// </summary>
+        /// <param name="keyword">キーワード</param>
         public void FilterByKeyword(string keyword)
         {
             if (!FileInfoList.Any())
@@ -378,9 +357,57 @@ namespace DevelopmentSupport.FileAccessor
             CanFilterByKeywordInternal(keyword);
         }
 
+        /// <summary>
+        /// プロセスを開始する
+        /// </summary>
+        public void ExecuteProcessStart()
+        {
+            if (!CanProcessStart())
+            {
+                return;
+            }
+
+            ProcessStart();
+        }
+
         #endregion
 
         #region コマンド
+
+        #region プロセスを開始する
+
+        /// <summary>
+        /// プロセスを開始可能か
+        /// </summary>
+        /// <returns></returns>
+        protected bool CanProcessStart()
+        {
+            if (SelectedFileInfo == null)
+            {
+                return false;
+            }
+            return DisplayFileInfoList.Any() && SelectedFileInfo.Process == null;
+        }
+
+        /// <summary>
+        /// プロセスを開始する
+        /// </summary>
+        protected void ProcessStart()
+        {
+            //Processオブジェクトを作成する
+            SelectedFileInfo.Process = new System.Diagnostics.Process();
+            //起動する実行ファイルのパスを設定する
+            SelectedFileInfo.Process.StartInfo.FileName = SelectedFileInfo.FilePath;
+            //コマンドライン引数を指定する
+            //起動する。プロセスが起動した時はTrueを返す。
+
+            SelectedFileInfo.Processing = true;
+            SelectedFileInfo.Process.EnableRaisingEvents = true;
+            SelectedFileInfo.Process.Exited += new EventHandler(Process_Exited);
+            SelectedFileInfo.Process.Start();
+        }
+
+        #endregion
 
         #region ファイルパスをクリップボードにコピー
 

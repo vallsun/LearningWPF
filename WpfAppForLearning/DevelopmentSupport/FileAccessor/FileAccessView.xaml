@@ -53,17 +53,13 @@
 						<TextBox Grid.Column="1" Text="{Binding FileName}" HorizontalAlignment="Left"/>
 					</Grid>
 				</Border>
-				<!--
-				<StackPanel Orientation="Horizontal">
-					<Image Source="{Binding Icon}" Width="16" Height="16" HorizontalAlignment="Center"/>
-					<TextBox Text="{Binding FileName}" HorizontalAlignment="Center"/>
-				</StackPanel>
-				-->
 				<i:Interaction.Triggers>
 					<i:EventTrigger EventName="MouseDoubleClick">
+						<!-- 原因は不明だがInvokeCommandActionが動かないためCallMethodActionで代替 -->
+						<!--<i:InvokeCommandAction Command="{Binding Path=ProcessStartCommand}"/>-->
 						<ei:CallMethodAction 
                                     TargetObject="{Binding Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, Path=DataContext}" 
-                                    MethodName="Execute"/>
+                                    MethodName="ExecuteProcessStart"/>
 					</i:EventTrigger>
 				</i:Interaction.Triggers>
 			</ContentControl>

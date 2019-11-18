@@ -89,7 +89,6 @@
     <Compile Include="Modules\DragDropControl\DragDropControlViewModel.cs" />
     <Compile Include="Modules\KeyboardNavigation\StringToNavigationModeConverter.cs" />
     <Compile Include="Modules\PathBarControl\Command\PageTransitionCommand.cs" />
-    <Compile Include="Modules\PathBarControl\Converter\BoolToVisivilityConverter.cs" />
     <Compile Include="Modules\PathBarControl\ViewModel\PathBarItemViewModel.cs" />
     <Compile Include="Modules\PathBarControl\ViewModel\PathBarViewModel.cs" />
     <Compile Include="Modules\PathBarControl\View\PathBarControl.xaml.cs">
