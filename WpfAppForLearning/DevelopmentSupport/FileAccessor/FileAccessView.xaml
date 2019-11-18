@@ -133,10 +133,11 @@
 			</ListBox.ItemContainerStyle>
 		</ListBox>
 		<StackPanel Grid.Column="1" Margin="0,10,10,10">
+			<TextBlock Text="◇順序変更"/>
 			<Button Content="前へ" Command="{Binding ChangeItemOrderUpperCommand}" Margin="0,0,0,5"
-					ToolTip="選択中の要素の順番をひとつ前に移動します。"/>
-			<Button Content="後へ" Command="{Binding ChangeItemOrderLowerCommand}" Margin="0,0,0,5"
-					ToolTip="選択中の要素の順番をひとつ後に移動します。"/>
+					ToolTip="選択中の要素の順番をひとつ前へ移動します。"/>
+			<Button Content="次へ" Command="{Binding ChangeItemOrderLowerCommand}" Margin="0,0,0,5"
+					ToolTip="選択中の要素の順番をひとつ次へ移動します。"/>
 			<Button Content="追加" Command="{Binding RemoveItemCommand}" Margin="0,0,0,5" IsEnabled="False"
 					ToolTip="フォルダまたはファイルをリストに追加します。" Visibility="Collapsed"/>
 			<Button Content="削除" Command="{Binding RemoveItemCommand}" Margin="0,0,0,5"
@@ -145,7 +146,7 @@
 					ToolTip="選択中の要素を既定のプログラムで実行します。"/>
 			<Button Content="終了" Command="{Binding ProcessCloseCommand}" Margin="0,0,0,10"
 					ToolTip="選択中の要素のプロセスを終了します。" Visibility="Collapsed"/>
-			<TextBlock Text="拡張子フィルタ"/>
+			<TextBlock Text="◇拡張子フィルタ"/>
 			<ComboBox Name="m_ExtensionComboBox" Margin="0,0,0,5" 
 					  ItemsSource="{Binding ExtensionList}" DisplayMemberPath="DisplayName"
 					  SelectedIndex="0" ToolTip="選択した拡張子でフィルタします。">
@@ -155,7 +156,7 @@
 					</i:EventTrigger>
 				</i:Interaction.Triggers>
 			</ComboBox>
-			<TextBlock Text="キーワードフィルタ"/>
+			<TextBlock Text="◇キーワードフィルタ"/>
 			<TextBox  Name="m_KeywordFilterTextBox">
 				<i:Interaction.Triggers>
 					<i:EventTrigger EventName="KeyUp">
