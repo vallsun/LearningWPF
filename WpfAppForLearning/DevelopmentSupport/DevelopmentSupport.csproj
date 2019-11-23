@@ -58,6 +58,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClipboardWatcher\ClipboardHistoryViewModel.cs" />
+    <Compile Include="ClipboardWatcher\ClipboardWatcher.cs" />
+    <Compile Include="ClipboardWatcher\ClipboardHistoryView.xaml.cs">
+      <DependentUpon>ClipboardHistoryView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Common\BindableBase.cs" />
     <Compile Include="Common\BindableSelectedItemTreeView.cs" />
     <Compile Include="Common\Converters\BoolToVisibilityConverter.cs" />
@@ -86,6 +91,10 @@
     <Compile Include="Setting\SettingDialogViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ClipboardWatcher\ClipboardHistoryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="FileAccessor\View\FileAccessView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -624,7 +624,7 @@ namespace DevelopmentSupport.FileAccessor.ViewModel
         public bool IsSelected { get { return m_IsSelected; } set { SetProperty(ref m_IsSelected, value); } }
 
         /// <summary>
-        /// リンクファイル化
+        /// リンクファイルか
         /// </summary>
         public bool IsLink { get { return m_IsLink; } set { SetProperty(ref m_IsLink, value); } }
 

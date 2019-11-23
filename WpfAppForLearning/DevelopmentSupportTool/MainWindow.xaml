@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:dsFileAccessor="clr-namespace:DevelopmentSupport.FileAccessor.View;assembly=DevelopmentSupport"
+		xmlns:dsClipboardWatcher="clr-namespace:DevelopmentSupport.ClipboardWatcher;assembly=DevelopmentSupport"
         xmlns:local="clr-namespace:DevelopmentSupportTool"
         mc:Ignorable="d"
         Title="DevelopmentSupportTool" Width="500" Height="550"
@@ -39,6 +40,9 @@
 				<dsFileAccessor:FileAppMapperView/>
 			</TabItem>
 			-->
+			<TabItem Header="クリップボード">
+				<dsClipboardWatcher:ClipboardHistoryView/>
+			</TabItem>
 		</TabControl>
 	</Grid>
 </Window>
