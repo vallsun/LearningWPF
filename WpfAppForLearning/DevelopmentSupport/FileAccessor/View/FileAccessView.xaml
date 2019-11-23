@@ -47,7 +47,7 @@
 										  Command="{Binding OpenFilePlacementFolderCommand}"/>
 								<MenuItem Header="ブラウザを指定してリンクを開く"
 										  ItemsSource="{Binding PlacementTarget.Tag.BrowserList, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
-										  IsEnabled="{Binding IsLink}">
+										  Visibility="{Binding IsLink, Converter={StaticResource BoolToVisivilityConverter}}">
 									<MenuItem.ItemContainerStyle>
 										<Style TargetType="MenuItem">
 											<Setter Property="Header" Value="{Binding Path=Name}"/>
