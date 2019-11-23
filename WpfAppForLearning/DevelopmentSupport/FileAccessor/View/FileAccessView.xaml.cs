@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
+﻿using DevelopmentSupport.FileAccessor.ViewModel;
+using System;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Interop;
-using System.Windows.Media.Imaging;
 
-namespace DevelopmentSupport.FileAccessor
+namespace DevelopmentSupport.FileAccessor.View
 {
     /// <summary>
     /// FileAccessView.xaml の相互作用ロジック
     /// </summary>
     public partial class FileAccessView : UserControl
     {
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
         public FileAccessView()
         {
             InitializeComponent();

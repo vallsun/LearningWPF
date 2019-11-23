@@ -1,4 +1,5 @@
 ﻿using DevelopmentSupport.Common;
+using DevelopmentSupport.FileAccessor.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,21 +13,59 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 
-namespace DevelopmentSupport.FileAccessor
+namespace DevelopmentSupport.FileAccessor.ViewModel
 {
+    /// <summary>
+    /// ファイルアクセスVM
+    /// </summary>
     public class FileAccessViewModel : BindableBase
     {
 
         #region フィールド
 
+        /// <summary>
+        /// ファイル情報リスト
+        /// </summary>
         protected ObservableCollection<FileInfo> m_FileInfoList;
+
+        /// <summary>
+        /// 表示用ファイル情報リスト（フィルタ時用）
+        /// </summary>
         protected ObservableCollection<FileInfo> m_DisplayFileInfoList;
+
+        /// <summary>
+        /// 選択中のファイル情報
+        /// </summary>
         protected FileInfo m_SelectedFileInfo;
+
+        /// <summary>
+        /// 拡張子リスト（ファイル情報の更新に追従する）
+        /// </summary>
         protected ObservableCollection<Extension> m_ExtensionList;
+
+        /// <summary>
+        /// フィルタ中か
+        /// </summary>
         protected bool m_IsFiltering = false;
+
+        /// <summary>
+        /// ブラウザ情報リスト
+        /// </summary>
         protected ObservableCollection<Browser> m_BrowserList;
+
+        /// <summary>
+        /// リストに要素が存在するか
+        /// </summary>
         protected bool m_HasItem;
+
+        /// <summary>
+        /// フィルタ文字列
+        /// </summary>
         protected string m_FilterKeyword;
+
+        /// <summary>
+        /// フィルタ対象拡張子
+        /// </summary>
         protected string m_FilterExtension;
 
         #endregion
@@ -54,23 +93,34 @@ namespace DevelopmentSupport.FileAccessor
 
         #region 構築・消滅
 
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
         public FileAccessViewModel()
         {
+            // フィルタ情報の初期化
             m_FilterExtension = "(指定なし)";
             m_FilterKeyword = "";
+
+            // ファイル情報リストの初期化
             FileInfoList = new ObservableCollection<FileInfo>();
             HasItem = FileInfoList.Any();
             DisplayFileInfoList = new ObservableCollection<FileInfo>();
             SelectedFileInfo = new FileInfo("");
+
+            // ブラウザ情報の初期化
             BrowserList = new ObservableCollection<Browser>
             {
                 new Browser() { Name = "Chrome", Path = @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" },
                 new Browser() { Name = "InternetExplorer", Path = @"C:\Program Files\internet explorer\iexplore.exe" },
                 new Browser() { Name = "FireFox", Path = "" }
             };
+
+            //　拡張子リストの初期化
             ExtensionList = new ObservableCollection<Extension>();
             ExtensionList.Add(new Extension("(指定なし)"));
 
+            // コマンドの初期化
             ProcessCloseCommand = new DelegateCommand(ProcessClose, CanProcessClose);
             RemoveItemCommand = new DelegateCommand(RemoveItem, CanRemoveItem);
             ChangeItemOrderUpperCommand = new DelegateCommand(ChangeItemOrderUpper, CanChangeItemOrderUpper);
@@ -85,7 +135,11 @@ namespace DevelopmentSupport.FileAccessor
 
         #region 内部処理
 
-        // プロセスの終了を捕捉する Exited イベントハンドラ
+        /// <summary>
+        /// プロセスの終了を捕捉する Exited イベントハンドラ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Process_Exited(object sender, EventArgs e)
         {
             var proc = (System.Diagnostics.Process)sender;
@@ -112,7 +166,7 @@ namespace DevelopmentSupport.FileAccessor
         }
 
         /// <summary>
-        /// フィルタする
+        /// 指定された文字列でフィルタする
         /// </summary>
         private void FilterInternal()
         {
@@ -132,143 +186,6 @@ namespace DevelopmentSupport.FileAccessor
             }
             IsFiltering = true;
         }
-
-        #region コマンド実装
-
-        protected bool CanProcessClose()
-        {
-            return SelectedFileInfo != null && SelectedFileInfo.Process != null;
-        }
-
-        protected void ProcessClose()
-        {
-            SelectedFileInfo.Process.CloseMainWindow();
-            SelectedFileInfo.Process.Close();
-            SelectedFileInfo.Process = null;
-            SelectedFileInfo.Processing = false;
-        }
-
-        protected bool CanRemoveItem()
-        {
-            return FileInfoList.Any() && SelectedFileInfo != null;
-        }
-
-        protected void RemoveItem()
-        {
-            var index = DisplayFileInfoList.IndexOf(SelectedFileInfo);
-
-            FileInfoList.Remove(SelectedFileInfo);
-            DisplayFileInfoList.Remove(SelectedFileInfo);
-
-            //選択アイテムの更新
-            if(DisplayFileInfoList.Count == 0)
-            {
-                //表示対象がない
-                index = -1;
-            }
-            else if (DisplayFileInfoList.Count <= index)
-            {
-                index = DisplayFileInfoList.Count - 1;
-            }
-            else
-            {
-                //何もしない
-            }
-
-            if(index >= 0)
-            {
-                DisplayFileInfoList.ElementAt(index).IsSelected = true;
-            }
-
-            //フィルタの更新
-            var missingKeywordList = new List<Extension>();
-            foreach (var item in ExtensionList)
-            {
-                missingKeywordList.Add(item);
-            }
-            missingKeywordList.RemoveAt(0);
-            foreach (var item in DisplayFileInfoList)
-            {
-                var extension = Path.GetExtension(item.FilePath);
-	            var extensionItems = ExtensionList.Where(x => x.Name == extension);
-
-				if (extensionItems.Any())
-                {
-	                foreach (var extItem in extensionItems)
-	                {
-		                missingKeywordList.Remove(extItem);
-	                }
-                }
-            }
-
-            foreach (var item in missingKeywordList)
-            {
-                ExtensionList.Remove(item);
-            }
-
-            HasItem = FileInfoList.Any();
-        }
-
-        protected bool CanChangeItemOrderUpper()
-        {
-            return FileInfoList.Any() && SelectedFileInfo != null && FileInfoList.IndexOf(SelectedFileInfo) > 0 && !IsFiltering;
-        }
-
-        protected void ChangeItemOrderUpper()
-        {
-            var index = FileInfoList.IndexOf(SelectedFileInfo);
-            SelectedFileInfo = null;
-            FileInfoList.Move(index, index - 1);
-            SynchronizeDisplayFileList();
-            SelectedFileInfo = DisplayFileInfoList[index - 1];
-        }
-
-        protected bool CanChangeItemOrderLower()
-        {
-            return FileInfoList.Any() && SelectedFileInfo != null && FileInfoList.Count > FileInfoList.IndexOf(SelectedFileInfo) + 1 && !IsFiltering;
-        }
-
-        protected void ChangeItemOrderLower()
-        {
-            var index = FileInfoList.IndexOf(SelectedFileInfo);
-            SelectedFileInfo = null;
-            FileInfoList.Move(index, index + 1);
-            SynchronizeDisplayFileList();
-            SelectedFileInfo = DisplayFileInfoList[index + 1];
-        }
-
-        #region リンクをアプリケーションを指定して開く
-
-        protected bool CanOpenLinkBySelectedApp(Browser browser)
-        {
-            return (browser != null && SelectedFileInfo.IsLink && File.Exists(browser.Path));
-        }
-
-        protected void OpenLinkBySelectedApp(Browser browser)
-        {
-            var textLines = File.ReadAllLines(SelectedFileInfo.FilePath);
-            string urlLine = "";
-            foreach (var line in textLines)
-            {
-                if (line.StartsWith("URL="))
-                {
-                    urlLine = line;
-                    break;
-                }
-            }
-
-            if (urlLine == "")
-            {
-                return;
-            }
-
-            SelectedFileInfo.StartProcessBySelectedApp(browser.Path, urlLine.Substring(4));
-
-        }
-
-        #endregion
-
-        #endregion
 
         #endregion
 
@@ -350,22 +267,9 @@ namespace DevelopmentSupport.FileAccessor
             CanFilterByKeywordInternal(keyword);
         }
 
-        /// <summary>
-        /// プロセスを開始する
-        /// </summary>
-        public void ExecuteProcessStart()
-        {
-            if (!CanProcessStart())
-            {
-                return;
-            }
-
-            ProcessStart();
-        }
-
         #endregion
 
-        #region コマンド
+        #region コマンド実装
 
         #region プロセスを開始する
 
@@ -379,7 +283,8 @@ namespace DevelopmentSupport.FileAccessor
             {
                 return false;
             }
-            return DisplayFileInfoList.Any() && SelectedFileInfo.Process == null;
+            //return DisplayFileInfoList.Any() && SelectedFileInfo.Process == null;
+            return true;
         }
 
         /// <summary>
@@ -398,6 +303,193 @@ namespace DevelopmentSupport.FileAccessor
             SelectedFileInfo.Process.EnableRaisingEvents = true;
             SelectedFileInfo.Process.Exited += new EventHandler(Process_Exited);
             SelectedFileInfo.Process.Start();
+        }
+
+        #endregion
+
+        #region プロセスを終了する
+
+        /// <summary>
+        /// プロセスを終了可能か
+        /// </summary>
+        /// <returns></returns>
+        protected bool CanProcessClose()
+        {
+            return SelectedFileInfo != null && SelectedFileInfo.Process != null;
+        }
+
+        /// <summary>
+        /// プロセスを終了する
+        /// </summary>
+        protected void ProcessClose()
+        {
+            SelectedFileInfo.Process.CloseMainWindow();
+            SelectedFileInfo.Process.Close();
+            SelectedFileInfo.Process = null;
+            SelectedFileInfo.Processing = false;
+        }
+
+        #endregion
+
+        #region 選択中のリスト要素を削除する
+
+        /// <summary>
+        /// 選択中のリスト要素を削除可能か
+        /// </summary>
+        /// <returns></returns>
+        protected bool CanRemoveItem()
+        {
+            return FileInfoList.Any() && SelectedFileInfo != null;
+        }
+
+        /// <summary>
+        /// 選択中のリスト要素を削除する
+        /// </summary>
+        protected void RemoveItem()
+        {
+            var index = DisplayFileInfoList.IndexOf(SelectedFileInfo);
+
+            FileInfoList.Remove(SelectedFileInfo);
+            DisplayFileInfoList.Remove(SelectedFileInfo);
+
+            //選択アイテムの更新
+            if (DisplayFileInfoList.Count == 0)
+            {
+                //表示対象がない
+                index = -1;
+            }
+            else if (DisplayFileInfoList.Count <= index)
+            {
+                index = DisplayFileInfoList.Count - 1;
+            }
+            else
+            {
+                //何もしない
+            }
+
+            if (index >= 0)
+            {
+                DisplayFileInfoList.ElementAt(index).IsSelected = true;
+            }
+
+            //フィルタの更新
+            var missingKeywordList = new List<Extension>();
+            foreach (var item in ExtensionList)
+            {
+                missingKeywordList.Add(item);
+            }
+            missingKeywordList.RemoveAt(0);
+            foreach (var item in DisplayFileInfoList)
+            {
+                var extension = Path.GetExtension(item.FilePath);
+                var extensionItems = ExtensionList.Where(x => x.Name == extension);
+
+                if (extensionItems.Any())
+                {
+                    foreach (var extItem in extensionItems)
+                    {
+                        missingKeywordList.Remove(extItem);
+                    }
+                }
+            }
+
+            // 拡張子リストの更新
+            foreach (var item in missingKeywordList)
+            {
+                ExtensionList.Remove(item);
+            }
+
+            HasItem = FileInfoList.Any();
+        }
+
+        #endregion
+
+        #region 選択中のリスト要素の順番を前に移動する
+
+        /// <summary>
+        /// 選択中のリスト要素の順番を前に移動可能か
+        /// </summary>
+        /// <returns></returns>
+        protected bool CanChangeItemOrderUpper()
+        {
+            return FileInfoList.Any() && SelectedFileInfo != null && FileInfoList.IndexOf(SelectedFileInfo) > 0 && !IsFiltering;
+        }
+
+        /// <summary>
+        /// 選択中のリスト要素の順番を前に移動する
+        /// </summary>
+        protected void ChangeItemOrderUpper()
+        {
+            var index = FileInfoList.IndexOf(SelectedFileInfo);
+            SelectedFileInfo = null;
+            FileInfoList.Move(index, index - 1);
+            SynchronizeDisplayFileList();
+            SelectedFileInfo = DisplayFileInfoList[index - 1];
+        }
+
+        #endregion
+
+        #region 選択中のリスト要素の順番を前に移動する
+
+        /// <summary>
+        /// 選択中のリスト要素の順番を後に移動可能か
+        /// </summary>
+        /// <returns></returns>
+        protected bool CanChangeItemOrderLower()
+        {
+            return FileInfoList.Any() && SelectedFileInfo != null && FileInfoList.Count > FileInfoList.IndexOf(SelectedFileInfo) + 1 && !IsFiltering;
+        }
+
+        /// <summary>
+        /// 選択中のリスト要素の順番を前に移動する
+        /// </summary>
+        protected void ChangeItemOrderLower()
+        {
+            var index = FileInfoList.IndexOf(SelectedFileInfo);
+            SelectedFileInfo = null;
+            FileInfoList.Move(index, index + 1);
+            SynchronizeDisplayFileList();
+            SelectedFileInfo = DisplayFileInfoList[index + 1];
+        }
+
+        #endregion
+
+        #region リンクを指定したブラウザで開く
+
+        /// <summary>
+        /// リンクファイルを指定したブラウザで開く事が可能か
+        /// </summary>
+        /// <param name="browser">指定されたブラウザ情報</param>
+        /// <returns></returns>
+        protected bool CanOpenLinkBySelectedApp(Browser browser)
+        {
+            return (browser != null && SelectedFileInfo.IsLink && File.Exists(browser.Path));
+        }
+
+        /// <summary>
+        /// リンクファイルを指定したブラウザで開く
+        /// </summary>
+        /// <param name="browser">指定されたブラウザ情報</param>
+        protected void OpenLinkBySelectedApp(Browser browser)
+        {
+            var textLines = File.ReadAllLines(SelectedFileInfo.FilePath);
+            string urlLine = "";
+            foreach (var line in textLines)
+            {
+                if (line.StartsWith("URL="))
+                {
+                    urlLine = line;
+                    break;
+                }
+            }
+
+            if (urlLine == "")
+            {
+                return;
+            }
+
+            SelectedFileInfo.StartProcessBySelectedApp(browser.Path, urlLine.Substring(4));
+
         }
 
         #endregion
@@ -445,39 +537,115 @@ namespace DevelopmentSupport.FileAccessor
 
     }
 
+    /// <summary>
+    /// ファイル情報
+    /// </summary>
     public class FileInfo : BindableBase
     {
         #region フィールド
 
+        /// <summary>
+        /// ファイルパス
+        /// </summary>
         protected string m_FilePath;
+
+        /// <summary>
+        /// ファイル名
+        /// </summary>
         protected string m_FileName;
+
+        /// <summary>
+        /// アイコン
+        /// </summary>
         protected BitmapSource m_Icon;
+
+        /// <summary>
+        /// ファイルを開くプロセス
+        /// </summary>
         protected Process m_Process = null;
+
+        /// <summary>
+        /// プロセス起動中か
+        /// </summary>
         protected bool m_Processing = false;
+
+        /// <summary>
+        /// プロセス情報
+        /// </summary>
         protected Process m_SettingProcess = null;
+
+        /// <summary>
+        /// リスト要素として選択中か
+        /// </summary>
         protected bool m_IsSelected = false;
+
+        /// <summary>
+        /// リンクファイルか
+        /// </summary>
         protected bool m_IsLink = false;
 
         #endregion
 
         #region プロパティ
 
+        /// <summary>
+        /// ファイルパス
+        /// </summary>
         public string FilePath { get { return m_FilePath; } set { SetProperty(ref m_FilePath, value); } }
+
+        /// <summary>
+        /// ファイル名
+        /// </summary>
         public string FileName { get { return m_FileName; } set { SetProperty(ref m_FileName, value); } }
+
+        /// <summary>
+        /// アイコン
+        /// </summary>
         public BitmapSource Icon { get { return m_Icon; } set { SetProperty(ref m_Icon, value); } }
+
+        /// <summary>
+        /// ファイルを開くプロセス
+        /// </summary>
         public Process Process { get { return m_Process; } set { SetProperty(ref m_Process, value); } }
+
+        /// <summary>
+        /// プロセス起動中か
+        /// </summary>
         public bool Processing { get { return m_Processing; } set { SetProperty(ref m_Processing, value); } }
+
+        /// <summary>
+        /// プロセス情報
+        /// </summary>
         public Process SettingProcess { get { return m_SettingProcess; } set { SetProperty(ref m_SettingProcess, value); } }
+
+        /// <summary>
+        /// リスト要素として選択中か
+        /// </summary>
         public bool IsSelected { get { return m_IsSelected; } set { SetProperty(ref m_IsSelected, value); } }
+
+        /// <summary>
+        /// リンクファイル化
+        /// </summary>
         public bool IsLink { get { return m_IsLink; } set { SetProperty(ref m_IsLink, value); } }
 
+        /// <summary>
+        /// パステキストをコピーするコマンド
+        /// </summary>
         public DelegateCommand TextCopyCommand { get; protected set; }
+
+        /// <summary>
+        /// ファイルが存在するパスを開くコマンド
+        /// </summary>
         public DelegateCommand OpenFilePlacementFolderCommand { get; protected set; }
 
         #endregion
 
         #region 構築・消滅
 
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="filePath">ファイルパス</param>
         public FileInfo(string filePath)
         {
             FilePath = filePath;
@@ -507,11 +675,18 @@ namespace DevelopmentSupport.FileAccessor
 
         #region ファイルパスをクリップボードにコピー
 
+        /// <summary>
+        /// ファイルパスをクリップボードにコピー可能か
+        /// </summary>
+        /// <returns></returns>
         protected bool CanTextCopy()
         {
             return true;
         }
 
+        /// <summary>
+        /// ファイルパスをクリップボードにコピー
+        /// </summary>
         protected void TextCopy()
         {
             Clipboard.SetData(DataFormats.Text, FilePath);
@@ -521,11 +696,18 @@ namespace DevelopmentSupport.FileAccessor
 
         #region ファイルのあるフォルダを開く
 
+        /// <summary>
+        /// ファイルのあるフォルダを開くことが可能か
+        /// </summary>
+        /// <returns></returns>
         protected bool CanOpenFilePlacementFolder()
         {
             return true;
         }
 
+        /// <summary>
+        /// ファイルのあるフォルダを開く
+        /// </summary>
         protected void OpenFilePlacementFolder()
         {
             System.Diagnostics.Process.Start("EXPLORER.EXE", @"/select,""" + FilePath + @"""");
@@ -537,6 +719,12 @@ namespace DevelopmentSupport.FileAccessor
 
         #region 公開サービス
 
+        /// <summary>
+        /// 指定したアプリケーションでファイルを開く
+        /// </summary>
+        /// <param name="path">アプリケーションパス</param>
+        /// <param name="arguments">引数情報</param>
+        /// <returns>プロセス起動に成功したか</returns>
         public bool StartProcessBySelectedApp(string path, string arguments)
         {
             if (!File.Exists(path))
@@ -558,23 +746,41 @@ namespace DevelopmentSupport.FileAccessor
 
     }
 
+    /// <summary>
+    /// ブラウザ情報クラス
+    /// </summary>
     public class Browser : BindableBase
     {
         #region フィールド
 
+        /// <summary>
+        /// ブラウザ名
+        /// </summary>
         private string m_Name;
+        /// <summary>
+        /// ブラウザのアプリケーションパス
+        /// </summary>
         private string m_Path;
 
         #endregion
 
         #region プロパティ
-
+        /// <summary>
+        /// ブラウザ名
+        /// </summary>
         public string Name { get { return m_Name; } set { SetProperty(ref m_Name, value); } }
+
+        /// <summary>
+        /// ブラウザのアプリケーションパス
+        /// </summary>
         public string Path { get { return m_Path; } set { SetProperty(ref m_Path, value); } }
 
         #endregion
     }
 
+    /// <summary>
+    /// 拡張子クラス
+    /// </summary>
     public class Extension : BindableBase
 	{
 		#region フィールド
@@ -585,27 +791,43 @@ namespace DevelopmentSupport.FileAccessor
 		private string m_Name;
 
 		/// <summary>
-		/// 拡張子に対応する文字列
+		/// 拡張子に対応する表示用文字列
 		/// </summary>
 		private string m_DisplayName;
 
-		#endregion
+        #endregion
 
-		#region プロパティ
+        #region プロパティ
 
-		public string Name { get { return m_Name; } set { SetProperty(ref m_Name, value); } }
+        /// <summary>
+        /// 拡張子を表す文字列
+        /// </summary>
+        public string Name { get { return m_Name; } set { SetProperty(ref m_Name, value); } }
+        /// <summary>
+        /// 拡張子に対応する表示用文字列
+        /// </summary>
 		public string DisplayName { get { return m_DisplayName; } set { SetProperty(ref m_DisplayName, value); } }
 
 		#endregion
 
 		#region 構築・消滅
 
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="name">拡張子名</param>
 		public Extension(string name)
 		{
 			m_Name = name;
+            // 表示用に拡張子名と同じ文字列を設定する
 			m_DisplayName = m_Name;
 		}
 
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="name">拡張子名</param>
+        /// <param name="displayName">表示用拡張子名</param>
 		public Extension(string name, string displayName)
 		{
 			m_Name = name;

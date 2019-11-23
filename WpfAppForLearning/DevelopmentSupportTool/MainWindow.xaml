@@ -3,8 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:dsFileAccessor="clr-namespace:DevelopmentSupport.FileAccessor;assembly=DevelopmentSupport"
-		xmlns:dsFileStarter="clr-namespace:DevelopmentSupport.FileStarter;assembly=DevelopmentSupport"
+		xmlns:dsFileAccessor="clr-namespace:DevelopmentSupport.FileAccessor.View;assembly=DevelopmentSupport"
         xmlns:local="clr-namespace:DevelopmentSupportTool"
         mc:Ignorable="d"
         Title="DevelopmentSupportTool" Width="500" Height="550"
@@ -37,7 +36,7 @@
 			</TabItem>
 			<!--
 			<TabItem Header="固有">
-				<dsFileStarter:FileStarterView/>
+				<dsFileAccessor:FileAppMapperView/>
 			</TabItem>
 			-->
 		</TabControl>

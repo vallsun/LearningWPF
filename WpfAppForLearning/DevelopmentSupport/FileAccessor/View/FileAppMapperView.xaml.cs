@@ -1,29 +1,25 @@
-﻿using System;
+﻿using DevelopmentSupport.FileAccessor.ViewModel;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Interop;
-using System.Windows.Media.Imaging;
-using DevelopmentSupport.FileAccessor;
 
-namespace DevelopmentSupport.FileStarter
+namespace DevelopmentSupport.FileAccessor.View
 {
     /// <summary>
     /// FileStarterView.xaml の相互作用ロジック
     /// </summary>
-    public partial class FileStarterView : UserControl
+    public partial class FileAppMapperView : UserControl
     {
-        public FileStarterView()
+        public FileAppMapperView()
         {
             InitializeComponent();
         }
 
         private void UserControl_Drop(object sender, DragEventArgs e)
         {
-            var vm = this.DataContext as FileStarterViewModel;
+            var vm = this.DataContext as FileAppMapperViewModel;
             var list = vm.FileInfoList;
             var pathList = vm.FileInfoList.Select(x => x.FilePath);
             var DuplicateFilePathList = new List<string>();
@@ -43,7 +39,7 @@ namespace DevelopmentSupport.FileStarter
                     DuplicateFilePathList.Add(s);
                     continue;
                 }
-                var fileInfo = new FileAccessor.FileInfo(s);
+                var fileInfo = new ViewModel.FileInfo(s);
                 list.Add(fileInfo);
                 vm.SynchronizeDisplayFileList();
 
@@ -100,7 +96,7 @@ namespace DevelopmentSupport.FileStarter
         /// <param name="e"></param>
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var vm = this.DataContext as FileStarterViewModel;
+            var vm = this.DataContext as FileAppMapperViewModel;
 	        if (vm == null)
 	        {
 				return;
@@ -127,7 +123,7 @@ namespace DevelopmentSupport.FileStarter
 
         private void ListBox_Drop(object sender, DragEventArgs e)
         {
-            var vm = this.DataContext as FileStarterViewModel;
+            var vm = this.DataContext as FileAppMapperViewModel;
             var list = vm.ExeInfoList;
             var pathList = vm.ExeInfoList.Select(x => x.FilePath);
             var DuplicateFilePathList = new List<string>();
@@ -147,7 +143,7 @@ namespace DevelopmentSupport.FileStarter
                     DuplicateFilePathList.Add(s);
                     continue;
                 }
-                var fileInfo = new FileAccessor.FileInfo(s);
+                var fileInfo = new ViewModel.FileInfo(s);
                 list.Add(fileInfo);
                 vm.SychronizeDisplayExeList();
             }
@@ -168,27 +164,5 @@ namespace DevelopmentSupport.FileStarter
         {
 
         }
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    public struct SHFILEINFO
-    {
-        public IntPtr hIcon;
-        public IntPtr iIcon;
-        public uint dwAttributes;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
-        public string szDisplayName;
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
-        public string szTypeName;
-    };
-
-    class Win32
-    {
-        public const uint SHGFI_ICON = 0x100;
-        public const uint SHGFI_LARGEICON = 0x0; // 'Large icon  
-        public const uint SHGFI_SMALLICON = 0x1; // 'Small icon  
-
-        [DllImport("shell32.dll")]
-        public static extern IntPtr SHGetFileInfo(string pszPath, uint dwFileAttributes, ref SHFILEINFO psfi, uint cbSizeFileInfo, uint uFlags);
     }
 }

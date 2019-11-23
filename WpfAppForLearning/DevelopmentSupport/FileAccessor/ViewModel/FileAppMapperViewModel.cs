@@ -1,5 +1,5 @@
 ﻿using DevelopmentSupport.Common;
-using DevelopmentSupport.FileAccessor;
+using DevelopmentSupport.FileAccessor.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,27 +11,27 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
-namespace DevelopmentSupport.FileStarter
+namespace DevelopmentSupport.FileAccessor.ViewModel
 {
-    public class FileStarterViewModel : FileAccessViewModel
+    public class FileAppMapperViewModel : FileAccessViewModel
     {
-        protected ObservableCollection<FileAccessor.FileInfo> m_ExeInfoList;
-        protected ObservableCollection<FileAccessor.FileInfo> m_DisplayExeInfoList;
-        protected FileAccessor.FileInfo m_SelectedExeInfo;
+        protected ObservableCollection<FileInfo> m_ExeInfoList;
+        protected ObservableCollection<FileInfo> m_DisplayExeInfoList;
+        protected FileInfo m_SelectedExeInfo;
         protected string m_TextEditorPath = "notepad";
 
-        public ObservableCollection<FileAccessor.FileInfo> ExeInfoList { get { return m_ExeInfoList; } set { SetProperty(ref m_ExeInfoList, value); } }
-        public ObservableCollection<FileAccessor.FileInfo> DisplayExeInfoList { get { return m_DisplayExeInfoList; } set { SetProperty(ref m_DisplayExeInfoList, value); } }
-        public FileAccessor.FileInfo SelectedExeInfo { get { return m_SelectedExeInfo; } set { SetProperty(ref m_SelectedExeInfo, value); } }
+        public ObservableCollection<FileInfo> ExeInfoList { get { return m_ExeInfoList; } set { SetProperty(ref m_ExeInfoList, value); } }
+        public ObservableCollection<FileInfo> DisplayExeInfoList { get { return m_DisplayExeInfoList; } set { SetProperty(ref m_DisplayExeInfoList, value); } }
+        public FileInfo SelectedExeInfo { get { return m_SelectedExeInfo; } set { SetProperty(ref m_SelectedExeInfo, value); } }
         public string TextEditorPath { get { return m_TextEditorPath; } set { SetProperty(ref m_TextEditorPath, value); } }
         public DelegateCommand SettingProcessStartCommand { get; protected set; }
 
-        public FileStarterViewModel()
+        public FileAppMapperViewModel()
             :base()
         {
-            ExeInfoList = new ObservableCollection<FileAccessor.FileInfo>();
-            DisplayExeInfoList = new ObservableCollection<FileAccessor.FileInfo>();
-            SelectedExeInfo = new FileAccessor.FileInfo("");
+            ExeInfoList = new ObservableCollection<FileInfo>();
+            DisplayExeInfoList = new ObservableCollection<FileInfo>();
+            SelectedExeInfo = new FileInfo("");
 
             SettingProcessStartCommand = new DelegateCommand(SettingProcessStart,CanSettingProcessStart);
         }
