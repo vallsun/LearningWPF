@@ -278,13 +278,8 @@ namespace DevelopmentSupport.FileAccessor.ViewModel
         /// </summary>
         /// <returns></returns>
         protected bool CanProcessStart()
-        {
-            if (SelectedFileInfo == null)
-            {
-                return false;
-            }
-            //return DisplayFileInfoList.Any() && SelectedFileInfo.Process == null;
-            return true;
+		{
+	        return DisplayFileInfoList.Any() && SelectedFileInfo != null;
         }
 
         /// <summary>
@@ -301,7 +296,7 @@ namespace DevelopmentSupport.FileAccessor.ViewModel
 
             SelectedFileInfo.Processing = true;
             SelectedFileInfo.Process.EnableRaisingEvents = true;
-            SelectedFileInfo.Process.Exited += new EventHandler(Process_Exited);
+            //SelectedFileInfo.Process.Exited += new EventHandler(Process_Exited);
             SelectedFileInfo.Process.Start();
         }
 
