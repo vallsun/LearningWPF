@@ -28,8 +28,8 @@
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsMouseOver"
 								 Value="True">
-							<Setter TargetName="Border"	Property="Background" Value="AliceBlue" />
-							<Setter TargetName="Border" Property="BorderBrush" Value="Blue" />
+                            <Setter TargetName="Border"	Property="Background" Value="#bee6fd" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="#3c7fb1" />
 						</Trigger>
 						<Trigger Property="IsChecked" Value="True">
 							<Setter TargetName="RightArrow" Property="Visibility" Value="Collapsed" />
@@ -51,7 +51,7 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ComboBox}">
 					<Grid>
-						<ToggleButton Style="{StaticResource ToggleButtonStyle}"
+						<ToggleButton Name="m_PathBarItemToggle" Style="{StaticResource ToggleButtonStyle}"
 									  IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, 
 													RelativeSource={RelativeSource TemplatedParent}}" />
 						<Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
@@ -64,7 +64,14 @@
 							</Grid>
 						</Popup>
 					</Grid>
-				</ControlTemplate>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+								 Value="True">
+                            <Setter TargetName="m_PathBarItemToggle" Property="Background" Value="AliceBlue" />
+                            <Setter TargetName="m_PathBarItemToggle" Property="BorderBrush" Value="lightblue" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
 			</Setter.Value>
 		</Setter>
 	</Style>
