@@ -13,5 +13,16 @@ namespace WpfAppForLearning
     /// </summary>
     public partial class App : Application
     {
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        public App()
+        {
+            // フォントを設定
+            var font = new System.Windows.Media.FontFamily("メイリオ");
+            var style = new Style(typeof(Window));
+            style.Setters.Add(new Setter(Window.FontFamilyProperty, font));
+            FrameworkElement.StyleProperty.OverrideMetadata(typeof(Window), new FrameworkPropertyMetadata(style));
+        }
     }
 }

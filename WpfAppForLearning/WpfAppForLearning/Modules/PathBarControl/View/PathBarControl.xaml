@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfAppForLearning.Modules.PathBarControl.View"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             Background="Transparent">
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -14,18 +15,12 @@
 		</ResourceDictionary>
 	</UserControl.Resources>
     <Grid>
-        <Border BorderBrush="Gray" BorderThickness="1" Background="LightGray">
-			<ListBox Margin="5,0"
-					 ItemsSource="{Binding PathListViewModel}"
-					 Background="Transparent"
-					 BorderBrush="Transparent">
-				<ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-            </ListBox>
-        </Border>
-            
+        <ListBox ItemsSource="{Binding PathListViewModel}" Background="Transparent" BorderThickness="0">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
     </Grid>
 </UserControl>
