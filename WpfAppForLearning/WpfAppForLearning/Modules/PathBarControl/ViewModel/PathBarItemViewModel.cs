@@ -33,9 +33,14 @@ namespace WpfAppForLearning.Modules.PathBarControl.ViewModel
         public ObservableCollection<PathBarItemViewModel> SiblingList { get; set; }
 
         /// <summary>
-        /// 兄弟リスト表示ボタンを表示するか
+        /// 子要素を持つか
         /// </summary>
-        public bool IsShownSiblingListDisplayButton { get; set; }
+        public bool HasChildren {
+            get
+            {
+                return Model?.Children?.Any() ?? false;
+            }
+        }
 
         public ICommand PageTransisitonCommand { get; set; }
 
@@ -65,11 +70,9 @@ namespace WpfAppForLearning.Modules.PathBarControl.ViewModel
 
             if (content.Children == null)
             {
-                IsShownSiblingListDisplayButton = false;
                 return;
             };
 
-            IsShownSiblingListDisplayButton = true;
             foreach (var contentItem in content.Children)
             {
                 SiblingList.Add(new PathBarItemViewModel(OwnerVM, contentItem));

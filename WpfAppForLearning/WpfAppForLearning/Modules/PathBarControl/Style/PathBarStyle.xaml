@@ -84,7 +84,7 @@
 				<ControlTemplate TargetType="ListBoxItem">
 					<StackPanel Orientation="Horizontal">
 						<Button Background="Transparent" BorderBrush="Transparent" Content="{Binding Name}" Command="{Binding PageTransisitonCommand}" />
-						<ComboBox Style="{StaticResource PathBarItemComboBoxStyle}" Width="10" ItemsSource="{Binding SiblingList}" Visibility="{Binding IsShownSiblingListDisplayButton, Converter={StaticResource BoolToVisivilityConverter}}">
+						<ComboBox Style="{StaticResource PathBarItemComboBoxStyle}" Width="10" ItemsSource="{Binding SiblingList}" Visibility="{Binding HasChildren, Converter={StaticResource BoolToVisivilityConverter}}">
 							<!--要素の外観定義-->
 							<ComboBox.ItemContainerStyle>
 								<Style TargetType="ComboBoxItem">
