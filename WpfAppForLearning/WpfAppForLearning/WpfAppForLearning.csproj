@@ -88,12 +88,8 @@
     </Compile>
     <Compile Include="Modules\DragDropControl\DragDropControlViewModel.cs" />
     <Compile Include="Modules\KeyboardNavigation\StringToNavigationModeConverter.cs" />
-    <Compile Include="Modules\PathBarControl\Command\PageTransitionCommand.cs" />
     <Compile Include="Modules\PathBarControl\ViewModel\PathBarItemViewModel.cs" />
     <Compile Include="Modules\PathBarControl\ViewModel\PathBarViewModel.cs" />
-    <Compile Include="Modules\PathBarControl\View\PathBarControl.xaml.cs">
-      <DependentUpon>PathBarControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Modules\KeyboardNavigation\KeyboardNavigationViewModel.cs" />
     <Compile Include="Modules\ProgressBar\ProgressBar.xaml.cs">
       <DependentUpon>ProgressBar.xaml</DependentUpon>
@@ -130,14 +126,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Modules\DragDropControl\DragDropControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Modules\PathBarControl\Style\PathBarStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Modules\PathBarControl\View\PathBarControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

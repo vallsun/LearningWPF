@@ -68,7 +68,7 @@ namespace DevelopmentSupport.Common
             remove { CommandManager.RequerySuggested -= value; }
         }
 
-        #region ICommand
+        #region ICommandメンバ
 
         /// <summary>
         /// ICommandインターフェースの実装(CanExecute)
@@ -93,35 +93,55 @@ namespace DevelopmentSupport.Common
     #endregion
 
     #region Parameter DelegateCommand
-    public sealed class DelegateCommand<T> : ICommand
+
+    /// <summary>
+    /// 引数ありのコマンドクラス
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class DelegateCommand<T> : ICommand
     {
         private Action<T> _execute;
         private Func<T, bool> _canExecute;
 
         private static readonly bool IS_VALUE_TYPE;
 
+        #region 構築・消滅
+
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
         static DelegateCommand()
         {
             IS_VALUE_TYPE = typeof(T).IsValueType;
         }
 
-
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="execute"></param>
         public DelegateCommand(Action<T> execute) : this(execute, o => true)
         {
         }
 
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="execute"></param>
+        /// <param name="canExecute"></param>
         public DelegateCommand(Action<T> execute, Func<T, bool> canExecute)
         {
             _execute = execute;
             _canExecute = canExecute;
         }
 
-        public bool CanExecute(T parameter)
+        #endregion
+
+        public virtual bool CanExecute(T parameter)
         {
             return _canExecute(parameter);
         }
 
-        public void Execute(T parameter)
+        public virtual void Execute(T parameter)
         {
             _execute(parameter);
         }
@@ -131,7 +151,8 @@ namespace DevelopmentSupport.Common
             add { CommandManager.RequerySuggested += value; }
             remove { CommandManager.RequerySuggested -= value; }
         }
-        #region ICommand
+        #region ICommandメンバ
+
         bool ICommand.CanExecute(object parameter)
         {
             return CanExecute(Cast(parameter));
@@ -144,9 +165,9 @@ namespace DevelopmentSupport.Common
         #endregion
 
         /// <summary>
-        /// convert parameter value
+        /// パラメータ値を変換する
         /// </summary>
-        /// <param name="parameter"></param>
+        /// <param name="parameter">パラメータ</param>
         /// <returns></returns>
         private T Cast(object parameter)
         {

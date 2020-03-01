@@ -15,17 +15,13 @@ using WpfAppForLearning.Modules.ProgressBar;
 using WpfAppForLearning.Modules.KeyboardNavigation;
 using WpfAppForLearning.Modules.DragDropControl;
 using WpfAppForLearning.Modules.TextBoxControl;
+using DevelopmentSupport.Common.Selectable;
 
 namespace WpfAppForLearning.ViewModel
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : SelectableViewModelBase<Content>
     {
         #region フィールド
-
-        /// <summary>
-        /// 選択中のアイテム
-        /// </summary>
-        private Content m_SelectedItem;
 
         /// <summary>
         /// 表示対象コンテンツのビューモデル
@@ -55,37 +51,13 @@ namespace WpfAppForLearning.ViewModel
             }
             set
             {
-                if (m_ContentViewModel == value)
-                {
-                    return;
-                }
-                m_ContentViewModel = value;
-                OnPropertyChanged("ContentViewModel");
-            }
-        }
-
-        /// <summary>
-        /// 選択中のアイテム
-        /// </summary>
-        public Content SelectedItem
-        {
-            get { return this.m_SelectedItem; }
-            set
-            {
-                if (this.m_SelectedItem == value) { return; }
-                this.m_SelectedItem = value;
-                this.PropertyChanged?.Invoke(this, SelectedItemPropertyChangedEventArgs);
+                SetProperty(ref m_ContentViewModel, value);
             }
         }
 
         #endregion
 
         private static readonly PropertyChangedEventArgs SelectedItemPropertyChangedEventArgs = new PropertyChangedEventArgs(nameof(SelectedItem));
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        
-
 
         /// <summary>
         /// コンストラクタ
@@ -94,14 +66,14 @@ namespace WpfAppForLearning.ViewModel
         {
             //コンテンツの生成
             ContentsTree = new Contents();
-            PathBar = new PathBarViewModel(this, SelectedItem);
+            PathBar = new PathBarViewModel(this, (Content)SelectedItem);
             //ContentViewModel = new StartControlViewModel();
             ContentViewModel = new CustomControlViewModel();
 
             //イベントハンドラの接続
             PropertyChanged += OnSelectedItemChanged;
 
-            SelectedItem = ContentsTree.ContentsTree.First<Content>();
+            SelectedItem = (Content)ContentsTree.ContentsTree.First<Content>();
         }
 
         #region イベントハンドラ
@@ -123,27 +95,27 @@ namespace WpfAppForLearning.ViewModel
             //ContentViewModel = null;
             //選択されたコンテンツに対応するVMを設定する
             //switch-case文ではcaseに定数値以外を設定できないため、if文で実装する
-            if(SelectedItem.ContentName == "コンテンツ")
+            if(SelectedItem.Name == "コンテンツ")
             {
                 ContentViewModel = new StartControlViewModel();
             }
-            else if (SelectedItem.ContentName == Strings.ContentName_CustomControl)
+            else if (SelectedItem.Name == Strings.ContentName_CustomControl)
             {
                 ContentViewModel = new CustomControlViewModel();
             }
-            else if (SelectedItem.ContentName == Strings.ContentName_ProgressBar)
+            else if (SelectedItem.Name == Strings.ContentName_ProgressBar)
             {
                 ContentViewModel = new ProgressBarViewModel(); 
             }
-            else if(SelectedItem.ContentName == Strings.ContentName_KeyboardNavigation)
+            else if(SelectedItem.Name == Strings.ContentName_KeyboardNavigation)
             {
                 ContentViewModel = new KeyboardNavigationViewModel();
             }
-            else if (SelectedItem.ContentName == Strings.ContentName_DragDropControl)
+            else if (SelectedItem.Name == Strings.ContentName_DragDropControl)
             {
                 ContentViewModel = new DragDropControlViewModel();
             }
-            else if(SelectedItem.ContentName == "TextBox")
+            else if(SelectedItem.Name == "TextBox")
             {
                 ContentViewModel = new TextBoxControlViewModel();
             }
@@ -153,15 +125,6 @@ namespace WpfAppForLearning.ViewModel
                 //未実装コンテンツ用のVMを設定
                 ContentViewModel = new NotImplementationViewModel();
             }
-        }
-
-        /// <summary>
-        /// プロパティ変更通知
-        /// </summary>
-        /// <param name="name"></param>
-        public void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
         #endregion

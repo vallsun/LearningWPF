@@ -69,7 +69,19 @@
     <Compile Include="Common\Converters\ReverseBoolToVisibilityConverter.cs" />
     <Compile Include="Common\Converters\TreeItemLeftMarginConverter.cs" />
     <Compile Include="Common\DelegateCommand.cs" />
+    <Compile Include="Common\Hierarchical\IHierarchicalItem.cs" />
+    <Compile Include="Common\Namable\INamable.cs" />
+    <Compile Include="Common\PathBar\Command\PageTransitionCommand.cs" />
+    <Compile Include="Common\PathBar\PathBarItemViewModelBase.cs" />
+    <Compile Include="Common\PathBar\PathBarViewModelBase.cs" />
+    <Compile Include="Common\PathBar\View\PathBarControl.xaml.cs">
+      <DependentUpon>PathBarControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Selectable\ISelectable.cs" />
+    <Compile Include="Common\Selectable\ISelectableItem.cs" />
+    <Compile Include="Common\Selectable\SelectableViewModelBase.cs" />
     <Compile Include="Common\TreeViewItemExtensions.cs" />
+    <Compile Include="Common\ViewModelBase.cs" />
     <Compile Include="FileAccessor\View\FileAccessView.xaml.cs">
       <DependentUpon>FileAccessView.xaml</DependentUpon>
     </Compile>
@@ -92,6 +104,14 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="ClipboardWatcher\ClipboardHistoryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Common\PathBar\Style\PathBarStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Common\PathBar\View\PathBarControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

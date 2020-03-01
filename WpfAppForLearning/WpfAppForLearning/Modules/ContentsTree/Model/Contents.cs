@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DevelopmentSupport.Common.Hierarchical;
+using DevelopmentSupport.Common.Namable;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -14,27 +16,30 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
     /// <summary>
     /// コンテンツのツリーリスト
     /// </summary>
-    public class Content
+    public class Content : INamable, IHierarchicalItem
     {
         /// <summary>
         /// 親要素
         /// </summary>
-        private Content m_Parent = null;
+        private IHierarchicalItem m_Parent = null;
+
         /// <summary>
         /// 子要素のコレクション
         /// </summary>
-        private ObservableCollection<Content> m_Children = null;
+        private ObservableCollection<IHierarchicalItem> m_Children = null;
 
         #region プロパティ
 
         /// <summary>
         /// 名前
         /// </summary>
-        public string ContentName { get; set; }
+        public string Name { get; set; }
+        
         /// <summary>
         /// 親
         /// </summary>
-        public Content Parent {
+        public IHierarchicalItem Parent
+        {
             get
             {
                 return m_Parent;
@@ -44,10 +49,11 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
                 m_Parent = value;
             }
         }
+
         /// <summary>
         /// 子
         /// </summary>
-        public ObservableCollection<Content> Children
+        public ObservableCollection<IHierarchicalItem> Children
         {
             get
             {
@@ -116,86 +122,86 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
             ContentsTree = new ObservableCollection<Content>();
             var rootContent = new Content()
             {
-                ContentName = "コンテンツ",
-                Children = new ObservableCollection<Content>(),
+                Name = "コンテンツ",
+                Children = new ObservableCollection<IHierarchicalItem>(),
             };
 
             var controlCotent = new Content()
             {
-                ContentName = Strings.ContentName_Control,
-                Children = new ObservableCollection<Content>(),
+                Name = Strings.ContentName_Control,
+                Children = new ObservableCollection<IHierarchicalItem>(),
             };
 
             var ProgressBarContent = new Content()
             {
-                ContentName = Strings.ContentName_ProgressBar,
+                Name = Strings.ContentName_ProgressBar,
             };
 
             var userControlCotent = new Content()
             {
-                ContentName = Strings.ContentName_UserControl,
+                Name = Strings.ContentName_UserControl,
             };
 
             var customControlCotent = new Content()
             {
-                ContentName = Strings.ContentName_CustomControl,
+                Name = Strings.ContentName_CustomControl,
             };
 
             var bindingCotent = new Content()
             {
-                ContentName = "バインディング",
+                Name = "バインディング",
             };
 
             var converterCotent = new Content()
             {
-                ContentName = "コンバータ",
+                Name = "コンバータ",
             };
 
             var keyboardNavigationContent = new Content()
             {
-                ContentName = "KeyboardNavigation"
+                Name = "KeyboardNavigation"
             };
 
             var dragDropControlContent = new Content()
             {
-                ContentName = Strings.ContentName_DragDropControl,
+                Name = Strings.ContentName_DragDropControl,
             };
 
             var layoutContent = new Content()
             {
-                ContentName = "レイアウト",
-                Children = new ObservableCollection<Content>(),
+                Name = "レイアウト",
+                Children = new ObservableCollection<IHierarchicalItem>(),
             };
 
             var panelContent = new Content()
             {
-                ContentName = "パネル(Panel)",
-                Children = new ObservableCollection<Content>(),
+                Name = "パネル(Panel)",
+                Children = new ObservableCollection<IHierarchicalItem>(),
             };
 
             var stackPanelContent = new Content()
             {
-                ContentName = "StackPanel",
+                Name = "StackPanel",
             };
 
             var dockPanelContent = new Content()
             {
-                ContentName = "DockPanel",
+                Name = "DockPanel",
             };
 
             var wrapPanelContent = new Content()
             {
-                ContentName = "WrapPanel",
+                Name = "WrapPanel",
             };
 
             var CanvasContent = new Content()
             {
-                ContentName = "Canvas",
+                Name = "Canvas",
             };
 
             var TextBoxContent = new Content()
             {
-                ContentName = "TextBox",
+                Name = "TextBox",
             };
 
             //レイアウト
