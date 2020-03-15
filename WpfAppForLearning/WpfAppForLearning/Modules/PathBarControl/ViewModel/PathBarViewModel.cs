@@ -1,14 +1,6 @@
 ﻿using DevelopmentSupport.Common.PathBar;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DevelopmentSupport.Common.Selectable;
 using WpfAppForLearning.Modules.ContentsTree.Model;
-using WpfAppForLearning.ViewModel;
 
 namespace WpfAppForLearning.Modules.PathBarControl.ViewModel
 {
@@ -20,7 +12,7 @@ namespace WpfAppForLearning.Modules.PathBarControl.ViewModel
         #region 構築・消滅
 
         //コンストラクタ
-        public PathBarViewModel(MainViewModel owner, Content content)
+        public PathBarViewModel(SelectableViewModelBase<Content> owner, Content content)
             : base(owner, content)
         {
         }

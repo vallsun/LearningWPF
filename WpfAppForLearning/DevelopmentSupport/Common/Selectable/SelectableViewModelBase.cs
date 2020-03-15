@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,8 @@ namespace DevelopmentSupport.Common.Selectable
     /// <summary>
     /// 選択要素を保持することが可能なVM
     /// </summary>
-    public class SelectableViewModelBase<T> : ViewModelBase
+    public class SelectableViewModelBase<T> : ViewModelBase, ISelectable<T>
+        where T : ISelectableItem
     {
         #region フィールド
 
@@ -28,7 +30,18 @@ namespace DevelopmentSupport.Common.Selectable
         public T SelectedItem
         {
             get { return m_SelectedItem; }
-            set { SetProperty(ref m_SelectedItem, value); }
+            set
+            {
+                if(m_SelectedItem != null)
+                {
+                    m_SelectedItem.IsSelected = false;
+                }
+                SetProperty(ref m_SelectedItem, value);
+                if (m_SelectedItem != null)
+                {
+                    m_SelectedItem.IsSelected = true;
+                }
+            }
         }
 
         #endregion
@@ -38,10 +51,27 @@ namespace DevelopmentSupport.Common.Selectable
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public SelectableViewModelBase()
+        public SelectableViewModelBase(INotifyPropertyChanged model)
+            : base(model)
+        {
+            PropertyChanged += OnSelectedItemChanged;
+        }
+
+        #endregion
+
+        #region イベントハンドラ
+
+        /// <summary>
+        /// 選択中のアイテムが変更された時の処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public virtual void OnSelectedItemChanged(object sender, PropertyChangedEventArgs e)
         {
 
         }
+        
         #endregion
+
     }
 }

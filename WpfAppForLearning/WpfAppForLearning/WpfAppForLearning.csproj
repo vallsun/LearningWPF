@@ -77,8 +77,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Modules\Common\BindableBase.cs" />
-    <Compile Include="Modules\Common\DelegateCommand.cs" />
     <Compile Include="Modules\Common\ExtendedControl\BindableSelectedItemTreeView.cs" />
     <Compile Include="Modules\Common\NotImplementationViewModel.cs" />
     <Compile Include="Modules\ContentCustomControl\ContentCustomControl.cs" />

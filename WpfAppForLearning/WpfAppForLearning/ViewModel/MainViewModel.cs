@@ -16,17 +16,30 @@ using WpfAppForLearning.Modules.KeyboardNavigation;
 using WpfAppForLearning.Modules.DragDropControl;
 using WpfAppForLearning.Modules.TextBoxControl;
 using DevelopmentSupport.Common.Selectable;
+using DevelopmentSupport.Common;
 
 namespace WpfAppForLearning.ViewModel
 {
     public class MainViewModel : SelectableViewModelBase<Content>
     {
+        #region 値数定義
+
+        private const string c_Content_Root = "コンテンツ";
+        private const string c_ContentName_CustomControl = "CustomControl";
+
+        #endregion
+
         #region フィールド
 
         /// <summary>
         /// 表示対象コンテンツのビューモデル
         /// </summary>
-        private object m_ContentViewModel;
+        private ViewModelBase m_ContentViewModel;
+
+        /// <summary>
+        /// ビューモデルのディクショナリ
+        /// </summary>
+        private Dictionary<Content, ViewModelBase> m_ViewModelDictionary;
 
         #endregion
 
@@ -44,8 +57,9 @@ namespace WpfAppForLearning.ViewModel
         /// <summary>
         /// 表示対象コンテンツのビューモデル
         /// </summary>
-        public object ContentViewModel
-        { get
+        public ViewModelBase ContentViewModel
+        {
+            get
             {
                 return m_ContentViewModel;
             }
@@ -62,18 +76,15 @@ namespace WpfAppForLearning.ViewModel
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public MainViewModel()  
+        public MainViewModel()
+            : base(null)
         {
             //コンテンツの生成
             ContentsTree = new Contents();
-            PathBar = new PathBarViewModel(this, (Content)SelectedItem);
-            //ContentViewModel = new StartControlViewModel();
-            ContentViewModel = new CustomControlViewModel();
+            PathBar = new PathBarViewModel(this, SelectedItem);
+            m_ViewModelDictionary = new Dictionary<Content, ViewModelBase>();
 
-            //イベントハンドラの接続
-            PropertyChanged += OnSelectedItemChanged;
-
-            SelectedItem = (Content)ContentsTree.ContentsTree.First<Content>();
+            SelectedItem = ContentsTree.ContentsTree.FirstOrDefault();
         }
 
         #region イベントハンドラ
@@ -83,51 +94,56 @@ namespace WpfAppForLearning.ViewModel
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void OnSelectedItemChanged(object sender, PropertyChangedEventArgs e)
+        public override void OnSelectedItemChanged(object sender, PropertyChangedEventArgs e)
         {
-            if(e.PropertyName != "SelectedItem")
+            base.OnSelectedItemChanged(sender, e);
+
+            if (e.PropertyName != "SelectedItem")
             {
                 return;
             }
 
             PathBar.OnSelectedItemChanged(sender, e);
 
-            //ContentViewModel = null;
-            //選択されたコンテンツに対応するVMを設定する
-            //switch-case文ではcaseに定数値以外を設定できないため、if文で実装する
-            if(SelectedItem.Name == "コンテンツ")
+            if (SelectedItem == null)
             {
-                ContentViewModel = new StartControlViewModel();
-            }
-            else if (SelectedItem.Name == Strings.ContentName_CustomControl)
-            {
-                ContentViewModel = new CustomControlViewModel();
-            }
-            else if (SelectedItem.Name == Strings.ContentName_ProgressBar)
-            {
-                ContentViewModel = new ProgressBarViewModel(); 
-            }
-            else if(SelectedItem.Name == Strings.ContentName_KeyboardNavigation)
-            {
-                ContentViewModel = new KeyboardNavigationViewModel();
-            }
-            else if (SelectedItem.Name == Strings.ContentName_DragDropControl)
-            {
-                ContentViewModel = new DragDropControlViewModel();
-            }
-            else if(SelectedItem.Name == "TextBox")
-            {
-                ContentViewModel = new TextBoxControlViewModel();
+                return;
             }
 
-            else
+            //選択されたコンテンツに対応するVMを設定する
+            if (!m_ViewModelDictionary.ContainsKey(SelectedItem))
             {
-                //未実装コンテンツ用のVMを設定
-                ContentViewModel = new NotImplementationViewModel();
+                ViewModelBase addVM = null;
+                switch (SelectedItem.Name)
+                {
+                    case c_Content_Root:
+                        addVM = new StartControlViewModel(SelectedItem);
+                        break;
+                    case c_ContentName_CustomControl:
+                        addVM = new CustomControlViewModel(SelectedItem);
+                        break;
+                    case "ProgressBar":
+                        addVM = new ProgressBarViewModel(SelectedItem);
+                        break;
+                    case "KeyboardNavigation":
+                        addVM = new KeyboardNavigationViewModel(SelectedItem);
+                        break;
+                    case "DragDropControl":
+                        addVM = new DragDropControlViewModel(SelectedItem);
+                        break;
+                    case "TextBox":
+                        addVM = new TextBoxControlViewModel(SelectedItem);
+                        break;
+                    default:
+                        addVM = new NotImplementationViewModel(SelectedItem);
+                        break;
+                }
+                m_ViewModelDictionary.Add(SelectedItem, addVM);
             }
+
+            ContentViewModel = m_ViewModelDictionary[SelectedItem];
         }
 
         #endregion
-
     }
 }

@@ -2,14 +2,15 @@
 using DevelopmentSupport.Common.Hierarchical;
 using DevelopmentSupport.Common.Namable;
 using DevelopmentSupport.Common.PathBar;
+using DevelopmentSupport.Common.Selectable;
 
 namespace DevelopmentSupport.Common.PathBar.Command
 {
     /// <summary>
     /// 要素選択で画面遷移するコマンド
     /// </summary>
-    public class PageTransitionCommand<T> : DelegateCommand<T>
-        where T : IHierarchicalItem, INamable
+    public class PageTransitionCommand<T> : DelegateCommand<PathBarItemViewModelBase<T>>
+        where T : HierarchicalItemBase<T>, INamable, ISelectableItem
     {
         /// <summary>
         /// コマンド発行元のVM
@@ -25,14 +26,14 @@ namespace DevelopmentSupport.Common.PathBar.Command
             CommandSourceVM = vm;
         }
 
-        public override bool CanExecute(T parameter)
+        public override bool CanExecute(PathBarItemViewModelBase<T> parameter)
         {
             return true;
         }
 
-        public override void Execute(T parameter)
+        public override void Execute(PathBarItemViewModelBase<T> parameter)
         {
-            CommandSourceVM.OwnerVM.SelectedItem = CommandSourceVM.Model;
+            CommandSourceVM.Owner.SelectedItem = (T)CommandSourceVM.Model;
         }
     }
 }

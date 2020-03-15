@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 namespace DevelopmentSupport.Common.Selectable
 {
     /// <summary>
-    /// 選択可能な要素
+    /// 要素選択可能なクラスのインターフェース
     /// </summary>
-    public interface ISelectable
+    public interface ISelectable<T>
     {
-
+        /// <summary>
+        /// 選択中の要素
+        /// </summary>
+        T SelectedItem { get; set; }
     }
 }

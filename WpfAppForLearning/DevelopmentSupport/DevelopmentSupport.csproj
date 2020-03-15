@@ -69,6 +69,7 @@
     <Compile Include="Common\Converters\ReverseBoolToVisibilityConverter.cs" />
     <Compile Include="Common\Converters\TreeItemLeftMarginConverter.cs" />
     <Compile Include="Common\DelegateCommand.cs" />
+    <Compile Include="Common\Hierarchical\HierarchicalItemBase.cs" />
     <Compile Include="Common\Hierarchical\IHierarchicalItem.cs" />
     <Compile Include="Common\Namable\INamable.cs" />
     <Compile Include="Common\PathBar\Command\PageTransitionCommand.cs" />

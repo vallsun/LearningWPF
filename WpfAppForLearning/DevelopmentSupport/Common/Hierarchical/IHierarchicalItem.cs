@@ -11,19 +11,20 @@ namespace DevelopmentSupport.Common.Hierarchical
     /// <summary>
     /// 階層構造を持つ要素
     /// </summary>
-    public interface IHierarchicalItem
+    public interface IHierarchicalItem<T>
+        where T : IHierarchicalItem<T>
     {
         #region プロパティ
 
         /// <summary>
         /// 親要素
         /// </summary>
-        IHierarchicalItem Parent { get; set; }
+       T Parent { get; set; }
 
         /// <summary>
         /// 子要素群
         /// </summary>
-        ObservableCollection<IHierarchicalItem> Children { get; set; }
+        ObservableCollection<T> Children { get; set; }
 
         #endregion
     }

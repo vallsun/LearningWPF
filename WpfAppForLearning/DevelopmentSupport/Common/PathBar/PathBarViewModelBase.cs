@@ -1,14 +1,10 @@
 ﻿using DevelopmentSupport.Common.Hierarchical;
 using DevelopmentSupport.Common.Namable;
 using DevelopmentSupport.Common.Selectable;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DevelopmentSupport.Common.PathBar
 {
@@ -16,7 +12,7 @@ namespace DevelopmentSupport.Common.PathBar
     /// パスバーのVMベース
     /// </summary>
     public class PathBarViewModelBase<T> : ViewModelBase
-        where T : IHierarchicalItem, INamable
+        where T : HierarchicalItemBase<T>, INamable, ISelectableItem
     {
         #region プロパティ
 
@@ -30,27 +26,30 @@ namespace DevelopmentSupport.Common.PathBar
         /// </summary>
         public SelectableViewModelBase<T> Owner { get; set; }
 
-        /// <summary>
-        /// 現在選択中のアイテム
-        /// </summary>
         public T SelectedItem
         {
-            get => (T)Owner.SelectedItem;
-            set => Owner.SelectedItem = value;
+            get { return Owner.SelectedItem; }
+            set { Owner.SelectedItem = value; }
         }
 
         #endregion
 
         #region 構築・消滅
 
-        //コンストラクタ
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="owner"></param>
+        /// <param name="content"></param>
         public PathBarViewModelBase(SelectableViewModelBase<T> owner, T content)
+            : base(null)
         {
+            PropertyChanged += OnSelectedItemChanged;
             Owner = owner;
             PathListViewModel = new ObservableCollection<PathBarItemViewModelBase<T>>();
             if (content != null)
             {
-                CreatePathList(content);
+                CreatePathList( content);
             }
         }
 
@@ -62,16 +61,34 @@ namespace DevelopmentSupport.Common.PathBar
         /// パスリストを生成
         /// </summary>
         /// <param name="content"></param>
-        private void CreatePathList(IHierarchicalItem content)
+        private void CreatePathList(T content)
         {
             Contract.Requires(PathListViewModel != null);
+            if(content == null)
+            {
+                return;
+            }
 
             //子要素から親要素に向かってリスト先頭に要素を追加
-            PathListViewModel.Insert(0, new PathBarItemViewModelBase<T>(this, (T)content));
+            PathListViewModel.Insert(0, new PathBarItemViewModelBase<T>(this, content));
             if (content.Parent != null)
             {
                 CreatePathList(content.Parent);
             };
+        }
+
+        #endregion
+
+        #region 公開サービス
+
+        /// <summary>
+        /// モデルに対応するVMを取得する
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public PathBarItemViewModelBase<T> GetItemVM(T model)
+        {
+            return PathListViewModel.FirstOrDefault(i => ((T)i.Model) == model);
         }
 
         #endregion
@@ -85,13 +102,14 @@ namespace DevelopmentSupport.Common.PathBar
         /// <param name="e"></param>
         public void OnSelectedItemChanged(object sender, PropertyChangedEventArgs e)
         {
+
             if (Owner == null)
             {
                 return;
             }
             PathListViewModel.Clear();
             //パスリストの再生成
-            CreatePathList((IHierarchicalItem)Owner.SelectedItem);
+            CreatePathList((T)Owner.SelectedItem);
         }
 
         #endregion

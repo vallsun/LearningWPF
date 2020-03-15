@@ -1,14 +1,7 @@
 ﻿using DevelopmentSupport.Common.Hierarchical;
 using DevelopmentSupport.Common.Namable;
-using System;
-using System.Collections.Generic;
+using DevelopmentSupport.Common.Selectable;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 using WpfAppForLearning.Properties;
 
 namespace WpfAppForLearning.Modules.ContentsTree.Model
@@ -16,57 +9,8 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
     /// <summary>
     /// コンテンツのツリーリスト
     /// </summary>
-    public class Content : INamable, IHierarchicalItem
+    public class Content : HierarchicalItemBase<Content>, INamable, ISelectableItem
     {
-        /// <summary>
-        /// 親要素
-        /// </summary>
-        private IHierarchicalItem m_Parent = null;
-
-        /// <summary>
-        /// 子要素のコレクション
-        /// </summary>
-        private ObservableCollection<IHierarchicalItem> m_Children = null;
-
-        #region プロパティ
-
-        /// <summary>
-        /// 名前
-        /// </summary>
-        public string Name { get; set; }
-        
-        /// <summary>
-        /// 親
-        /// </summary>
-        public IHierarchicalItem Parent
-        {
-            get
-            {
-                return m_Parent;
-            }
-            set
-            {
-                m_Parent = value;
-            }
-        }
-
-        /// <summary>
-        /// 子
-        /// </summary>
-        public ObservableCollection<IHierarchicalItem> Children
-        {
-            get
-            {
-                return m_Children;
-            }
-            set
-            {
-                m_Children = value;
-            }
-        }
-
-        #endregion
-
         #region 構築・消滅
 
         /// <summary>
@@ -76,6 +20,24 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
         public Content()
         {
         }
+
+        #endregion
+
+        #region INamableメンバ
+
+        /// <summary>
+        /// 名前
+        /// </summary>
+        public string Name { get; set; }
+
+        #endregion
+
+        #region ISelectableItemメンバ
+
+        /// <summary>
+        /// 選択中か
+        /// </summary>
+        public bool IsSelected { get; set; }
 
         #endregion
 
@@ -123,13 +85,13 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
             var rootContent = new Content()
             {
                 Name = "コンテンツ",
-                Children = new ObservableCollection<IHierarchicalItem>(),
+                Children = new ObservableCollection<Content>(),
             };
 
             var controlCotent = new Content()
             {
                 Name = Strings.ContentName_Control,
-                Children = new ObservableCollection<IHierarchicalItem>(),
+                Children = new ObservableCollection<Content>(),
             };
 
             var ProgressBarContent = new Content()
@@ -170,13 +132,13 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
             var layoutContent = new Content()
             {
                 Name = "レイアウト",
-                Children = new ObservableCollection<IHierarchicalItem>(),
+                Children = new ObservableCollection<Content>(),
             };
 
             var panelContent = new Content()
             {
                 Name = "パネル(Panel)",
-                Children = new ObservableCollection<IHierarchicalItem>(),
+                Children = new ObservableCollection<Content>(),
             };
 
             var stackPanelContent = new Content()

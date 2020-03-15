@@ -16,7 +16,7 @@ namespace DevelopmentSupport.Common.Namable
         /// <summary>
         /// 名前
         /// </summary>
-        string Name { get; set; }
+        string Name { get; }
 
         #endregion
     }

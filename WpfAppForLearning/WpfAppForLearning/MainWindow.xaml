@@ -82,9 +82,8 @@
                 </Border>
                 <!--コンテンツナビゲータツリー-->
                 <extendedControl:BindableSelectedItemTreeView Grid.Row="1" BorderThickness="0"
-													  ItemsSource="{Binding Path=ContentsTree.ContentsTree, ElementName=mainVM}"
-													  BindableSelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-													  >
+                                                              ItemsSource="{Binding Path=ContentsTree.ContentsTree, ElementName=mainVM}"
+                                                              BindableSelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                     <extendedControl:BindableSelectedItemTreeView.ItemTemplate>
                         <HierarchicalDataTemplate DataType="contentsModel:Content" ItemsSource="{Binding Children}">
                             <TextBlock Text="{Binding Path=Name}" />

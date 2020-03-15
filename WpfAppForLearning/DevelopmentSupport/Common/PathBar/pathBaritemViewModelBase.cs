@@ -2,12 +2,8 @@
 using DevelopmentSupport.Common.Namable;
 using DevelopmentSupport.Common.PathBar.Command;
 using DevelopmentSupport.Common.Selectable;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace DevelopmentSupport.Common.PathBar
@@ -15,25 +11,50 @@ namespace DevelopmentSupport.Common.PathBar
     /// <summary>
     /// パスバー要素のVMベース
     /// </summary>
-    public class PathBarItemViewModelBase<T> : ViewModelBase, ISelectableItem<T>, INamable
-        where T : IHierarchicalItem, INamable
+    public class PathBarItemViewModelBase<T> : ViewModelBase, ISelectableItem
+        where T : HierarchicalItemBase<T>, INamable, ISelectableItem
     {
         #region プロパティ
 
         /// <summary>
         /// オーナービューモデル
         /// </summary>
-        public PathBarViewModelBase<T> OwnerVM { get; set; }
+        public PathBarViewModelBase<T> Owner { get; set; }
+
+        #region IHierarchicalItemメンバ
 
         /// <summary>
-        /// 要素に対応するモデル
+        /// 親
         /// </summary>
-        public T Model { get; set; }
+        public PathBarItemViewModelBase<T> Parent { get; set; }
+
+        /// <summary>
+        /// 子要素のコレクション
+        /// </summary>
+        public ObservableCollection<PathBarItemViewModelBase<T>> Children { get; set; }
+
+        #endregion
+
+        #region ISelectableItemメンバ
+
+        /// <summary>
+        /// 選択されているか
+        /// </summary>
+        public bool IsSelected { get; set; }
+
+        #endregion
+
+        #region INamableメンバ
 
         /// <summary>
         /// 名前
         /// </summary>
-        public string Name { get; set; }
+        public string Name
+        {
+            get { return ((T)Model).Name; }
+        }
+
+        #endregion
 
         /// <summary>
         /// 兄弟リスト
@@ -47,7 +68,7 @@ namespace DevelopmentSupport.Common.PathBar
         {
             get
             {
-                return Model?.Children?.Any() ?? false;
+                return ((T)Model).Children?.Any() ?? false;
             }
         }
 
@@ -64,12 +85,10 @@ namespace DevelopmentSupport.Common.PathBar
         /// コンストラクタ
         /// </summary>
         /// <param name="content"></param>
-        public PathBarItemViewModelBase(PathBarViewModelBase<T> vm, T model)
+        public PathBarItemViewModelBase(PathBarViewModelBase<T> vm, HierarchicalItemBase<T> model)
+            : base(model)
         {
-            OwnerVM = vm;
-            Model = model;
-            Name = model.Name;
-
+            Owner = vm;
             SiblingListBuilder(model);
             RegisterCommands();
         }
@@ -82,7 +101,7 @@ namespace DevelopmentSupport.Common.PathBar
         /// 兄弟リストの生成
         /// </summary>
         /// <param name="content"></param>
-        private void SiblingListBuilder(T content)
+        private void SiblingListBuilder(HierarchicalItemBase<T> content)
         {
             SiblingList = new ObservableCollection<PathBarItemViewModelBase<T>>();
 
@@ -93,7 +112,8 @@ namespace DevelopmentSupport.Common.PathBar
 
             foreach (var contentItem in content.Children)
             {
-                SiblingList.Add(new PathBarItemViewModelBase<T>(OwnerVM, (T)contentItem));
+                
+                SiblingList.Add(new PathBarItemViewModelBase<T>(Owner, contentItem));
             }
         }
 
