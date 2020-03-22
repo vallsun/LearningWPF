@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:clipboardWatcher="clr-namespace:DevelopmentSupport.ClipboardWatcher"
              mc:Ignorable="d"
-			 Name="m_ClipboardHistoryViewUserControl"
-			 Loaded="ClipboardHistoryViewUserControl_Loaded">
+             Loaded="ClipboardHistoryViewUserControl_Loaded">
 	<UserControl.DataContext>
 		<clipboardWatcher:ClipboardHistoryViewModel/>
 	</UserControl.DataContext>

@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:fileAccessVM="clr-namespace:DevelopmentSupport.FileAccessor.ViewModel"
 			 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
-             mc:Ignorable="d"
-			 Name="m_FileAccessViewUserControl">
+             mc:Ignorable="d">
 	<UserControl.Resources>
 		<ResourceDictionary Source="./Styles/ListBoxResourceDictionary.xaml"/>
 	</UserControl.Resources>
