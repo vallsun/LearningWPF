@@ -48,7 +48,7 @@ namespace DevelopmentSupport.ClipboardWatcher
             if (msg == WM_DRAWCLIPBOARD)
             {
                 SendMessage(nextHandle, msg, wParam, lParam);
-                this.raiseDrawClipboard();
+                this.RaiseDrawClipboard();
                 handled = true;
             }
             else if (msg == WM_CHANGECBCHAIN)
@@ -67,7 +67,7 @@ namespace DevelopmentSupport.ClipboardWatcher
             return IntPtr.Zero;
         }
 
-        private void raiseDrawClipboard()
+        private void RaiseDrawClipboard()
         {
             if (DrawClipboard != null)
             {

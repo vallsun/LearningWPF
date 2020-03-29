@@ -67,4 +67,35 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style TargetType="{x:Type ribbon:RibbonToggleButton}">
+        <Setter Property="Width" Value="Auto"/>
+        <Setter Property="MaxWidth" Value="100"/>
+        <Setter Property="MinWidth" Value="36"/>
+        <Setter Property="Height" Value="60"/>
+        <Setter Property="Background" Value="Gray"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ribbon:RibbonToggleButton}">
+                    <Grid Name="m_StackPanel" Background="Transparent" Width="Auto">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
+                        <Image HorizontalAlignment="Center" Width="32" Height="32" Margin="2" Stretch="UniformToFill"
+                               Source="{Binding ImageSource, RelativeSource={RelativeSource FindAncestor, AncestorType=ribbon:RibbonToggleButton}}"/>
+                        <TextBlock Grid.Row="1" Margin="2,0"
+                                   HorizontalAlignment="Center"
+                                   Text="{Binding Content, RelativeSource={RelativeSource FindAncestor, AncestorType=ribbon:RibbonToggleButton}}"
+                                   TextWrapping="Wrap"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="m_StackPanel" Property="Background" Value="Gray"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

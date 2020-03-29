@@ -23,8 +23,12 @@
 				 ScrollViewer.HorizontalScrollBarVisibility="Disabled" MinHeight="410" MinWidth="200">
 				<ListBox.ItemContainerStyle>
 					<Style TargetType="ListBoxItem">
-						<Setter Property="Tag" Value="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}" />
-						<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+						<Setter Property="Tag">
+                            <Setter.Value>
+                                <Binding Path="DataContext" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type ListBox}}" />
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
 						<Setter Property="ContextMenu">
 							<Setter.Value>
 								<ContextMenu>
