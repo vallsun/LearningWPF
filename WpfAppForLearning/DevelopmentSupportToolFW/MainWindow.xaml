@@ -26,8 +26,8 @@
                 <StackPanel Orientation="Horizontal">
                     <ribbon:RibbonGroup Header="ビュー">
                         <StackPanel Orientation="Horizontal">
-                            <ribbon:RibbonToggleButton Content="ファイルアクセス" ImageSource="Resources/Image/lunchar.png"/>
-                            <ribbon:RibbonToggleButton Content="クリップボード" ImageSource="Resources/Image/lunchar.png"/>
+                            <ribbon:RibbonToggleButton Content="ファイルアクセス" ImageSource="Resources/Image/lunchar.png" IsChecked="True"/>
+                            <ribbon:RibbonToggleButton Content="クリップボード" ImageSource="Resources/Image/lunchar.png" IsEnabled="False"/>
                         </StackPanel>
                     </ribbon:RibbonGroup>
                 </StackPanel>
@@ -36,7 +36,7 @@
             <TabItem Header="ヘルプ">
                 <StackPanel Orientation="Horizontal">
                     <ribbon:RibbonGroup Header="ヘルプ" Width="Auto">
-                        <ribbon:RibbonButton Margin="2,0" Content="バージョン情報" ImageSource="Resources/Image/DSIcon.png" Command="{Binding ShowVersionInfoCommand}"/>
+                        <ribbon:RibbonButton Margin="2,0" Content="バージョン情報" ImageSource="Resources/Image/DSIcon3.png" Command="{Binding ShowVersionInfoCommand}"/>
                     </ribbon:RibbonGroup>
                 </StackPanel>
             </TabItem>
