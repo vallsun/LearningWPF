@@ -27,7 +27,7 @@
                     <ribbon:RibbonGroup Header="ビュー">
                         <StackPanel Orientation="Horizontal">
                             <ribbon:RibbonToggleButton Content="ファイルアクセス" ImageSource="Resources/Image/lunchar.png" IsChecked="True"/>
-                            <ribbon:RibbonToggleButton Content="クリップボード" ImageSource="Resources/Image/lunchar.png" IsEnabled="False"/>
+                            <ribbon:RibbonToggleButton Content="クリップボード" ImageSource="Resources/Image/ClipBoard.png" IsEnabled="False"/>
                         </StackPanel>
                     </ribbon:RibbonGroup>
                 </StackPanel>

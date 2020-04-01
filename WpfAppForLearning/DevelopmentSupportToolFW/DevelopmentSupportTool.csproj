@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Image\ClipBoard.png" />
     <None Remove="Resources\Image\DSIcon.png" />
     <None Remove="Resources\Image\DSIcon2.png" />
     <None Remove="Resources\Image\DSIcon3.png" />
@@ -27,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Image\ClipBoard.png" />
     <Resource Include="Resources\Image\DSIcon.png" />
     <Resource Include="Resources\Image\DSIcon2.png" />
     <Resource Include="Resources\Image\DSIcon3.png" />

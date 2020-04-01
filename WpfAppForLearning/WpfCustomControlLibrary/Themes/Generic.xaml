@@ -3,19 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ribbon="clr-namespace:WpfCustomControlLibrary.Ribbon">
 
-    <Style x:Key="ImageStyle" TargetType="{x:Type Image}">
-        <Setter Property="OverridesDefaultStyle" Value="True"/>
-        <Style.Triggers>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Source">
-                    <Setter.Value>
-                        <FormatConvertedBitmap Source="{Binding Source}" DestinationFormat="Gray8"/>
-                    </Setter.Value>
-                </Setter>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
     <Style TargetType="{x:Type ribbon:RibbonButton}">
         <Setter Property="Width" Value="Auto"/>
         <Setter Property="MaxWidth" Value="100"/>
@@ -114,14 +101,6 @@
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="m_TextBlock" Property="Foreground" Value="LightGray"/>
                             <Setter TargetName="m_Image" Property="Opacity" Value="0.5"/>
-                            <!--
-                            <Setter TargetName="m_Image" Property="Source">
-                                <Setter.Value>
-                                    <FormatConvertedBitmap Source="{Binding Source, ElementName=m_Image}"
-                                                           DestinationFormat="Gray8"/>
-                                </Setter.Value>
-                            </Setter>
-                            -->
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
