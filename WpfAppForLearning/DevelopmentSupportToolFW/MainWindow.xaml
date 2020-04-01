@@ -51,9 +51,13 @@
 				<dsFileAccessor:FileAppMapperView/>
 			</TabItem>
 			-->
+
+            <!--クリップボードの更新時に処理が終わらずにスタックオーバーフローするため、仮処置として使用不可とする-->
+            <!--
             <TabItem Header="クリップボード">
                 <dsClipboardWatcher:ClipboardHistoryView/>
             </TabItem>
+            -->
         </TabControl>
     </Grid>
 </Window>

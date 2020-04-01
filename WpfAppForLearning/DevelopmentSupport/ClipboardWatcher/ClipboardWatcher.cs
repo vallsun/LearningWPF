@@ -43,6 +43,11 @@ namespace DevelopmentSupport.ClipboardWatcher
             this.nextHandle = SetClipboardViewer(this.handle);
         }
 
+        ~ClipboardWatcher()
+        {
+            Dispose();
+        }
+
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             if (msg == WM_DRAWCLIPBOARD)
@@ -69,10 +74,7 @@ namespace DevelopmentSupport.ClipboardWatcher
 
         private void RaiseDrawClipboard()
         {
-            if (DrawClipboard != null)
-            {
-                DrawClipboard(this, EventArgs.Empty);
-            }
+            DrawClipboard?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>

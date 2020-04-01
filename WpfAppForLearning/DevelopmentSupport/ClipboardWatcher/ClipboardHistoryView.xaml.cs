@@ -81,6 +81,10 @@ namespace DevelopmentSupport.ClipboardWatcher
         /// <param name="e"></param>
         private void ClipboardHistoryViewUserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            if (Application.Current?.MainWindow == null)
+            {
+                return;
+            }
             clipboardWatcher = new ClipboardWatcher(new System.Windows.Interop.WindowInteropHelper(Application.Current.MainWindow).Handle);
             clipboardWatcher.DrawClipboard += clipboardWatcher_DrawClipboard;
         }
