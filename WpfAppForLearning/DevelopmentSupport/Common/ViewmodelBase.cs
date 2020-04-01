@@ -39,7 +39,7 @@ namespace DevelopmentSupport.Common
         /// </summary>
         internal virtual void RegisterCommands()
         {
-
+            // 派生先で実装
         }
 
         #endregion

@@ -96,6 +96,11 @@
       <DependentUpon>SettingDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Setting\SettingDialogViewModel.cs" />
+    <Compile Include="TaskList\Model\Task.cs" />
+    <Compile Include="TaskList\ViewModel\TaskListViewModel.cs" />
+    <Compile Include="TaskList\View\TaskListView.xaml.cs">
+      <DependentUpon>TaskListView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="ClipboardWatcher\ClipboardHistoryView.xaml">
@@ -127,6 +132,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Setting\SettingDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TaskList\View\TaskListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

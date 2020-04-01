@@ -7,6 +7,7 @@
         xmlns:dsClipboardWatcher="clr-namespace:DevelopmentSupport.ClipboardWatcher;assembly=DevelopmentSupport"
         xmlns:ribbon="clr-namespace:WpfCustomControlLibrary.Ribbon;assembly=WpfCustomControlLibrary"
         xmlns:viewModels="clr-namespace:DevelopmentSupportTool.ViewModels"
+        xmlns:taskListView="clr-namespace:DevelopmentSupport.TaskList.View;assembly=DevelopmentSupport"
         mc:Ignorable="d"
         Title="DevelopmentSupportTool" Width="900" Height="600"
         Icon="/Resources/Image/DSIcon3.png" Background="#26799f"
@@ -58,6 +59,10 @@
                 <dsClipboardWatcher:ClipboardHistoryView/>
             </TabItem>
             -->
+
+            <TabItem Header="タスク一覧">
+                <taskListView:TaskListView/>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>
