@@ -90,7 +90,6 @@ namespace DevelopmentSupport.Common.PathBar
         {
             Owner = vm;
             SiblingListBuilder(model);
-            RegisterCommands();
         }
 
         #endregion
@@ -120,7 +119,7 @@ namespace DevelopmentSupport.Common.PathBar
         /// <summary>
         /// コマンドの登録
         /// </summary>
-        internal override void RegisterCommands()
+        public override void RegisterCommands()
         {
             base.RegisterCommands();
 

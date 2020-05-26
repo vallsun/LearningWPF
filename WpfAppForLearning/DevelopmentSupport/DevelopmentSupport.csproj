@@ -60,6 +60,7 @@
     <Compile Include="Common\BindableBase.cs" />
     <Compile Include="Common\BindableSelectedItemTreeView.cs" />
     <Compile Include="Common\Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Common\Converters\ReverseBooleanConverter.cs" />
     <Compile Include="Common\Converters\ReverseBoolToVisibilityConverter.cs" />
     <Compile Include="Common\Converters\TreeItemLeftMarginConverter.cs" />
     <Compile Include="Common\DelegateCommand.cs" />

@@ -1,15 +1,17 @@
-﻿using System;
+﻿using DevelopmentSupport.Common.Selectable;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DevelopmentSupport.Common;
 
 namespace DevelopmentSupport.TaskList.Model
 {
     /// <summary>
     /// タスク
     /// </summary>
-    public class Task
+    public class Task : BindableBase, ISelectableItem
     {
         #region プロパティ
 
@@ -42,6 +44,11 @@ namespace DevelopmentSupport.TaskList.Model
         /// 優先度
         /// </summary>
         public int Priority { get; set; }
+
+        /// <summary>
+        /// 選択されているか
+        /// </summary>
+        public bool IsSelected { get; set; }
 
         #endregion
     }

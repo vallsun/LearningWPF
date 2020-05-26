@@ -20,6 +20,11 @@ namespace DevelopmentSupport.Common.Selectable
         /// </summary>
         private T m_SelectedItem;
 
+        /// <summary>
+        /// 選択された要素群
+        /// </summary>
+        private IEnumerable<T> m_SelectedItems;
+
         #endregion
 
         #region プロパティ
@@ -42,6 +47,12 @@ namespace DevelopmentSupport.Common.Selectable
                     m_SelectedItem.IsSelected = true;
                 }
             }
+        }
+
+        public IEnumerable<T> SelectedItems
+        {
+            get { return m_SelectedItems; }
+            set { SetProperty(ref m_SelectedItems, value); }
         }
 
         #endregion

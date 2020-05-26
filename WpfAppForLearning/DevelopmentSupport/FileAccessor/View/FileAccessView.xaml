@@ -22,12 +22,12 @@
 					   Text="ファイルまたはフォルダをD&amp;Dで登録してください。" Foreground="Gray"
 					   Visibility="{Binding Path=HasItem, Converter={StaticResource ReverseBoolToVisibilityConverter}, Mode=OneWay}"/>
 		</Grid>
-		<ListBox Grid.Column="0" VerticalAlignment="Top" Margin="10,10" Background="Transparent"
+		<ListBox Grid.Column="0" VerticalAlignment="Stretch" Margin="10,10" Background="Transparent"
                  ItemsSource="{Binding DisplayFileInfoList}"
 				 SelectedItem="{Binding SelectedFileInfo}"
 				 ScrollViewer.CanContentScroll="True"
 				 ScrollViewer.VerticalScrollBarVisibility="Auto"
-				 ScrollViewer.HorizontalScrollBarVisibility="Disabled" MinHeight="440"
+				 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
 				 Drop="UserControl_Drop" PreviewDragOver="UserControl_PreviewDragOver" AllowDrop="True"
 				 ItemTemplate="{StaticResource SmallIconItemDateTemplate}"
 				 ItemsPanel="{StaticResource VirticalVirtualizingStackPanelItemsTemplate}">

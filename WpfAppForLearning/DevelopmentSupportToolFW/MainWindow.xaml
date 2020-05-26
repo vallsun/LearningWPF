@@ -4,16 +4,33 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:dsFileAccessor="clr-namespace:DevelopmentSupport.FileAccessor.View;assembly=DevelopmentSupport"
+		xmlns:dsFileAccessorViewModel="clr-namespace:DevelopmentSupport.FileAccessor.ViewModel;assembly=DevelopmentSupport"
         xmlns:dsClipboardWatcher="clr-namespace:DevelopmentSupport.ClipboardWatcher;assembly=DevelopmentSupport"
         xmlns:ribbon="clr-namespace:WpfCustomControlLibrary.Ribbon;assembly=WpfCustomControlLibrary"
         xmlns:viewModels="clr-namespace:DevelopmentSupportTool.ViewModels"
         xmlns:taskListView="clr-namespace:DevelopmentSupport.TaskList.View;assembly=DevelopmentSupport"
+		xmlns:taskListViewModel="clr-namespace:DevelopmentSupport.TaskList.ViewModel;assembly=DevelopmentSupport"
+        xmlns:converter="clr-namespace:DevelopmentSupportTool.Converters"
+        xmlns:commonConverter="clr-namespace:DevelopmentSupport.Common.Converters;assembly=DevelopmentSupport"
         mc:Ignorable="d"
-        Title="DevelopmentSupportTool" Width="900" Height="600"
+        Title="DevelopmentSupportTool" Width="900" Height="700"
         Icon="/Resources/Image/DSIcon3.png" Background="#26799f"
         ResizeMode="CanResizeWithGrip"
         SnapsToDevicePixels="True"
         UseLayoutRounding="True">
+    <Window.Resources>
+        <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+	    <commonConverter:ReverseBooleanConverter x:Key="ReverseBooleanConverter"/>
+	    <converter:ApplicationModeToVisibilityConverter x:Key="ApplicationModeToVisibilityConverter"/>
+        <converter:ApplicationModeToBooleanConverter x:Key="ApplicationModeToBooleanConverter"/>
+
+		<DataTemplate DataType="{x:Type taskListViewModel:TaskListViewModel}">
+			<taskListView:TaskListView/>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type dsFileAccessorViewModel:FileAccessViewModel}">
+			<dsFileAccessor:FileAccessView Background="White"/>
+		</DataTemplate>
+    </Window.Resources>
     <Window.DataContext>
         <viewModels:MainWindowViewModel/>
     </Window.DataContext>
@@ -22,47 +39,31 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TabControl>
-            <TabItem Header="ホーム">
-                <StackPanel Orientation="Horizontal">
-                    <ribbon:RibbonGroup Header="ビュー">
-                        <StackPanel Orientation="Horizontal">
-                            <ribbon:RibbonToggleButton Content="ファイルアクセス" ImageSource="Resources/Image/lunchar.png" IsChecked="True"/>
-                            <ribbon:RibbonToggleButton Content="クリップボード" ImageSource="Resources/Image/ClipBoard.png" IsEnabled="False"/>
-                        </StackPanel>
-                    </ribbon:RibbonGroup>
-                </StackPanel>
-            </TabItem>
-            <TabItem Header="編集"/>
-            <TabItem Header="ヘルプ">
-                <StackPanel Orientation="Horizontal">
-                    <ribbon:RibbonGroup Header="ヘルプ" Width="Auto">
-                        <ribbon:RibbonButton Margin="2,0" Content="バージョン情報" ImageSource="Resources/Image/DSIcon3.png" Command="{Binding ShowVersionInfoCommand}"/>
-                    </ribbon:RibbonGroup>
-                </StackPanel>
-            </TabItem>
-        </TabControl>
-
-        <TabControl Grid.Row="1" Margin="2,0,2,2">
-            <TabItem Header="汎用">
-                <dsFileAccessor:FileAccessView/>
-            </TabItem>
-            <!--
-			<TabItem Header="固有">
-				<dsFileAccessor:FileAppMapperView/>
+		<TabControl>
+			<TabItem Header="ホーム">
+				<StackPanel Orientation="Horizontal">
+					<ribbon:RibbonGroup Header="ビュー">
+						<StackPanel Orientation="Horizontal">
+							<ribbon:RibbonToggleButton Name="LaunchButton" Content="ファイルアクセス" ImageSource="Resources/Image/lunchar.png"
+                                                       IsChecked="{Binding CurrentMode, Converter={StaticResource ApplicationModeToBooleanConverter}, ConverterParameter={x:Static viewModels:ApplicationMode.Luncher}}"
+                                                       IsEnabled="{Binding ElementName=LaunchButton, Path=IsChecked, Converter={StaticResource ReverseBooleanConverter}, Mode=OneWay}"/>
+							<ribbon:RibbonToggleButton Content="クリップボード" ImageSource="Resources/Image/ClipBoard.png" IsEnabled="False"/>
+							<ribbon:RibbonToggleButton Name="TaskButton" Content="タスクリスト" ImageSource="Resources/Image/lunchar.png"
+							                           IsChecked="{Binding CurrentMode, Converter={StaticResource ApplicationModeToBooleanConverter}, ConverterParameter={x:Static viewModels:ApplicationMode.TaskManager}}"
+							                           IsEnabled="{Binding ElementName=TaskButton, Path=IsChecked, Converter={StaticResource ReverseBooleanConverter}, Mode=OneWay}"/>
+						</StackPanel>
+					</ribbon:RibbonGroup>
+				</StackPanel>
 			</TabItem>
-			-->
-
-            <!--クリップボードの更新時に処理が終わらずにスタックオーバーフローするため、仮処置として使用不可とする-->
-            <!--
-            <TabItem Header="クリップボード">
-                <dsClipboardWatcher:ClipboardHistoryView/>
-            </TabItem>
-            -->
-
-            <TabItem Header="タスク一覧">
-                <taskListView:TaskListView/>
-            </TabItem>
-        </TabControl>
-    </Grid>
+			<TabItem Header="編集"/>
+			<TabItem Header="ヘルプ">
+				<StackPanel Orientation="Horizontal">
+					<ribbon:RibbonGroup Header="ヘルプ" Width="Auto">
+						<ribbon:RibbonButton Margin="2,0" Content="バージョン情報" ImageSource="Resources/Image/DSIcon3.png" Command="{Binding ShowVersionInfoCommand}"/>
+					</ribbon:RibbonGroup>
+				</StackPanel>
+			</TabItem>
+		</TabControl>
+		<ContentControl Grid.Row="1" Background="White" Content="{Binding CurrentPageViewModel}" />
+	</Grid>
 </Window>

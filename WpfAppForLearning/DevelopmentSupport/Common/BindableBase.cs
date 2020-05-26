@@ -8,7 +8,12 @@ namespace DevelopmentSupport.Common
     /// </summary>
     public class BindableBase : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public BindableBase()
+        {
+
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
         protected virtual bool SetProperty<T>(ref T field, T value, [CallerMemberName]string propertyName = null)
         {

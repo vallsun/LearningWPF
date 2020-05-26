@@ -20,7 +20,11 @@ namespace DevelopmentSupport.Common.Converters
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)value ? Visibility.Visible : Visibility.Collapsed;
+            if(value is bool a)
+            {
+                return a ? Visibility.Visible : Visibility.Collapsed;
+            }
+            return false;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

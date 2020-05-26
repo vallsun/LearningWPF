@@ -7,10 +7,35 @@
              xmlns:vm="clr-namespace:DevelopmentSupport.TaskList.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="RowStyleWithAlternation" TargetType="DataGridRow">
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="Background" Value="GhostWhite"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Style.Triggers>
+                <Trigger Property="AlternationIndex" Value="1">
+                    <Setter Property="Background" Value="#FFD0D0E0"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#F9F99F"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#F9F99F" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <UserControl.DataContext>
         <vm:TaskListViewModel/>
     </UserControl.DataContext>
     <Grid>
-            <DataGrid ItemsSource="{Binding Path=Tasks}"/>
+        <DataGrid ItemsSource="{Binding Path=Tasks}" RowStyle="{StaticResource RowStyleWithAlternation}"
+                  AlternationCount="2" SelectedItem="{Binding SelectedItem}">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="削除" Command="{Binding RemoveTaskCommand}"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
     </Grid>
 </UserControl>

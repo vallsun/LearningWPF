@@ -15,5 +15,10 @@ namespace DevelopmentSupport.Common.Selectable
         /// 選択中の要素
         /// </summary>
         T SelectedItem { get; set; }
+
+        /// <summary>
+        /// 選択中の要素群
+        /// </summary>
+        IEnumerable<T> SelectedItems { get; set; }
     }
 }
