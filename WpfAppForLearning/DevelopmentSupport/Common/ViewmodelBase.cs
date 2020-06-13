@@ -37,7 +37,7 @@ namespace DevelopmentSupport.Common
         /// <summary>
         /// コマンドの初期化
         /// </summary>
-        public virtual void RegisterCommands()
+        protected virtual void RegisterCommands()
         {
             // 派生先で実装
         }

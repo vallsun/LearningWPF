@@ -119,7 +119,7 @@ namespace DevelopmentSupport.Common.PathBar
         /// <summary>
         /// コマンドの登録
         /// </summary>
-        public override void RegisterCommands()
+        protected override void RegisterCommands()
         {
             base.RegisterCommands();
 
