@@ -16,7 +16,7 @@ namespace DevelopmentSupport.FileAccessor.ViewModel
 	/// <summary>
 	/// ファイルアクセスVM
 	/// </summary>
-	public class FileAccessViewModel : BindableBase
+	public class FileAccessViewModel : ViewModelBase
     {
 
         #region フィールド
@@ -95,6 +95,7 @@ namespace DevelopmentSupport.FileAccessor.ViewModel
         /// コンストラクタ
         /// </summary>
         public FileAccessViewModel()
+            :base(null)
         {
             // フィルタ情報の初期化
             m_FilterExtension = "(指定なし)";

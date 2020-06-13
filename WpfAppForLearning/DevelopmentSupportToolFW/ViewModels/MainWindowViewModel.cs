@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using DevelopmentCommon.Common;
+using DevelopmentSupport.ClipboardWatcher;
 using DevelopmentSupport.FileAccessor.ViewModel;
 using DevelopmentSupport.Setting;
 using DevelopmentSupport.TaskList.ViewModel;
@@ -18,6 +19,8 @@ namespace DevelopmentSupportTool.ViewModels
         private bool m_IsLauncherCurrent;
 
         private bool m_IsTaskListCurrent;
+
+        private bool m_IsClipBoardHistoryCurrent;
 
         private object m_CurrentPageViewModel;
 
@@ -55,6 +58,8 @@ namespace DevelopmentSupportTool.ViewModels
 
         public TaskListViewModel TaskListViewModel { get; set; }
 
+        public ClipboardHistoryViewModel ClipboardHistoryViewModel { get; set; }
+
         public object CurrentPageViewModel
         {
             get { return m_CurrentPageViewModel; }
@@ -72,6 +77,12 @@ namespace DevelopmentSupportTool.ViewModels
 	        get { return m_IsTaskListCurrent; }
 	        set { SetProperty(ref m_IsTaskListCurrent, value); }
         }
+
+        public bool IsClipBoardHistoryCurrent
+        {
+            get { return m_IsClipBoardHistoryCurrent; }
+            set { SetProperty(ref m_IsClipBoardHistoryCurrent, value); }
+        }
         #endregion
 
         #region 構築・消滅
@@ -84,6 +95,7 @@ namespace DevelopmentSupportTool.ViewModels
         {
             FileAccessViewModel = new FileAccessViewModel();
             TaskListViewModel = new TaskListViewModel();
+            ClipboardHistoryViewModel = new ClipboardHistoryViewModel();
 
 	        // デフォルトはランチャモード
             CurrentMode = ApplicationMode.Luncher;
@@ -160,17 +172,21 @@ namespace DevelopmentSupportTool.ViewModels
                 case ApplicationMode.Luncher:
 	                IsLauncherCurrent = true;
 	                IsTakListCurrent = false;
+                    IsClipBoardHistoryCurrent = false;
                     CurrentPageViewModel = FileAccessViewModel;
 	                break;
                 case ApplicationMode.TaskManager:
 	                IsTakListCurrent = true;
 	                IsLauncherCurrent = false;
+                    IsClipBoardHistoryCurrent = false;
                     CurrentPageViewModel = TaskListViewModel;
 	                break;
                 case ApplicationMode.ClipBoard:
 	                IsTakListCurrent = false;
 	                IsLauncherCurrent = false;
-	                break;
+                    IsClipBoardHistoryCurrent = true;
+                    CurrentPageViewModel = ClipboardHistoryViewModel;
+                    break;
                 default:
 	                break;
 	        }

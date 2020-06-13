@@ -9,7 +9,7 @@ namespace DevelopmentSupport.ClipboardWatcher
     /// <summary>
     /// クリップボードの履歴を表示するVM
     /// </summary>
-    public class ClipboardHistoryViewModel : BindableBase
+    public class ClipboardHistoryViewModel : ViewModelBase
     {
 
         #region フィールド
@@ -62,6 +62,7 @@ namespace DevelopmentSupport.ClipboardWatcher
         /// コンストラクタ
         /// </summary>
         public ClipboardHistoryViewModel()
+            :base(null)
         {
             // コマンドの初期化
             TextCopyCommand = new DelegateCommand(TextCopy, CanTextCopy);

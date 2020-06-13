@@ -30,6 +30,9 @@
 		<DataTemplate DataType="{x:Type dsFileAccessorViewModel:FileAccessViewModel}">
 			<dsFileAccessor:FileAccessView Background="White"/>
 		</DataTemplate>
+		<DataTemplate DataType="{x:Type dsClipboardWatcher:ClipboardHistoryViewModel}">
+			<dsClipboardWatcher:ClipboardHistoryView Background="White"/>
+		</DataTemplate>
     </Window.Resources>
     <Window.DataContext>
         <viewModels:MainWindowViewModel/>
@@ -47,7 +50,9 @@
 							<ribbon:RibbonToggleButton Name="LaunchButton" Content="ファイルアクセス" ImageSource="Resources/Image/lunchar.png"
                                                        IsChecked="{Binding CurrentMode, Converter={StaticResource ApplicationModeToBooleanConverter}, ConverterParameter={x:Static viewModels:ApplicationMode.Luncher}}"
                                                        IsEnabled="{Binding ElementName=LaunchButton, Path=IsChecked, Converter={StaticResource ReverseBooleanConverter}, Mode=OneWay}"/>
-							<ribbon:RibbonToggleButton Content="クリップボード" ImageSource="Resources/Image/ClipBoard.png" IsEnabled="False"/>
+							<ribbon:RibbonToggleButton Name="ClipBoardButton" Content="クリップボード" ImageSource="Resources/Image/ClipBoard.png"
+													   IsChecked="{Binding CurrentMode, Converter={StaticResource ApplicationModeToBooleanConverter}, ConverterParameter={x:Static viewModels:ApplicationMode.ClipBoard}}"
+                                                       IsEnabled="{Binding ElementName=ClipBoardButton, Path=IsChecked, Converter={StaticResource ReverseBooleanConverter}, Mode=OneWay}"/>
 							<ribbon:RibbonToggleButton Name="TaskButton" Content="タスクリスト" ImageSource="Resources/Image/lunchar.png"
 							                           IsChecked="{Binding CurrentMode, Converter={StaticResource ApplicationModeToBooleanConverter}, ConverterParameter={x:Static viewModels:ApplicationMode.TaskManager}}"
 							                           IsEnabled="{Binding ElementName=TaskButton, Path=IsChecked, Converter={StaticResource ReverseBooleanConverter}, Mode=OneWay}"/>
