@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace DevelopmentSupportTool
+namespace DevelopmentSupportTool.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

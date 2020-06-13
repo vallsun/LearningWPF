@@ -12,15 +12,15 @@
 	<Grid Margin="10,10">
 		<Grid>
 			<Grid.RowDefinitions>
-				<RowDefinition/>
+				<RowDefinition />
 				<RowDefinition Height="Auto"/>
 			</Grid.RowDefinitions>
-			<ListBox Grid.Row="0" VerticalAlignment="Top" Background="Transparent"
+			<ListBox Grid.Row="0" VerticalAlignment="Stretch" Background="Transparent"
                  ItemsSource="{Binding Path=ItemList}"
 				 SelectedItem="{Binding Path=SelectedItem}"
 				 ScrollViewer.CanContentScroll="True"
 				 ScrollViewer.VerticalScrollBarVisibility="Auto"
-				 ScrollViewer.HorizontalScrollBarVisibility="Disabled" MinHeight="410" MinWidth="200">
+				 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 				<ListBox.ItemContainerStyle>
 					<Style TargetType="ListBoxItem">
 						<Setter Property="Tag">
