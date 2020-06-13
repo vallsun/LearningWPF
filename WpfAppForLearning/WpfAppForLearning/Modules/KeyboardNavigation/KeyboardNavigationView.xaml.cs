@@ -30,7 +30,7 @@ namespace WpfAppForLearning.Modules.KeyboardNavigation
             var comboBox = sender as ComboBox;
             var selectedItem = comboBox.SelectedItem as ComboBoxItem;
             var name = selectedItem.Content.ToString();
-            var vm = this.DataContext as KeyboardNavigationViewModel;
+            var vm = DataContext as KeyboardNavigationViewModel;
             if(comboBox == ComboBox1)
             {
                 vm.NavigationMode1 = name;

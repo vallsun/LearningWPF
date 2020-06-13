@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using DevelopmentCommon.Common;
+﻿using DevelopmentCommon.Common;
 
 namespace WpfAppForLearning.Modules.KeyboardNavigation
 {
@@ -24,8 +23,8 @@ namespace WpfAppForLearning.Modules.KeyboardNavigation
 
         #region 構築・消滅
 
-        public KeyboardNavigationViewModel(INotifyPropertyChanged model)
-            : base(model)
+        public KeyboardNavigationViewModel()
+            : base(null)
         {
 
         }

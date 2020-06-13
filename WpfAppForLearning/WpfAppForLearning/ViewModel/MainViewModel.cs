@@ -121,7 +121,7 @@ namespace WpfAppForLearning.ViewModel
                         addVM = new ProgressBarViewModel(SelectedItem);
                         break;
                     case "KeyboardNavigation":
-                        addVM = new KeyboardNavigationViewModel(SelectedItem);
+                        addVM = new KeyboardNavigationViewModel();
                         break;
                     case "DragDropControl":
                         addVM = new DragDropControlViewModel();
