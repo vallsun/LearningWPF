@@ -1,18 +1,12 @@
-﻿using DevelopmentSupport.Common;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WpfAppForLearning.Modules.Common;
+﻿using System.ComponentModel;
+using DevelopmentCommon.Common;
 
 namespace WpfAppForLearning.Modules.KeyboardNavigation
 {
-    /// <summary>
-    /// KeyboardNavigationコンテンツのVM
-    /// </summary>
-    internal class KeyboardNavigationViewModel : ViewModelBase
+	/// <summary>
+	/// KeyboardNavigationコンテンツのVM
+	/// </summary>
+	internal class KeyboardNavigationViewModel : ViewModelBase
     {
         #region フィールド
 

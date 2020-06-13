@@ -1,17 +1,13 @@
-﻿using DevelopmentSupport.Common.Selectable;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DevelopmentSupport.Common;
+﻿using System;
+using DevelopmentCommon.Common;
+using DevelopmentSupport.Common.Selectable;
 
 namespace DevelopmentSupport.TaskList.Model
 {
-    /// <summary>
-    /// タスク
-    /// </summary>
-    public class Task : BindableBase, ISelectableItem
+	/// <summary>
+	/// タスク
+	/// </summary>
+	public class Task : BindableBase, ISelectableItem
     {
         #region プロパティ
 

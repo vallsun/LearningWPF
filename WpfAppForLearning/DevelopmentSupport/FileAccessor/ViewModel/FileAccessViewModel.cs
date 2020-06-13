@@ -1,24 +1,22 @@
-﻿using DevelopmentSupport.Common;
-using DevelopmentSupport.FileAccessor.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+using DevelopmentCommon.Common;
+using DevelopmentSupport.FileAccessor.View;
 
 namespace DevelopmentSupport.FileAccessor.ViewModel
 {
-    /// <summary>
-    /// ファイルアクセスVM
-    /// </summary>
-    public class FileAccessViewModel : BindableBase
+	/// <summary>
+	/// ファイルアクセスVM
+	/// </summary>
+	public class FileAccessViewModel : BindableBase
     {
 
         #region フィールド

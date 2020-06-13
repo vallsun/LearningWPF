@@ -1,14 +1,9 @@
-﻿using DevelopmentSupport.Common;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using DevelopmentCommon.Common;
 
 namespace DevelopmentSupport.Setting
 {
-    public class Setting :BindableBase
+	public class Setting :BindableBase
     {
         private string m_Name;
         private ObservableCollection<Setting> m_Children;

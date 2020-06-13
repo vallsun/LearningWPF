@@ -1,14 +1,9 @@
-﻿using DevelopmentSupport.Common;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using DevelopmentCommon.Common;
 
 namespace WpfAppForLearning.Modules.TextBoxControl
 {
-    internal class TextBoxControlViewModel : ViewModelBase
+	internal class TextBoxControlViewModel : ViewModelBase
     {
         #region 構築・消滅
 

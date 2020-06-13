@@ -1,26 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DevelopmentCommon.Common;
+using DevelopmentSupport.Common.Selectable;
 using WpfAppForLearning.Modules.Common;
 using WpfAppForLearning.Modules.ContentsTree.Model;
 using WpfAppForLearning.Modules.CustomControl;
-using WpfAppForLearning.Modules.PathBarControl.ViewModel;
-using WpfAppForLearning.Properties;
-using WpfAppForLearning.Modules.StartControl;
-using WpfAppForLearning.Modules.ProgressBar;
-using WpfAppForLearning.Modules.KeyboardNavigation;
 using WpfAppForLearning.Modules.DragDropControl;
+using WpfAppForLearning.Modules.KeyboardNavigation;
+using WpfAppForLearning.Modules.PathBarControl.ViewModel;
+using WpfAppForLearning.Modules.ProgressBar;
+using WpfAppForLearning.Modules.StartControl;
 using WpfAppForLearning.Modules.TextBoxControl;
-using DevelopmentSupport.Common.Selectable;
-using DevelopmentSupport.Common;
 
 namespace WpfAppForLearning.ViewModel
 {
-    public class MainViewModel : SelectableViewModelBase<Content>
+	public class MainViewModel : SelectableViewModelBase<Content>
     {
         #region 値数定義
 
@@ -129,7 +124,7 @@ namespace WpfAppForLearning.ViewModel
                         addVM = new KeyboardNavigationViewModel(SelectedItem);
                         break;
                     case "DragDropControl":
-                        addVM = new DragDropControlViewModel(SelectedItem);
+                        addVM = new DragDropControlViewModel();
                         break;
                     case "TextBox":
                         addVM = new TextBoxControlViewModel(SelectedItem);

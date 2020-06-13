@@ -1,14 +1,12 @@
-﻿using System;
-using System.Windows;
-using DevelopmentSupport.Common;
+﻿using System.Windows;
+using DevelopmentCommon.Common;
 using DevelopmentSupport.FileAccessor.ViewModel;
 using DevelopmentSupport.Setting;
-using DevelopmentSupport.TaskList.Model;
 using DevelopmentSupport.TaskList.ViewModel;
 
 namespace DevelopmentSupportTool.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+	public class MainWindowViewModel : ViewModelBase
     {
         #region フィールド
 
@@ -100,7 +98,7 @@ namespace DevelopmentSupportTool.ViewModels
         /// <summary>
         /// コマンド初期化
         /// </summary>
-        public override void RegisterCommands()
+        protected override void RegisterCommands()
         {
             base.RegisterCommands();
             ShowSettingCommand = new DelegateCommand(ShowSetting, CanShowSetting);

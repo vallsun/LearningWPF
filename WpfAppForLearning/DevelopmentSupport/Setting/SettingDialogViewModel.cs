@@ -1,15 +1,10 @@
-﻿using DevelopmentSupport.Common;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DevelopmentCommon.Common;
 
 namespace DevelopmentSupport.Setting
 {
-    public class SettingDialogViewModel : BindableBase
+	public class SettingDialogViewModel : ViewModelBase
     {
 
         private ObservableCollection<Setting> m_SettingTree;
@@ -21,6 +16,7 @@ namespace DevelopmentSupport.Setting
         public Setting SelectedItem { get { return m_SelectedItem; } set { SetProperty(ref m_SelectedItem, value); } }
 
         public SettingDialogViewModel()
+            :base(null)
         {
             CreateSettingtree();
             //イベントハンドラの接続

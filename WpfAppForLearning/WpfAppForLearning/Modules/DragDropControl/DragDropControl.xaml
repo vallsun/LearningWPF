@@ -2,8 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-			 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
-			 xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+			 xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfAppForLearning.Modules.DragDropControl"
              mc:Ignorable="d" 
@@ -25,9 +24,9 @@
 								   Foreground="Gray"/>
 					</Grid>
 					<ListBox Grid.Column="0" VerticalAlignment="Top" Margin="10,10" Background="Transparent"
-                 ItemsSource="{Binding FileInfoList}"
-				 SelectedItem="{Binding SelectedFileInfo}"
-				 ScrollViewer.HorizontalScrollBarVisibility="Disabled" MinHeight="300"
+							 ItemsSource="{Binding FileInfoList}"
+							 SelectedItem="{Binding SelectedFileInfo}"
+							 ScrollViewer.HorizontalScrollBarVisibility="Disabled" MinHeight="300"
 							 Drop="UserControl_Drop" PreviewDragOver="UserControl_PreviewDragOver" AllowDrop="True">
 						<ListBox.ItemTemplate>
 							<DataTemplate>
@@ -38,9 +37,9 @@
 									</StackPanel>
 									<i:Interaction.Triggers>
 										<i:EventTrigger EventName="MouseDoubleClick">
-											<ei:CallMethodAction 
-                                    TargetObject="{Binding Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, Path=DataContext}" 
-                                    MethodName="Execute"/>
+											<i:CallMethodAction
+												TargetObject="{Binding Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, Path=DataContext}"
+												MethodName="Execute"/>
 										</i:EventTrigger>
 									</i:Interaction.Triggers>
 								</ContentControl>

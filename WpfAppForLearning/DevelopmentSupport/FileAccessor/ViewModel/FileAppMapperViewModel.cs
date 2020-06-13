@@ -1,19 +1,12 @@
-﻿using DevelopmentSupport.Common;
-using DevelopmentSupport.FileAccessor.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
+﻿using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media.Imaging;
+using DevelopmentCommon.Common;
 
 namespace DevelopmentSupport.FileAccessor.ViewModel
 {
-    public class FileAppMapperViewModel : FileAccessViewModel
+	public class FileAppMapperViewModel : FileAccessViewModel
     {
         protected ObservableCollection<FileInfo> m_ExeInfoList;
         protected ObservableCollection<FileInfo> m_DisplayExeInfoList;

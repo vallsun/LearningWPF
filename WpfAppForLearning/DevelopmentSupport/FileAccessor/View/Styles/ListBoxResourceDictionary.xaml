@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-					xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+                    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
 					xmlns:commonConverter="clr-namespace:DevelopmentSupport.Common.Converters">
 	<!--コンバータ-->
 	<commonConverter:BoolToVisivilityConverter x:Key="BoolToVisivilityConverter"/>
@@ -46,10 +45,10 @@
 								 BorderBrush="Transparent" Background="Transparent">
 						<i:Interaction.Triggers>
 							<i:EventTrigger EventName="GotFocus">
-								<ei:ChangePropertyAction PropertyName="Background" Value="White"/>
+								<i:ChangePropertyAction PropertyName="Background" Value="White"/>
 							</i:EventTrigger>
 							<i:EventTrigger EventName="LostFocus">
-								<ei:ChangePropertyAction PropertyName="Background" Value="Transparent"/>
+								<i:ChangePropertyAction PropertyName="Background" Value="Transparent"/>
 							</i:EventTrigger>
 						</i:Interaction.Triggers>
 					</TextBox>

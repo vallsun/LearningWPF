@@ -1,33 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EC10D802-FB16-43D2-A8AA-F0BA331CABCF}</ProjectGuid>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DevelopmentSupport</RootNamespace>
-    <AssemblyName>DevelopmentSupport</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -36,112 +13,6 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ClipboardWatcher\ClipboardHistoryViewModel.cs" />
-    <Compile Include="ClipboardWatcher\ClipboardWatcher.cs" />
-    <Compile Include="ClipboardWatcher\ClipboardHistoryView.xaml.cs">
-      <DependentUpon>ClipboardHistoryView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Common\BindableBase.cs" />
-    <Compile Include="Common\BindableSelectedItemTreeView.cs" />
-    <Compile Include="Common\Converters\BoolToVisibilityConverter.cs" />
-    <Compile Include="Common\Converters\ReverseBooleanConverter.cs" />
-    <Compile Include="Common\Converters\ReverseBoolToVisibilityConverter.cs" />
-    <Compile Include="Common\Converters\TreeItemLeftMarginConverter.cs" />
-    <Compile Include="Common\DelegateCommand.cs" />
-    <Compile Include="Common\Hierarchical\HierarchicalItemBase.cs" />
-    <Compile Include="Common\Hierarchical\IHierarchicalItem.cs" />
-    <Compile Include="Common\Namable\INamable.cs" />
-    <Compile Include="Common\PathBar\Command\PageTransitionCommand.cs" />
-    <Compile Include="Common\PathBar\PathBarItemViewModelBase.cs" />
-    <Compile Include="Common\PathBar\PathBarViewModelBase.cs" />
-    <Compile Include="Common\PathBar\View\PathBarControl.xaml.cs">
-      <DependentUpon>PathBarControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Common\Selectable\ISelectable.cs" />
-    <Compile Include="Common\Selectable\ISelectableItem.cs" />
-    <Compile Include="Common\Selectable\SelectableViewModelBase.cs" />
-    <Compile Include="Common\TreeViewItemExtensions.cs" />
-    <Compile Include="Common\ViewModelBase.cs" />
-    <Compile Include="FileAccessor\View\FileAccessView.xaml.cs">
-      <DependentUpon>FileAccessView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="FileAccessor\ViewModel\FileAccessViewModel.cs" />
-    <Compile Include="FileAccessor\View\FileAppMapperView.xaml.cs">
-      <DependentUpon>FileAppMapperView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="FileAccessor\ViewModel\FileAppMapperViewModel.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Setting\BrowserSettingView.xaml.cs">
-      <DependentUpon>BrowserSettingView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Setting\BrowserSettingViewModel.cs" />
-    <Compile Include="Setting\NotImplementationViewModel.cs" />
-    <Compile Include="Setting\Setting.cs" />
-    <Compile Include="Setting\SettingDialog.xaml.cs">
-      <DependentUpon>SettingDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Setting\SettingDialogViewModel.cs" />
-    <Compile Include="TaskList\Model\Task.cs" />
-    <Compile Include="TaskList\ViewModel\TaskListViewModel.cs" />
-    <Compile Include="TaskList\View\TaskListView.xaml.cs">
-      <DependentUpon>TaskListView.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="ClipboardWatcher\ClipboardHistoryView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Common\PathBar\Style\PathBarStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Common\PathBar\View\PathBarControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="FileAccessor\View\FileAccessView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="FileAccessor\View\FileAppMapperView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="FileAccessor\View\Styles\ListBoxResourceDictionary.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Setting\BrowserSettingView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Setting\SettingDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TaskList\View\TaskListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Image\Chain.png" />
   </ItemGroup>
   <ItemGroup>
@@ -149,9 +20,11 @@
     <Folder Include="FileStarter\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Expression.Interaction">
-      <Version>3.0.40218</Version>
-    </PackageReference>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\Common\DevelopmentCommon.csproj" />
+  </ItemGroup>
 </Project>

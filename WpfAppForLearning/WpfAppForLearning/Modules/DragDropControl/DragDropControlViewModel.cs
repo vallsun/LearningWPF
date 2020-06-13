@@ -1,20 +1,12 @@
-﻿using DevelopmentSupport.Common;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using DevelopmentCommon.Common;
 
 namespace WpfAppForLearning.Modules.DragDropControl
 {
-    internal class DragDropControlViewModel : ViewModelBase
+	internal class DragDropControlViewModel : ViewModelBase
     {
 
         private ObservableCollection<FileInfo> m_FileInfoList;
@@ -28,8 +20,8 @@ namespace WpfAppForLearning.Modules.DragDropControl
         public DelegateCommand ChangeItemOrderLowerCommand { get; private set; }
 
 
-        public DragDropControlViewModel(INotifyPropertyChanged model)
-            : base(model)
+        public DragDropControlViewModel()
+            : base(null)
         {
             FileInfoList = new ObservableCollection<FileInfo>();
             SelectedFileInfo = new FileInfo();

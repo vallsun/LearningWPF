@@ -1,14 +1,9 @@
-﻿using DevelopmentSupport.Common;
-using System;
-using System.Collections.Generic;
+﻿using DevelopmentCommon.Common;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WpfAppForLearning.Modules.Common
 {
-    internal class NotImplementationViewModel : ViewModelBase
+	internal class NotImplementationViewModel : ViewModelBase
     {
         #region 構築・消滅
 

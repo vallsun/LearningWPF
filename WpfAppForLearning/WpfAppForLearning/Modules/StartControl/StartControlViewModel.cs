@@ -1,14 +1,9 @@
-﻿using DevelopmentSupport.Common;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using DevelopmentCommon.Common;
 
 namespace WpfAppForLearning.Modules.StartControl
 {
-    public class StartControlViewModel : ViewModelBase
+	public class StartControlViewModel : ViewModelBase
     {
         #region 構築・消滅
 

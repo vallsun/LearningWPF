@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DevelopmentCommon.Common;
 
 namespace DevelopmentSupport.Common.Selectable
 {
-    /// <summary>
-    /// 選択要素を保持することが可能なVM
-    /// </summary>
-    public class SelectableViewModelBase<T> : ViewModelBase, ISelectable<T>
+	/// <summary>
+	/// 選択要素を保持することが可能なVM
+	/// </summary>
+	public class SelectableViewModelBase<T> : ViewModelBase, ISelectable<T>
         where T : ISelectableItem
     {
         #region フィールド
