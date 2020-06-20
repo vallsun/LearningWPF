@@ -3,12 +3,12 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace DevelopmentSupport.Common.Converters
+namespace WpfCustomControlLibrary.Common.Converters
 {
     /// <summary>
     /// bool値をVisibilityに変換するコンバータ
     /// </summary>
-    public class BoolToVisivilityConverter : IValueConverter
+	public class BooleanToVisibilityConverter : IValueConverter
     {
         /// <summary>
         /// bool値をVisivbilityに変換するコンバータ
@@ -20,7 +20,7 @@ namespace DevelopmentSupport.Common.Converters
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if(value is bool a)
+            if (value is bool a)
             {
                 return a ? Visibility.Visible : Visibility.Collapsed;
             }

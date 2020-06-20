@@ -17,10 +17,10 @@
 			<ColumnDefinition Width="3*"/>
 			<ColumnDefinition Width="1*"/>
 		</Grid.ColumnDefinitions>
-		<Grid Grid.Column="0" VerticalAlignment="center" Margin="10,10" Background="White">
+		<Grid Grid.Column="0" VerticalAlignment="center" Margin="10,10">
 			<TextBlock Name="WatermarkTextBox" VerticalAlignment="Center" HorizontalAlignment="Center"
 					   Text="ファイルまたはフォルダをD&amp;Dで登録してください。" Foreground="Gray"
-					   Visibility="{Binding Path=HasItem, Converter={StaticResource ReverseBoolToVisibilityConverter}, Mode=OneWay}"/>
+					   Visibility="{Binding Path=HasItem, Converter={StaticResource ReverseBooleanToVisibilityConverter}, Mode=OneWay}"/>
 		</Grid>
 		<ListBox Grid.Column="0" VerticalAlignment="Stretch" Margin="10,10" Background="Transparent"
                  ItemsSource="{Binding DisplayFileInfoList}"
@@ -46,7 +46,7 @@
 										  Command="{Binding OpenFilePlacementFolderCommand}"/>
 								<MenuItem Header="ブラウザを指定してリンクを開く"
 										  ItemsSource="{Binding PlacementTarget.Tag.BrowserList, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
-										  Visibility="{Binding IsLink, Converter={StaticResource BoolToVisivilityConverter}}">
+										  Visibility="{Binding IsLink, Converter={StaticResource BooleanToVisibilityConverter}}">
 									<MenuItem.ItemContainerStyle>
 										<Style TargetType="MenuItem">
 											<Setter Property="Header" Value="{Binding Path=Name}"/>

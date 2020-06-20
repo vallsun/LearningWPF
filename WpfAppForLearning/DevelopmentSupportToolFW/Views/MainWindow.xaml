@@ -11,7 +11,7 @@
         xmlns:taskListView="clr-namespace:DevelopmentSupport.TaskList.View;assembly=DevelopmentSupport"
 		xmlns:taskListViewModel="clr-namespace:DevelopmentSupport.TaskList.ViewModel;assembly=DevelopmentSupport"
         xmlns:converter="clr-namespace:DevelopmentSupportTool.Converters"
-        xmlns:commonConverter="clr-namespace:DevelopmentSupport.Common.Converters;assembly=DevelopmentSupport"
+        xmlns:commonConverter="clr-namespace:WpfCustomControlLibrary.Common.Converters;assembly=WpfCustomControlLibrary"
         mc:Ignorable="d"
         Title="DevelopmentSupportTool" Width="900" Height="700"
         Icon="/Resources/Image/DSIcon3.png" Background="#26799f"
@@ -19,7 +19,7 @@
         SnapsToDevicePixels="True"
         UseLayoutRounding="True">
     <Window.Resources>
-        <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+		<converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 	    <commonConverter:ReverseBooleanConverter x:Key="ReverseBooleanConverter"/>
 	    <converter:ApplicationModeToVisibilityConverter x:Key="ApplicationModeToVisibilityConverter"/>
         <converter:ApplicationModeToBooleanConverter x:Key="ApplicationModeToBooleanConverter"/>
