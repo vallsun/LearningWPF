@@ -1,7 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.ComTypes;
-using System.Windows.Media;
-using DevelopmentCommon.Common;
+﻿using DevelopmentCommon.Common;
 using WpfCustomControlLibrary.Calculator.Model;
 
 namespace WpfCustomControlLibrary.Calculator.ViewModel

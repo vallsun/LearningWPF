@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
-using DevelopmentCommon.Common;
+using WpfAppForLearning.ViewModel;
 
 namespace WpfAppForLearning.Modules.TextBoxControl
 {
-	internal class TextBoxControlViewModel : ViewModelBase
+	internal class TextBoxControlViewModel : ContentViewModel
     {
         #region 構築・消滅
 

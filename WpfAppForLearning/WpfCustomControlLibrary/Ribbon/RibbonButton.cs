@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace WpfCustomControlLibrary.Ribbon
 {
-    /// <summary>
-    /// リボンのボタン
-    /// </summary>
-    public class RibbonButton : Button
+	/// <summary>
+	/// リボンのボタン
+	/// </summary>
+	public class RibbonButton : Button
     {
         public ImageSource ImageSource
         {

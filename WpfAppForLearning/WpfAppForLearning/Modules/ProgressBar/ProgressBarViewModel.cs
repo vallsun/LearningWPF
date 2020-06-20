@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
-using DevelopmentCommon.Common;
+using WpfAppForLearning.ViewModel;
 
 namespace WpfAppForLearning.Modules.ProgressBar
 {
-	internal class ProgressBarViewModel : ViewModelBase
+	internal class ProgressBarViewModel : ContentViewModel
     {
         #region 構築・消滅
 

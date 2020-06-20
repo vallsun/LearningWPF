@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
-using DevelopmentCommon.Common;
+using WpfAppForLearning.ViewModel;
 
 namespace WpfAppForLearning.Modules.CustomControl
 {
-	public class CustomControlViewModel : ViewModelBase
+	public class CustomControlViewModel : ContentViewModel
     {
         #region 構築・消滅
 

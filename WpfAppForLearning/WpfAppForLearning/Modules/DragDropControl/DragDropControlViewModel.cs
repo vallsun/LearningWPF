@@ -3,10 +3,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Media.Imaging;
 using DevelopmentCommon.Common;
+using WpfAppForLearning.ViewModel;
 
 namespace WpfAppForLearning.Modules.DragDropControl
 {
-	internal class DragDropControlViewModel : ViewModelBase
+	internal class DragDropControlViewModel : ContentViewModel
     {
 
         private ObservableCollection<FileInfo> m_FileInfoList;

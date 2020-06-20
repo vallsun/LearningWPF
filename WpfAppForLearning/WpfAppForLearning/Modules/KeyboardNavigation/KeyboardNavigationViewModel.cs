@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Security.Policy;
 using System.Windows;
-using System.Windows.Input;
 using DevelopmentCommon.Common;
+using WpfAppForLearning.ViewModel;
 
 namespace WpfAppForLearning.Modules.KeyboardNavigation
 {
 	/// <summary>
 	/// KeyboardNavigationコンテンツのVM
 	/// </summary>
-	internal class KeyboardNavigationViewModel : ViewModelBase
+	internal class KeyboardNavigationViewModel : ContentViewModel
     {
         #region フィールド
 

@@ -41,7 +41,7 @@
 				<textBoxControl:TextBoxControl />
 			</DataTemplate>
 			<DataTemplate DataType="{x:Type common:NotImplementationViewModel}">
-				<TextBlock Text="未実装" />
+				<TextBlock Text="{Binding Description}" />
 			</DataTemplate>
 		</ResourceDictionary>
 

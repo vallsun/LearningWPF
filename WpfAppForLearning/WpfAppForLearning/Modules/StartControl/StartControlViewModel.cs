@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
-using DevelopmentCommon.Common;
+using WpfAppForLearning.ViewModel;
 
 namespace WpfAppForLearning.Modules.StartControl
 {
-	public class StartControlViewModel : ViewModelBase
+	public class StartControlViewModel : ContentViewModel
     {
         #region 構築・消滅
 
