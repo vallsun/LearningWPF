@@ -8,9 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
 		<StackPanel>
-			<TextBlock Text="ようこそ！このツールはWPFについて学ぶためのツールです。" />
-			<TextBlock Text="本ツールは開発中で、コンテンツや機能は今後追加予定です。" />
-			<TextBlock Text="コンテンツナビゲータでコンテンツを選択してください。" />
+			<TextBlock Text="{Binding Description}"/>
 		</StackPanel>
 	</Grid>
 </UserControl>

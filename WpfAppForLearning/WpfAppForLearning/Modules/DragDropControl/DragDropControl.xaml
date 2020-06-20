@@ -2,7 +2,6 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-			 xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfAppForLearning.Modules.DragDropControl"
              mc:Ignorable="d" 
@@ -11,60 +10,18 @@
 		<local:DragDropControlViewModel/>
 	</UserControl.DataContext>
     <Grid>
-		<TabControl>
-			<TabItem Header="汎用">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="3*"/>
-						<ColumnDefinition Width="1*"/>
-					</Grid.ColumnDefinitions>
-					<Grid Grid.Column="0" Height="300" VerticalAlignment="Top" Margin="10,10">
-						<TextBlock Name="WatermarkTextBox" VerticalAlignment="Center" HorizontalAlignment="Center"
-								   Text="ファイルをD&amp;Dで登録してください。"
-								   Foreground="Gray"/>
-					</Grid>
-					<ListBox Grid.Column="0" VerticalAlignment="Top" Margin="10,10" Background="Transparent"
-							 ItemsSource="{Binding FileInfoList}"
-							 SelectedItem="{Binding SelectedFileInfo}"
-							 ScrollViewer.HorizontalScrollBarVisibility="Disabled" MinHeight="300"
-							 Drop="UserControl_Drop" PreviewDragOver="UserControl_PreviewDragOver" AllowDrop="True">
-						<ListBox.ItemTemplate>
-							<DataTemplate>
-								<ContentControl Width="80" VerticalAlignment="Top" ToolTip="{Binding FilePath}">
-									<StackPanel>
-										<Image Source="{Binding Icon}" Width="32" Height="32" HorizontalAlignment="Center" Margin="0,0,0,5"/>
-										<TextBox Text="{Binding FileName}" TextWrapping="Wrap" HorizontalAlignment="Center"/>
-									</StackPanel>
-									<i:Interaction.Triggers>
-										<i:EventTrigger EventName="MouseDoubleClick">
-											<i:CallMethodAction
-												TargetObject="{Binding Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}, Path=DataContext}"
-												MethodName="Execute"/>
-										</i:EventTrigger>
-									</i:Interaction.Triggers>
-								</ContentControl>
-							</DataTemplate>
-						</ListBox.ItemTemplate>
-						<ListBox.ItemsPanel>
-							<ItemsPanelTemplate>
-								<WrapPanel Orientation="Horizontal">
-								</WrapPanel>
-							</ItemsPanelTemplate>
-						</ListBox.ItemsPanel>
-					</ListBox>
-					<StackPanel Grid.Column="1" Margin="0,10,10,10">
-						<Button Content="前へ" Command="{Binding ChangeItemOrderUpperCommand}" Margin="0,0,0,5"/>
-						<Button Content="後へ" Command="{Binding ChangeItemOrderLowerCommand}" Margin="0,0,0,5"/>
-						<Button Content="追加" Command="{Binding RemoveItemCommand}" Margin="0,0,0,5"/>
-						<Button Content="削除" Command="{Binding RemoveItemCommand}" Margin="0,0,0,5"/>
-						<Button Content="開始" Command="{Binding ProcessStartCommand}" Margin="0,0,0,5"/>
-						<Button Content="終了" Command="{Binding ProcessCloseCommand}"/>
-					</StackPanel>
-				</Grid>
-			</TabItem>
-			<TabItem Header="固有">
-
-			</TabItem>
-		</TabControl>
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		<Label Name="WatermarkTextBox"
+			   AllowDrop="True"
+			   BorderBrush="Gray"
+			   BorderThickness="1"
+			   Content="ファイルをD&amp;Dで登録してください。"
+			   Foreground="Gray"/>
+		<GroupBox Grid.Row="1" Header="説明">
+			<TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
+		</GroupBox>
 	</Grid>
 </UserControl>

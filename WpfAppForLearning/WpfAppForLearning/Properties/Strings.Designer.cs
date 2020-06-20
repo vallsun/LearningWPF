@@ -81,9 +81,9 @@ namespace WpfAppForLearning.Properties {
         /// <summary>
         ///   DragDropControl に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string ContentName_DragDropControl {
+        internal static string ContentName_DroppableControl{
             get {
-                return ResourceManager.GetString("ContentName_DragDropControl", resourceCulture);
+                return ResourceManager.GetString("ContentName_DroppableControl", resourceCulture);
             }
         }
         

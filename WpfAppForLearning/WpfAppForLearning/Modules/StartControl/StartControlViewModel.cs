@@ -10,7 +10,9 @@ namespace WpfAppForLearning.Modules.StartControl
         public StartControlViewModel(INotifyPropertyChanged model)
             :base(model)
         {
-
+            Description = "ようこそ！\r\nこのツールはWPFについて学ぶためのツールです。\r\n"
+                + "コンテンツナビゲータでコンテンツを選択してください。\r\n"
+                + "本ツールは開発中で、コンテンツや機能は今後追加予定です。";
         }
         
         #endregion

@@ -126,7 +126,7 @@ namespace WpfAppForLearning.Modules.ContentsTree.Model
 
             var dragDropControlContent = new Content()
             {
-                Name = Strings.ContentName_DragDropControl,
+                Name = Strings.ContentName_DroppableControl,
             };
 
             var layoutContent = new Content()

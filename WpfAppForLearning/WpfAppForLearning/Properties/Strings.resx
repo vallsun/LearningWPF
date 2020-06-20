@@ -123,8 +123,8 @@
   <data name="ContentName_CustomControl" xml:space="preserve">
     <value>CustomControl</value>
   </data>
-  <data name="ContentName_DragDropControl" xml:space="preserve">
-    <value>DragDropControl</value>
+  <data name="ContentName_DroppableControl" xml:space="preserve">
+    <value>DroppableControl</value>
   </data>
   <data name="ContentName_KeyboardNavigation" xml:space="preserve">
     <value>KeyboardNavigation</value>
