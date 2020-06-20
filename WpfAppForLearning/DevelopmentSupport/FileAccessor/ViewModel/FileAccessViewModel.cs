@@ -290,6 +290,7 @@ namespace DevelopmentSupport.FileAccessor.ViewModel
             SelectedFileInfo.Process = new System.Diagnostics.Process();
             //起動する実行ファイルのパスを設定する
             SelectedFileInfo.Process.StartInfo.FileName = SelectedFileInfo.FilePath;
+            SelectedFileInfo.Process.StartInfo.UseShellExecute = true;
             //コマンドライン引数を指定する
             //起動する。プロセスが起動した時はTrueを返す。
 

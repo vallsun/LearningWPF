@@ -57,7 +57,7 @@ namespace DevelopmentSupport.FileAccessor.View
         public string szTypeName;
     };
 
-    class Win32
+    public class Win32
     {
         public const uint SHGFI_ICON = 0x100;
         public const uint SHGFI_LARGEICON = 0x0; // 'Large icon  

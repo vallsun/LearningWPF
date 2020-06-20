@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
              xmlns:local="clr-namespace:WpfAppForLearning.Modules.KeyboardNavigation"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -71,21 +72,28 @@
 				</TextBlock>
 			</GroupBox>
 			<GroupBox Header="参考情報">
-				<TextBlock>
-					<Hyperlink Name="hyperlink1"
-							   NavigateUri="https://docs.microsoft.com/ja-jp/dotnet/api/system.windows.input.keyboardnavigationmode?view=netframework-4.7.2"
-							   ToolTip="{Binding ElementName=hyperlink1, Path=NavigateUri}"
-							   RequestNavigate="hyperlink_RequestNavigate">
-						KeyboardNavigationMode Enum
-					</Hyperlink>
-					<LineBreak/>
-					<Hyperlink Name="hyperlink2"
-							   NavigateUri="https://docs.microsoft.com/ja-jp/dotnet/framework/wpf/advanced/focus-overview"
-							   ToolTip="{Binding ElementName=hyperlink2, Path=NavigateUri}"
-							   RequestNavigate="hyperlink_RequestNavigate">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+					<TextBlock>
+						<Hyperlink NavigateUri="https://docs.microsoft.com/ja-jp/dotnet/api/system.windows.input.keyboardnavigationmode?view=netframework-4.7.2"
+								   ToolTip="{Binding RelativeSource={RelativeSource Mode=Self}, Path=NavigateUri}"
+								   Command="{Binding NavigateCommand}"
+								   CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=NavigateUri}">
+							KeyboardNavigationMode Enum
+						</Hyperlink>
+					</TextBlock>
+					<TextBlock Grid.Row="1">
+							<Hyperlink NavigateUri="https://docs.microsoft.com/ja-jp/dotnet/framework/wpf/advanced/focus-overview"
+									   ToolTip="{Binding RelativeSource={RelativeSource Mode=Self}, Path=NavigateUri}"
+									   Command="{Binding NavigateCommand}"
+									   CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=NavigateUri}">
 						フォーカスの概要
 					</Hyperlink>
-				</TextBlock>
+					</TextBlock>
+				</Grid>
 			</GroupBox>
 		</StackPanel>
 	</Grid>

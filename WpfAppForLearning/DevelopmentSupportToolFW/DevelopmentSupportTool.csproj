@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Common\DevelopmentCommon.csproj" />
     <ProjectReference Include="..\DevelopmentSupport\DevelopmentSupport.csproj" />
     <ProjectReference Include="..\WpfCustomControlLibrary\WpfCustomControlLibrary.csproj" />
   </ItemGroup>
