@@ -100,7 +100,7 @@
 
 			<!--パスバー-->
             <Border Grid.Row="0" Margin="3" Background="AliceBlue" CornerRadius="5">
-                <pathBarControl:PathBarControl Margin="2,0" DataContext="{Binding PathBar}"/>
+                <pathBarControl:PathBarControl Margin="2,0" DataContext="{Binding PathBar}" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
             </Border>
             <!--選択中のコンテンツ-->
 			<Border Grid.Row="1" Margin="3" Background="White">
