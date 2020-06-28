@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using DevelopmentCommon.Common;
+using WPFAppFrameWork.Common;
 
 namespace WpfAppForLearning.ViewModel
 {

@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:commonConverter="clr-namespace:WpfCustomControlLibrary.Common.Converters;assembly=WpfCustomControlLibrary">
+					xmlns:commonConverter="clr-namespace:WPFAppFrameWork.Common.Converters;assembly=WPFAppFrameWork">
 	<!--コンバータ-->
 	<commonConverter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 

@@ -1,13 +1,13 @@
 ﻿using System;
-using DevelopmentCommon.Common;
 using DevelopmentSupport.Common.Selectable;
+using WPFAppFrameWork.Common;
 
 namespace DevelopmentSupport.TaskList.Model
 {
-	/// <summary>
-	/// タスク
-	/// </summary>
-	public class Task : BindableBase, ISelectableItem
+    /// <summary>
+    /// タスク
+    /// </summary>
+    public class Task : BindableBase, ISelectableItem
     {
         #region プロパティ
 

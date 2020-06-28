@@ -26,6 +26,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\DevelopmentCommon.csproj" />
-    <ProjectReference Include="..\WpfCustomControlLibrary\WpfCustomControlLibrary.csproj" />
+    <ProjectReference Include="..\WPFAppFrameWork\WPFAppFrameWork.csproj" />
   </ItemGroup>
 </Project>

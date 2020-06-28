@@ -1,4 +1,4 @@
-﻿namespace WpfCustomControlLibrary.Calculator.Model
+﻿namespace WPFAppFrameWork.Calculator.Model
 {
 	/// <summary>
 	/// 算術演算可能なモデル

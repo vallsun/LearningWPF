@@ -1,7 +1,6 @@
-﻿using System.Windows.Media;
-using DevelopmentCommon.Common;
+﻿using WPFAppFrameWork.Common;
 
-namespace WpfCustomControlLibrary.Calculator.Model
+namespace WPFAppFrameWork.Calculator.Model
 {
 	public class CalculatableModel : BindableBase, ICalculatable
 	{

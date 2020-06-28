@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace DevelopmentCommon.Common
+namespace WPFAppFrameWork.Common
 {
 	/// <summary>
 	/// プロパティをバインド可能なクラス

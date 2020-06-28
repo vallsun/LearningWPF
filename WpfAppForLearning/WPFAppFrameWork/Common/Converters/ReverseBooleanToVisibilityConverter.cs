@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace WpfCustomControlLibrary.Common.Converters
+namespace WPFAppFrameWork.Common.Converters
 {
 	public class ReverseBooleanToVisibilityConverter : IValueConverter
     {

@@ -1,7 +1,7 @@
-﻿using DevelopmentCommon.Common;
-using WpfCustomControlLibrary.Calculator.Model;
+﻿using WPFAppFrameWork.Calculator.Model;
+using WPFAppFrameWork.Common;
 
-namespace WpfCustomControlLibrary.Calculator.ViewModel
+namespace WPFAppFrameWork.Calculator.ViewModel
 {
 	/// <summary>
 	/// 計算モジュールのビューモデル

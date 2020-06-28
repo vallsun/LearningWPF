@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace WpfCustomControlLibrary.Ribbon
+namespace WPFAppFrameWork.Ribbon
 {
 	/// <summary>
 	/// リボンのボタン

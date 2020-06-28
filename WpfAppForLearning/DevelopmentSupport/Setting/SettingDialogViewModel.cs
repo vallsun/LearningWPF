@@ -1,10 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using DevelopmentCommon.Common;
+using WPFAppFrameWork.Common;
 
 namespace DevelopmentSupport.Setting
 {
-	public class SettingDialogViewModel : ViewModelBase
+    public class SettingDialogViewModel : ViewModelBase
     {
 
         private ObservableCollection<Setting> m_SettingTree;

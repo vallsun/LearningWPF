@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WpfCustomControlLibrary.Calculator.View
+namespace WPFAppFrameWork.Calculator.View
 {
 	/// <summary>
 	/// CalculatorControl.xaml の相互作用ロジック

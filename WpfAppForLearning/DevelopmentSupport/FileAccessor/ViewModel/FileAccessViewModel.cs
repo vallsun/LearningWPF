@@ -8,15 +8,15 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
-using DevelopmentCommon.Common;
 using DevelopmentSupport.FileAccessor.View;
+using WPFAppFrameWork.Common;
 
 namespace DevelopmentSupport.FileAccessor.ViewModel
 {
-	/// <summary>
-	/// ファイルアクセスVM
-	/// </summary>
-	public class FileAccessViewModel : ViewModelBase
+    /// <summary>
+    /// ファイルアクセスVM
+    /// </summary>
+    public class FileAccessViewModel : ViewModelBase
     {
 
         #region フィールド

@@ -1,9 +1,9 @@
 ﻿using System.Collections.ObjectModel;
-using DevelopmentCommon.Common;
+using WPFAppFrameWork.Common;
 
 namespace DevelopmentSupport.Setting
 {
-	public class Setting :BindableBase
+    public class Setting :BindableBase
     {
         private string m_Name;
         private ObservableCollection<Setting> m_Children;

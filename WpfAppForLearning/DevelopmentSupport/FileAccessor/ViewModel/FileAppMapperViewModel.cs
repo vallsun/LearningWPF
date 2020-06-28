@@ -2,11 +2,11 @@
 using System.IO;
 using System.Linq;
 using System.Windows;
-using DevelopmentCommon.Common;
+using WPFAppFrameWork.Common;
 
 namespace DevelopmentSupport.FileAccessor.ViewModel
 {
-	public class FileAppMapperViewModel : FileAccessViewModel
+    public class FileAppMapperViewModel : FileAccessViewModel
     {
         protected ObservableCollection<FileInfo> m_ExeInfoList;
         protected ObservableCollection<FileInfo> m_DisplayExeInfoList;

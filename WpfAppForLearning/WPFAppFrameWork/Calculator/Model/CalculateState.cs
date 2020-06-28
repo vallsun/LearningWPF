@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WpfCustomControlLibrary.Calculator.Model
+namespace WPFAppFrameWork.Calculator.Model
 {
 	class CalculateState
 	{

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace DevelopmentCommon.Common
+namespace WPFAppFrameWork.Common
 {
 	#region No parameter DelegateCommand
 
@@ -151,6 +151,7 @@ namespace DevelopmentCommon.Common
             add { CommandManager.RequerySuggested += value; }
             remove { CommandManager.RequerySuggested -= value; }
         }
+
         #region ICommandメンバ
 
         bool ICommand.CanExecute(object parameter)

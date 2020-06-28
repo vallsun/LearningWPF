@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using DevelopmentCommon.Common;
-using DevelopmentSupport.Common;
 using DevelopmentSupport.Common.Selectable;
+using WPFAppFrameWork.Common;
 using Task = DevelopmentSupport.TaskList.Model.Task;
 using TaskStatus = DevelopmentSupport.TaskList.Model.TaskStatus;
 

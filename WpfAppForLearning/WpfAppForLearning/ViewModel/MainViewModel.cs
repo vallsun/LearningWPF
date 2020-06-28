@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using DevelopmentCommon.Common;
 using DevelopmentSupport.Common.Selectable;
 using WpfAppForLearning.Modules.Common;
 using WpfAppForLearning.Modules.ContentsTree.Model;
@@ -12,10 +11,11 @@ using WpfAppForLearning.Modules.PathBarControl.ViewModel;
 using WpfAppForLearning.Modules.ProgressBar;
 using WpfAppForLearning.Modules.StartControl;
 using WpfAppForLearning.Modules.TextBoxControl;
+using WPFAppFrameWork.Common;
 
 namespace WpfAppForLearning.ViewModel
 {
-	public class MainViewModel : SelectableViewModelBase<Content>
+    public class MainViewModel : SelectableViewModelBase<Content>
     {
         #region 値数定義
 

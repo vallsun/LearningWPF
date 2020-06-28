@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfAppForLearning", "WpfAppForLearning\WpfAppForLearning.csproj", "{ABA19140-3FF4-4A0E-8FBC-D7D07BAFE4B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfAppForLearning", "WpfAppForLearning\WpfAppForLearning.csproj", "{ABA19140-3FF4-4A0E-8FBC-D7D07BAFE4B0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{EC10D802-FB16-43D2-A8AA-F0BA331CABCF} = {EC10D802-FB16-43D2-A8AA-F0BA331CABCF}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevelopmentSupport", "DevelopmentSupport\DevelopmentSupport.csproj", "{EC10D802-FB16-43D2-A8AA-F0BA331CABCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevelopmentSupport", "DevelopmentSupport\DevelopmentSupport.csproj", "{EC10D802-FB16-43D2-A8AA-F0BA331CABCF}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1244B3F6-D6CA-48C2-A3DA-3375D2FA286D} = {1244B3F6-D6CA-48C2-A3DA-3375D2FA286D}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfCustomControlLibrary", "WpfCustomControlLibrary\WpfCustomControlLibrary.csproj", "{1244B3F6-D6CA-48C2-A3DA-3375D2FA286D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFAppFrameWork", "WPFAppFrameWork\WPFAppFrameWork.csproj", "{1244B3F6-D6CA-48C2-A3DA-3375D2FA286D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{66B565A9-A52E-41ED-9266-3B55B4ED20C6} = {66B565A9-A52E-41ED-9266-3B55B4ED20C6}
 	EndProjectSection

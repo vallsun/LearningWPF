@@ -1,8 +1,7 @@
-﻿using DevelopmentCommon.Common;
-using DevelopmentSupport.Common;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using WPFAppFrameWork.Common;
 
 namespace DevelopmentSupport.ClipboardWatcher
 {

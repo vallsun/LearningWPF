@@ -1,11 +1,11 @@
-﻿using DevelopmentCommon.Common;
-using DevelopmentSupport.Common.Hierarchical;
-using DevelopmentSupport.Common.Namable;
-using DevelopmentSupport.Common.Selectable;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using DevelopmentSupport.Common.Hierarchical;
+using DevelopmentSupport.Common.Namable;
+using DevelopmentSupport.Common.Selectable;
+using WPFAppFrameWork.Common;
 
 namespace DevelopmentSupport.Common.PathBar
 {

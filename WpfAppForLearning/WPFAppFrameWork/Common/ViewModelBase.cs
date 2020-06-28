@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace DevelopmentCommon.Common
+namespace WPFAppFrameWork.Common
 {
 	/// <summary>
 	/// ビューモデルのベース。

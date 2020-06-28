@@ -1,13 +1,13 @@
 ﻿using System.Windows;
-using DevelopmentCommon.Common;
 using DevelopmentSupport.ClipboardWatcher;
 using DevelopmentSupport.FileAccessor.ViewModel;
 using DevelopmentSupport.Setting;
 using DevelopmentSupport.TaskList.ViewModel;
+using WPFAppFrameWork.Common;
 
 namespace DevelopmentSupportTool.ViewModels
 {
-	public class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel : ViewModelBase
     {
         #region フィールド
 

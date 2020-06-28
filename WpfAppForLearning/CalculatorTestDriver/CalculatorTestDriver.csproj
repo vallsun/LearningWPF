@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WpfCustomControlLibrary\WpfCustomControlLibrary.csproj" />
+    <ProjectReference Include="..\WPFAppFrameWork\WPFAppFrameWork.csproj" />
   </ItemGroup>
 
 </Project>
