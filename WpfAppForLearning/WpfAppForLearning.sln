@@ -30,6 +30,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculatorTestDriver", "Cal
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevelopmentCommon", "Common\DevelopmentCommon.csproj", "{66B565A9-A52E-41ED-9266-3B55B4ED20C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaPlayerTestDriver", "MediaPlayerTestDriver\MediaPlayerTestDriver.csproj", "{8C205526-D6F4-41F4-9271-F8B3E020819B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,12 +62,17 @@ Global
 		{66B565A9-A52E-41ED-9266-3B55B4ED20C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66B565A9-A52E-41ED-9266-3B55B4ED20C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66B565A9-A52E-41ED-9266-3B55B4ED20C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C205526-D6F4-41F4-9271-F8B3E020819B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C205526-D6F4-41F4-9271-F8B3E020819B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C205526-D6F4-41F4-9271-F8B3E020819B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C205526-D6F4-41F4-9271-F8B3E020819B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A7D1C5E6-6E3B-4F73-888A-0BB31FF201EA} = {4010E0B8-6027-4B6C-8C26-3C7E625CF50D}
+		{8C205526-D6F4-41F4-9271-F8B3E020819B} = {4010E0B8-6027-4B6C-8C26-3C7E625CF50D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C4BB47DF-E3A2-40DB-9672-826A5CCF43B5}
