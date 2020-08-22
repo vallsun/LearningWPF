@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Text;
-using System.Windows.Input;
-using System.Windows.Shapes;
 using WPFAppFrameWork.Common;
 using WPFAppFrameWork.Service;
 using Path = System.IO.Path;
@@ -17,6 +12,11 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 	public class SoundPlayerViewModel : ViewModelBase
 	{
 		#region 内部フィールド
+
+		/// <summary>
+		/// 再生状態
+		/// </summary>
+		private PlayState m_PlayState = PlayState.Stop;
 
 		/// <summary>
 		/// 音声ファイルのパス
@@ -38,9 +38,38 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 		/// </summary>
 		private Uri m_SelectedSource = null;
 
+		/// <summary>
+		/// 音量
+		/// </summary>
+		private double m_Volume = 0.5;
+
+		/// <summary>
+		/// ミュートするか
+		/// </summary>
+		private bool m_IsMuted = false;
+		
+		/// <summary>
+		/// 音量のキャッシュ
+		/// </summary>
+		private double m_VolumeCache = 0.5;
+
+		/// <summary>
+		/// ループ再生するか
+		/// </summary>
+		private bool m_NeedsLoop = false;
+
 		#endregion
 
 		#region プロパティ
+
+		/// <summary>
+		/// 再生状態
+		/// </summary>
+		public PlayState PlayState
+		{
+			get { return m_PlayState; }
+			set { SetProperty(ref m_PlayState, value); }
+		}
 
 		/// <summary>
 		/// 音声ファイルのパス
@@ -50,10 +79,12 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 			get { return m_SoundSource; }
 			set
 			{
+				Stop();
 				if (SetProperty(ref m_SoundSource, value))
 				{
 					SoundSourceFileName = Path.GetFileName(m_SoundSource?.LocalPath);
 				}
+				Play();
 			}
 		}
 
@@ -88,6 +119,48 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 					SoundSource = m_SelectedSource;
 				}
 			}
+		}
+
+		/// <summary>
+		/// 音量
+		/// </summary>
+		public double Volume
+		{
+			get { return m_Volume; }
+			set { SetProperty(ref m_Volume, value); }
+		}
+
+		/// <summary>
+		/// ミュートするか
+		/// </summary>
+		public bool IsMuted
+		{
+			get { return m_IsMuted; }
+			set
+			{
+				if (SetProperty(ref m_IsMuted, value))
+				{
+					if(m_IsMuted)
+					{
+						m_VolumeCache = Volume;
+						Volume = 0.0;
+
+					}
+					else
+					{
+						Volume = m_VolumeCache;
+					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// ループ再生するか
+		/// </summary>
+		public bool NeedsLoop
+		{
+			get { return m_NeedsLoop; }
+			set { SetProperty(ref m_NeedsLoop, value); }
 		}
 
 		/// <summary>
@@ -163,7 +236,7 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 		/// <returns></returns>
 		private bool CanPlay()
 		{
-			return SoundSource != null;
+			return SoundSource != null && PlayState != PlayState.Play;
 		}
 
 		/// <summary>
@@ -171,7 +244,12 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 		/// </summary>
 		private void Play()
 		{
+			if (SoundSource == null)
+			{
+				return;
+			}
 			PlayRequested?.Invoke(this, null);
+			PlayState = PlayState.Play;
 		}
 
 		#endregion
@@ -184,7 +262,7 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 		/// <returns></returns>
 		private bool CanStop()
 		{
-			return SoundSource != null;
+			return SoundSource != null && PlayState != PlayState.Stop;
 		}
 
 		/// <summary>
@@ -192,7 +270,12 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 		/// </summary>
 		private void Stop()
 		{
+			if(SoundSource == null)
+			{
+				return;
+			}
 			StopRequested?.Invoke(this, null);
+			PlayState = PlayState.Stop;
 		}
 
 		#endregion
@@ -205,7 +288,7 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 		/// <returns></returns>
 		private bool CanPause()
 		{
-			return SoundSource != null;
+			return SoundSource != null && PlayState == PlayState.Play;
 		}
 
 		/// <summary>
@@ -214,6 +297,7 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 		private void Pause()
 		{
 			PauseRequested?.Invoke(this, null);
+			PlayState = PlayState.Pause;
 		}
 
 		#endregion
@@ -239,5 +323,12 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 		#endregion
 
 		#endregion
+	}
+
+	public enum PlayState
+	{
+		Stop,
+		Play,
+		Pause,
 	}
 }

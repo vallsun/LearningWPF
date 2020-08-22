@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFAppFrameWork.SoundPlayer.View"
 			 xmlns:localVm="clr-namespace:WPFAppFrameWork.SoundPlayer.ViewModel"
+			 xmlns:commonConverter="clr-namespace:WPFAppFrameWork.Common.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
 			 Loaded="UserControl_Loaded">
@@ -12,7 +13,9 @@
 		<localVm:SoundPlayerViewModel/>
 	</UserControl.DataContext>
 	<UserControl.Resources>
-		
+
+		<commonConverter:ReverseBooleanConverter x:Key="ReverseBooleanConverter"/>
+
 		<!-- 音量ボタンのスタイル -->
 		<Style x:Key="SoundToggleButtonStyle" TargetType="ToggleButton">
 			<Setter Property="OverridesDefaultStyle" Value="False"/>
@@ -49,16 +52,28 @@
 				<RowDefinition Height="Auto"/>
 			</Grid.RowDefinitions>
 			<TextBlock Text="{Binding SoundSourceFileName}"/>
-			<MediaElement Name="m_MediaElement" Grid.Row="1" Source="{Binding Path=SoundSource}" LoadedBehavior="Manual"/>
-			<Slider Grid.Row="2"/>
+			<Border Grid.Row="1" Background="Black"/>
+			<MediaElement Name="m_MediaElement" Grid.Row="1"
+						  Source="{Binding Path=SoundSource}"
+						  LoadedBehavior="Manual"
+						  Volume="{Binding Volume}"
+						  IsMuted="{Binding ElementName=m_VolumeToggleButton, Path=IsChecked, Converter={StaticResource ReverseBooleanConverter}}"
+						  MediaOpened="Element_MediaOpened" MediaEnded="Element_MediaEnded"/>
+			<!--進行状況-->
+			<Slider Name="m_TimeLineSlider" Grid.Row="2" ValueChanged="SeekToMediaPosition"/>
+			
 			<StackPanel Grid.Row="3" Orientation="Horizontal">
 				<Button Margin="0,0,5,0" Content="Open..." ToolTip="ファイルを開く" Command="{Binding Path=FileOpenCommand}"/>
 				<Button Margin="0,0,5,0" Content="▶" ToolTip="再生"  Command="{Binding Path=PlayCommand}"/>
 				<Button Margin="0,0,5,0" Content=" || " ToolTip="一時停止" Command="{Binding Path=PauseCommand}"/>
 				<Button Margin="0,0,5,0" Content="■" ToolTip="停止" Command="{Binding Path=StopCommand}"/>
-				<ToggleButton Margin="0,0,5,0" Content="↺" IsEnabled="False"/>
-				<ToggleButton Margin="5,0,2,0" Width="20" IsChecked="True" Style="{StaticResource SoundToggleButtonStyle}"/>
-				<Slider Width="150"/>
+				<!--ループ再生有無切り替えボタン-->
+				<ToggleButton Margin="0,0,5,0" Content="↺" ToolTip="ループ再生" IsChecked="{Binding NeedsLoop}"/>
+				<!--音量-->
+				<ToggleButton Name="m_VolumeToggleButton"  Margin="5,0,0,0" Width="20"
+							  IsChecked="True"
+							  Style="{StaticResource SoundToggleButtonStyle}"/>
+				<Slider Width="50" Value="{Binding Volume}" Minimum="0" Maximum="1"/>
 			</StackPanel>
 			<StackPanel Grid.Row="4" Orientation="Horizontal" ToolTip="{Binding SoundSource}">
 				<TextBlock Text="選択中のファイル："/>
