@@ -8,19 +8,71 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
 			 Loaded="UserControl_Loaded">
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition/>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="Auto"/>
-		</Grid.RowDefinitions>
-		<MediaElement Name="m_MediaElement" Source="{Binding Path=SoundSource}" LoadedBehavior="Manual"/>
-		<Slider Grid.Row="1"/>
-		<StackPanel Grid.Row="2" Orientation="Horizontal">
-			<Button Content="Play" Command="{Binding Path=PlayCommand}"/>
-			<Button Content="Pause" Command="{Binding Path=PauseCommand}"/>
-			<Button Content="Stop" Command="{Binding Path=StopCommand}"/>
-			<ToggleButton Content="Repeat" IsEnabled="False"/>
-		</StackPanel>
+	<UserControl.DataContext>
+		<localVm:SoundPlayerViewModel/>
+	</UserControl.DataContext>
+	<UserControl.Resources>
+		
+		<!-- 音量ボタンのスタイル -->
+		<Style x:Key="SoundToggleButtonStyle" TargetType="ToggleButton">
+			<Setter Property="OverridesDefaultStyle" Value="False"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="ToggleButton">
+						<ContentControl Name="m_PART_Content" />
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsChecked" Value="False">
+								<Setter TargetName="m_PART_Content" Property="Content" Value="🔈"/>
+							</Trigger>
+							<Trigger Property="IsChecked" Value="True">
+								<Setter TargetName="m_PART_Content" Property="Content" Value="🔊"/>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</UserControl.Resources>
+
+	<Grid Margin="10">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="2*"/>
+			<ColumnDefinition Width="Auto"/>
+			<ColumnDefinition Width="1*"/>
+		</Grid.ColumnDefinitions>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+			<TextBlock Text="{Binding SoundSourceFileName}"/>
+			<MediaElement Name="m_MediaElement" Grid.Row="1" Source="{Binding Path=SoundSource}" LoadedBehavior="Manual"/>
+			<Slider Grid.Row="2"/>
+			<StackPanel Grid.Row="3" Orientation="Horizontal">
+				<Button Margin="0,0,5,0" Content="Open..." ToolTip="ファイルを開く" Command="{Binding Path=FileOpenCommand}"/>
+				<Button Margin="0,0,5,0" Content="▶" ToolTip="再生"  Command="{Binding Path=PlayCommand}"/>
+				<Button Margin="0,0,5,0" Content=" || " ToolTip="一時停止" Command="{Binding Path=PauseCommand}"/>
+				<Button Margin="0,0,5,0" Content="■" ToolTip="停止" Command="{Binding Path=StopCommand}"/>
+				<ToggleButton Margin="0,0,5,0" Content="↺" IsEnabled="False"/>
+				<ToggleButton Margin="5,0,2,0" Width="20" IsChecked="True" Style="{StaticResource SoundToggleButtonStyle}"/>
+				<Slider Width="150"/>
+			</StackPanel>
+			<StackPanel Grid.Row="4" Orientation="Horizontal" ToolTip="{Binding SoundSource}">
+				<TextBlock Text="選択中のファイル："/>
+				<TextBlock Text="{Binding SoundSource}"/>
+			</StackPanel>
+		</Grid>
+		<GridSplitter Grid.Column="1" Width="3" HorizontalAlignment="Stretch"/>
+		<Grid Grid.Column="2">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
+			<Label Content="最近視聴したファイル："/>
+			<ListBox Grid.Row="1" ItemsSource="{Binding SourceList}" SelectedItem="{Binding SelectedSource, Mode=OneWayToSource}"/>
+		</Grid>
 	</Grid>
 </UserControl>
