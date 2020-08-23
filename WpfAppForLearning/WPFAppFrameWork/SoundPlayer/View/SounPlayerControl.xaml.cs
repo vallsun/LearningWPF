@@ -1,15 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using WPFAppFrameWork.SoundPlayer.ViewModel;
 
@@ -20,6 +12,18 @@ namespace WPFAppFrameWork.SoundPlayer.View
 	/// </summary>
 	public partial class SounPlayerControl : UserControl
 	{
+
+
+		public bool SoundOnly
+		{
+			get { return (bool)GetValue(SoundOnlyProperty); }
+			set { SetValue(SoundOnlyProperty, value); }
+		}
+
+		// Using a DependencyProperty as the backing store for SoundOnly.  This enables animation, styling, binding, etc...
+		public static readonly DependencyProperty SoundOnlyProperty =
+			DependencyProperty.Register("SoundOnly", typeof(bool), typeof(SounPlayerControl), new PropertyMetadata(false));
+
 		/// <summary>
 		/// スライダー更新用タイマー
 		/// </summary>
@@ -40,16 +44,20 @@ namespace WPFAppFrameWork.SoundPlayer.View
 				vm.PlayRequested += (sender, e) =>
 				{
 					m_MediaElement.Play();
+					vm.PlayState = PlayState.Play;
 				};
 
 				vm.StopRequested += (sender, e) =>
 				{
 					m_MediaElement.Stop();
+					vm.PlayState = PlayState.Stop;
+					m_MediaElement.Close();
 				};
 
 				vm.PauseRequested += (sender, e) =>
 				{
 					m_MediaElement.Pause();
+					vm.PlayState = PlayState.Pause;
 				};
 			}
 		}
@@ -80,7 +88,15 @@ namespace WPFAppFrameWork.SoundPlayer.View
 		/// <param name="e"></param>
 		private void Element_MediaOpened(object sender, EventArgs e)
 		{
-			m_TimeLineSlider.Maximum = m_MediaElement.NaturalDuration.TimeSpan.TotalMilliseconds;
+			if (!m_MediaElement.NaturalDuration.HasTimeSpan)
+			{
+				m_TimeLineSlider.Maximum = 0.0;
+			}
+			else
+			{
+				m_TimeLineSlider.Maximum = m_MediaElement.NaturalDuration.TimeSpan.TotalMilliseconds;
+			}
+			
 			IntializeTimer();
 		}
 
@@ -115,16 +131,24 @@ namespace WPFAppFrameWork.SoundPlayer.View
 		{
 			// 停止する
 			m_MediaElement.Stop();
+			var vm = m_MediaElement.DataContext as SoundPlayerViewModel;
+			if(vm != null)
+			{
+				vm.PlayState = PlayState.Stop;
+			}
+			m_MediaElement.Close();
 
 			// ループ再生が必要な場合には再度再生する
-			var vm = m_MediaElement.DataContext as SoundPlayerViewModel;
 			if (vm != null)
 			{
 				if (vm.NeedsLoop)
 				{
 					m_MediaElement.Play();
+					vm.PlayState = PlayState.Play;
 				}
 			}
+
+			CommandManager.InvalidateRequerySuggested();
 		}
 
 		/// <summary>
@@ -134,6 +158,25 @@ namespace WPFAppFrameWork.SoundPlayer.View
 		/// <param name="e"></param>
 		private void DispatcherTimer_Tick(object sender, EventArgs e)
 		{
+			var vm = m_MediaElement.DataContext as SoundPlayerViewModel;
+			if (vm == null)
+			{
+				return;
+			}
+
+			var oldCanPlaySource = vm.CanPlaySource;
+			var newCanPlaySource = m_MediaElement.HasAudio || m_MediaElement.HasVideo;
+			SoundOnly = m_MediaElement.HasAudio && !m_MediaElement.HasVideo;
+			if (oldCanPlaySource != newCanPlaySource)
+			{
+				vm.CanPlaySource = newCanPlaySource;
+				CommandManager.InvalidateRequerySuggested();
+			}
+
+			if(vm.PlayState != PlayState.Play)
+			{
+				return;
+			}
 			IsUpdatingSlider = true;
 			// 動画経過時間に合わせてスライダーを動かす
 			double dbPrg = GetMovieProgress();

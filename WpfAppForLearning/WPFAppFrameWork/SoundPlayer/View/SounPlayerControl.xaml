@@ -15,6 +15,8 @@
 	<UserControl.Resources>
 
 		<commonConverter:ReverseBooleanConverter x:Key="ReverseBooleanConverter"/>
+		<commonConverter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+		<commonConverter:ReverseBooleanToVisibilityConverter x:Key="ReverseBooleanToVisibilityConverter"/>
 
 		<!-- 音量ボタンのスタイル -->
 		<Style x:Key="SoundToggleButtonStyle" TargetType="ToggleButton">
@@ -53,6 +55,10 @@
 			</Grid.RowDefinitions>
 			<TextBlock Text="{Binding SoundSourceFileName}"/>
 			<Border Grid.Row="1" Background="Black"/>
+			<TextBlock Grid.Row="1" Text="Soud Only" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"
+					   Visibility="{Binding Path=SoundOnly, Converter={StaticResource BooleanToVisibilityConverter}, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+			<TextBlock Grid.Row="1" Text="No Media" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"
+					   Visibility="{Binding Path=CanPlaySource, Converter={StaticResource ReverseBooleanToVisibilityConverter}}"/>
 			<MediaElement Name="m_MediaElement" Grid.Row="1"
 						  Source="{Binding Path=SoundSource}"
 						  LoadedBehavior="Manual"

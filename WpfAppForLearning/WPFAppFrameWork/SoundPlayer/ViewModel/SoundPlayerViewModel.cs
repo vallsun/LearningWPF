@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using WPFAppFrameWork.Common;
 using WPFAppFrameWork.Service;
 using Path = System.IO.Path;
@@ -57,6 +58,11 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 		/// ループ再生するか
 		/// </summary>
 		private bool m_NeedsLoop = false;
+
+		/// <summary>
+		/// ソースを再生可能か
+		/// </summary>
+		private bool m_CanPlaySource = false;
 
 		#endregion
 
@@ -164,6 +170,25 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 		}
 
 		/// <summary>
+		/// ソースを再生可能か
+		/// </summary>
+		public bool CanPlaySource
+		{
+			get { return m_CanPlaySource; }
+			set
+			{ 
+				if(SetProperty(ref m_CanPlaySource, value) && value)
+				{
+					CommandManager.InvalidateRequerySuggested();
+					if(CanPlay())
+					{
+						Play();
+					}
+				}
+			}
+		}
+
+		/// <summary>
 		/// 音声を再生する
 		/// </summary>
 		public DelegateCommand PlayCommand { get; protected set; }
@@ -185,7 +210,6 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 
 
 		#endregion
-
 
 		#region 構築・消滅
 
@@ -236,7 +260,7 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 		/// <returns></returns>
 		private bool CanPlay()
 		{
-			return SoundSource != null && PlayState != PlayState.Play;
+			return SoundSource != null && CanPlaySource && PlayState != PlayState.Play;
 		}
 
 		/// <summary>
@@ -262,7 +286,7 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 		/// <returns></returns>
 		private bool CanStop()
 		{
-			return SoundSource != null && PlayState != PlayState.Stop;
+			return SoundSource != null && CanPlaySource && PlayState != PlayState.Stop;
 		}
 
 		/// <summary>
@@ -288,7 +312,7 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 		/// <returns></returns>
 		private bool CanPause()
 		{
-			return SoundSource != null && PlayState == PlayState.Play;
+			return SoundSource != null && CanPlaySource && PlayState == PlayState.Play;
 		}
 
 		/// <summary>
