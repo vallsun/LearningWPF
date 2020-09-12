@@ -363,9 +363,10 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 				SoundSource = null;
 				return;
 			}
-			SoundSource = new Uri(filePath);
-			var mediaSource = new MediaSource(SoundSource);
+			var mediaSource = new MediaSource(new Uri(filePath));
+			SelectedSource = mediaSource;
 			SourceList.Add(mediaSource);
+			SoundSource = mediaSource.Uri;
 		}
 		#endregion
 
@@ -397,16 +398,16 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 			SourceList.Remove(item);
 			if(SourceList.Count == 0)
 			{
-				SoundSource = null;
+				SelectedSource = null;
 				return;
 			}
 			if (index != 0)
 			{
-				SoundSource = SourceList[index - 1].Uri;
+				SelectedSource = SourceList[index - 1];
 			}
 			else
 			{
-				SoundSource = SourceList[index]?.Uri;
+				SelectedSource = SourceList[index];
 			}
 		}
 
@@ -437,7 +438,7 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 			var index = SourceList.IndexOf(item);
 			SourceList.RemoveAt(index);
 			SourceList.Insert(index - 1, item);
-			SoundSource = item.Uri;
+			SelectedSource = item;
 		}
 
 		#endregion
@@ -467,7 +468,7 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 			var index = SourceList.IndexOf(item);
 			SourceList.RemoveAt(index);
 			SourceList.Insert(index + 1, item);
-			SoundSource = item.Uri;
+			SelectedSource = item;
 		}
 
 		#endregion
