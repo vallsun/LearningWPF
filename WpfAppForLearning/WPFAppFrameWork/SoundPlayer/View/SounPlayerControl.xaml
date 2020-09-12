@@ -93,7 +93,35 @@
 				<RowDefinition/>
 			</Grid.RowDefinitions>
 			<Label Content="最近視聴したファイル："/>
-			<ListBox Grid.Row="1" ItemsSource="{Binding SourceList}" SelectedItem="{Binding SelectedSource, Mode=OneWayToSource}"/>
+			<ListBox Grid.Row="1" ItemsSource="{Binding SourceList}" SelectedItem="{Binding SelectedSource, Mode=OneWayToSource}"
+					 HorizontalContentAlignment="Stretch">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<Grid >
+							<TextBlock Text="{Binding FileName}" />
+							<StackPanel Name="m_ItemButtonPanel" Orientation="Horizontal" HorizontalAlignment="Right">
+								<Button Content="↑"
+										Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.ChangeItemOrderUpperCommand}"
+										CommandParameter="{Binding}"/>
+								<Button Content="↓"
+										Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.ChangeItemOrderLowerCommand}"
+										CommandParameter="{Binding}"/>
+								<Button Content="☒"
+										Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=DataContext.DeleteItemCommand}"
+										CommandParameter="{Binding}"/>
+							</StackPanel>
+						</Grid>
+						<DataTemplate.Triggers>
+							<Trigger Property="IsMouseOver" Value="True">
+								<Setter TargetName="m_ItemButtonPanel" Property="Visibility" Value="Visible"/>
+							</Trigger>
+							<Trigger Property="IsMouseOver" Value="False">
+								<Setter TargetName="m_ItemButtonPanel" Property="Visibility" Value="Collapsed"/>
+							</Trigger>
+						</DataTemplate.Triggers>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
 		</Grid>
 	</Grid>
 </UserControl>

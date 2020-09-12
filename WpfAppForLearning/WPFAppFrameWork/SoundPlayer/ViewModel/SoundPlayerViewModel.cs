@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using WPFAppFrameWork.Common;
 using WPFAppFrameWork.Service;
+using WPFAppFrameWork.SoundPlayer.Model;
 using Path = System.IO.Path;
 
 namespace WPFAppFrameWork.SoundPlayer.ViewModel
@@ -32,12 +33,12 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 		/// <summary>
 		/// 視聴ファイルパスのリスト
 		/// </summary>
-		private ObservableCollection<Uri> m_SourceList = new ObservableCollection<Uri>();
+		private ObservableCollection<MediaSource> m_SourceList = new ObservableCollection<MediaSource>();
 
 		/// <summary>
 		/// 選択中ファイルのパス
 		/// </summary>
-		private Uri m_SelectedSource = null;
+		private MediaSource m_SelectedSource = null;
 
 		/// <summary>
 		/// 音量
@@ -106,7 +107,7 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 		/// <summary>
 		/// 視聴ファイルパスのリスト
 		/// </summary>
-		public ObservableCollection<Uri> SourceList
+		public ObservableCollection<MediaSource> SourceList
 		{
 			get { return m_SourceList; }
 			set { SetProperty(ref m_SourceList, value); }
@@ -115,14 +116,14 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 		/// <summary>
 		/// 視聴ファイルパスのリストで選択中のファイル
 		/// </summary>
-		public Uri SelectedSource
+		public MediaSource SelectedSource
 		{
 			get { return m_SelectedSource; }
 			set
 			{
 				if (SetProperty(ref m_SelectedSource, value))
 				{
-					SoundSource = m_SelectedSource;
+					SoundSource = m_SelectedSource?.Uri;
 				}
 			}
 		}
@@ -208,6 +209,24 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 		/// </summary>
 		public DelegateCommand FileOpenCommand { get; protected set; }
 
+		#region 再生履歴操作
+
+		/// <summary>
+		/// 要素を削除する
+		/// </summary>
+		public DelegateCommand<MediaSource> DeleteItemCommand { get; protected set; }
+
+		/// <summary>
+		/// 要素を上に移動
+		/// </summary>
+		public DelegateCommand<MediaSource> ChangeItemOrderUpperCommand { get; protected set; }
+
+		/// <summary>
+		/// 要素を下に移動
+		/// </summary>
+		public DelegateCommand<MediaSource> ChangeItemOrderLowerCommand { get; protected set; }
+
+		#endregion
 
 		#endregion
 
@@ -236,6 +255,9 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 			StopCommand = new DelegateCommand(Stop, CanStop);
 			PauseCommand = new DelegateCommand(Pause, CanPause);
 			FileOpenCommand = new DelegateCommand(FileOpen, CanFileOpen);
+			DeleteItemCommand = new DelegateCommand<MediaSource>(DeleteItem, CanDeleteItem);
+			ChangeItemOrderUpperCommand = new DelegateCommand<MediaSource>(ChangeItemOrderUpper, CanChangeItemOrderUpper);
+			ChangeItemOrderLowerCommand = new DelegateCommand<MediaSource>(ChangeItemOrderLower, CanChangeItemOrderLower);
 		}
 
 		#endregion
@@ -342,8 +364,114 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 				return;
 			}
 			SoundSource = new Uri(filePath);
-			SourceList.Add(SoundSource);
+			var mediaSource = new MediaSource(SoundSource);
+			SourceList.Add(mediaSource);
 		}
+		#endregion
+
+		#region 再生履歴操作
+
+		#region 要素削除
+
+		/// <summary>
+		/// 要素を削除可能か
+		/// </summary>
+		/// <param name="item"></param>
+		/// <returns></returns>
+		private bool CanDeleteItem(MediaSource item)
+		{
+			return item != null;
+		}
+
+		/// <summary>
+		/// 要素を削除する
+		/// </summary>
+		private void DeleteItem(MediaSource item)
+		{
+			if(!SourceList.Contains(item))
+			{
+				//　フェールセーフ
+				return;
+			}
+			var index = SourceList.IndexOf(item);
+			SourceList.Remove(item);
+			if(SourceList.Count == 0)
+			{
+				SoundSource = null;
+				return;
+			}
+			if (index != 0)
+			{
+				SoundSource = SourceList[index - 1].Uri;
+			}
+			else
+			{
+				SoundSource = SourceList[index]?.Uri;
+			}
+		}
+
+		#endregion
+
+		#region 上へ移動
+
+		/// <summary>
+		/// 要素を上に移動可能か
+		/// </summary>
+		/// <param name="item"></param>
+		/// <returns></returns>
+		private bool CanChangeItemOrderUpper(MediaSource item)
+		{
+			return item != null && SourceList.IndexOf(item) != 0;
+		}
+
+		/// <summary>
+		/// 要素を上に移動する
+		/// </summary>
+		/// <param name="item"></param>
+		private void ChangeItemOrderUpper(MediaSource item)
+		{
+			if(!SourceList.Contains(item))
+			{
+				return;
+			}
+			var index = SourceList.IndexOf(item);
+			SourceList.RemoveAt(index);
+			SourceList.Insert(index - 1, item);
+			SoundSource = item.Uri;
+		}
+
+		#endregion
+
+		#region 下へ移動
+
+		/// <summary>
+		/// 要素を下に移動可能か
+		/// </summary>
+		/// <param name="item"></param>
+		/// <returns></returns>
+		private bool CanChangeItemOrderLower(MediaSource item)
+		{
+			return item != null && SourceList.IndexOf(item) != SourceList.Count - 1;
+		}
+
+		/// <summary>
+		/// 要素を下に移動する
+		/// </summary>
+		/// <param name="item"></param>
+		private void ChangeItemOrderLower(MediaSource item)
+		{
+			if (!SourceList.Contains(item))
+			{
+				return;
+			}
+			var index = SourceList.IndexOf(item);
+			SourceList.RemoveAt(index);
+			SourceList.Insert(index + 1, item);
+			SoundSource = item.Uri;
+		}
+
+		#endregion
+
 		#endregion
 
 		#endregion
