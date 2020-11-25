@@ -10,8 +10,14 @@
 		<StackPanel Margin="10">
 			<Label Content="■最小=0、最大=100、Value=50" />
 			<ProgressBar Height="20" Minimum="0" Maximum="100" Value="50" IsIndeterminate="False" />
-			<Label Content="IsIndeterminate=True" />
+			<Label Content="■IsIndeterminate=True" />
 			<ProgressBar Height="20" IsIndeterminate="True" />
+			<Label Content="■進捗をVMとバインド" />
+			<ProgressBar Height="20" Value="{Binding CurrentValue}" />
+			<StackPanel Orientation="Horizontal">
+				<Button Content="タスク開始" Command="{Binding StartTaskCommand}"/>
+				<Button Content="タスク中止" Command="{Binding CancelTaskCommand}"/>
+			</StackPanel>
 		</StackPanel>
 	</Grid>
 </UserControl>
