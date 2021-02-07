@@ -14,9 +14,9 @@
 			<ProgressBar Height="20" IsIndeterminate="True" />
 			<Label Content="■進捗をVMとバインド" />
 			<ProgressBar Height="20" Value="{Binding CurrentValue}" />
-			<StackPanel Orientation="Horizontal">
+			<StackPanel Margin="0,10,0,0" Orientation="Horizontal">
 				<Button Content="タスク開始" Command="{Binding StartTaskCommand}"/>
-				<Button Content="タスク中止" Command="{Binding CancelTaskCommand}"/>
+				<Button  Margin="5,0,0,0" Content="タスク中止" Command="{Binding CancelTaskCommand}"/>
 			</StackPanel>
 		</StackPanel>
 	</Grid>
