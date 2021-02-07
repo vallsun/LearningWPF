@@ -44,7 +44,6 @@
 				<TextBlock Text="{Binding Description}" />
 			</DataTemplate>
 		</ResourceDictionary>
-
 	</Window.Resources>
 	<Window.DataContext>
 		<vm:MainViewModel x:Name="mainVM" />
@@ -104,7 +103,52 @@
             </Border>
             <!--選択中のコンテンツ-->
 			<Border Grid.Row="1" Margin="3" Background="White">
-				<ContentControl Content="{Binding ContentViewModel, Mode=OneWay}" />
+				<TabControl>
+					<TabItem Header="使用例">
+						<ContentControl Content="{Binding ContentViewModel, Mode=OneWay}" />
+					</TabItem>
+					<TabItem Header="定義">
+						<Grid Margin="3">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition/>
+							</Grid.RowDefinitions>
+							<TextBlock Text="{Binding ContentViewModel.Model.Name}" FontWeight="Bold" FontSize="20"/>
+							<Grid Grid.Row="1" Margin="3">
+								<Grid.RowDefinitions>
+									<RowDefinition/>
+									<RowDefinition/>
+									<RowDefinition/>
+									<RowDefinition/>
+								</Grid.RowDefinitions>
+								<StackPanel>
+									<Border BorderThickness="0,0,0,1" BorderBrush="Aquamarine">
+										<TextBlock Text="用途"/>
+									</Border>
+									<TextBlock Text="{Binding ContentViewModel.Usage}"/>
+								</StackPanel>
+								<StackPanel Grid.Row="1">
+									<Border BorderThickness="0,0,0,1" BorderBrush="Aquamarine">
+										<TextBlock Text="プロパティ"/>
+									</Border>
+									<TextBlock/>
+								</StackPanel>
+								<StackPanel Grid.Row="2">
+									<Border BorderThickness="0,0,0,1" BorderBrush="Aquamarine">
+										<TextBlock Text="メソッド"/>
+									</Border>
+									<TextBlock/>
+								</StackPanel>
+								<StackPanel Grid.Row="3">
+									<Border BorderThickness="0,0,0,1" BorderBrush="Aquamarine">
+										<TextBlock Text="イベント"/>
+									</Border>
+									<TextBlock/>
+								</StackPanel>
+							</Grid>
+						</Grid>
+					</TabItem>
+				</TabControl>
 			</Border>
 		</Grid>
         <GridSplitter Grid.Row="1" Grid.Column="1"

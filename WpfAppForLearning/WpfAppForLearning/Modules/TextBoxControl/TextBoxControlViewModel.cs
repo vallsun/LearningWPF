@@ -10,7 +10,7 @@ namespace WpfAppForLearning.Modules.TextBoxControl
         public TextBoxControlViewModel(INotifyPropertyChanged model)
             : base(model)
         {
-
+            Usage = "書式なしテキストの表示または編集に使用できるコントロール";
         }
 
         #endregion

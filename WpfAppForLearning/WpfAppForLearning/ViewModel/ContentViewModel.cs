@@ -15,6 +15,11 @@ namespace WpfAppForLearning.ViewModel
 		/// </summary>
 		private string m_Description;
 
+		/// <summary>
+		/// 用途
+		/// </summary>
+		private string m_Usage;
+
 		#endregion
 
 
@@ -27,6 +32,15 @@ namespace WpfAppForLearning.ViewModel
 		{
 			get { return m_Description; }
 			set { SetProperty(ref m_Description, value); }
+		}
+
+		/// <summary>
+		/// 用途
+		/// </summary>
+		public string Usage
+		{
+			get { return m_Usage; }
+			set { SetProperty(ref m_Usage, value); }
 		}
 
 		#endregion
