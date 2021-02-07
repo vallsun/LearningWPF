@@ -16,7 +16,7 @@ namespace WPFAppFrameWork.XamlPad
 		/// <summary>
 		/// Xaml形式のテキストファイル
 		/// </summary>
-		private static readonly string fileName = Environment.CurrentDirectory + "¥¥win.xaml";
+		private static readonly string fileName = Environment.CurrentDirectory + @"\win.xaml";
 
 		#endregion
 
