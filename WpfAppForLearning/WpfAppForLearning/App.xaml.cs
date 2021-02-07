@@ -5,6 +5,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using WPFAppFrameWork.Common.Service;
+using WPFAppFrameWork.XamlPad;
 
 namespace WpfAppForLearning
 {
@@ -13,6 +15,8 @@ namespace WpfAppForLearning
     /// </summary>
     public partial class App : Application
     {
+        public static IWindowService WindowService = new WindowService();
+
         /// <summary>
         /// コンストラクタ
         /// </summary>
@@ -23,6 +27,11 @@ namespace WpfAppForLearning
             var style = new Style(typeof(Window));
             style.Setters.Add(new Setter(Window.FontFamilyProperty, font));
             FrameworkElement.StyleProperty.OverrideMetadata(typeof(Window), new FrameworkPropertyMetadata(style));
+        }
+
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            WindowService.Register<XamlPadWindow, XamlPadWindowViewModel>();
         }
     }
 }

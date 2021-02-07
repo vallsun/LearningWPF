@@ -12,12 +12,13 @@ using WpfAppForLearning.Modules.ProgressBar;
 using WpfAppForLearning.Modules.StartControl;
 using WpfAppForLearning.Modules.TextBoxControl;
 using WPFAppFrameWork.Common;
+using WPFAppFrameWork.XamlPad;
 
 namespace WpfAppForLearning.ViewModel
 {
     public class MainViewModel : SelectableViewModelBase<Content>
     {
-        #region 値数定義
+        #region 定数定義
 
         private const string c_Content_Root = "コンテンツ";
         private const string c_ContentName_CustomControl = "CustomControl";
@@ -64,14 +65,18 @@ namespace WpfAppForLearning.ViewModel
             }
         }
 
+        public DelegateCommand StartXamlPadCommand { get; set; }
+
         #endregion
 
         private static readonly PropertyChangedEventArgs SelectedItemPropertyChangedEventArgs = new PropertyChangedEventArgs(nameof(SelectedItem));
 
-        /// <summary>
-        /// コンストラクタ
-        /// </summary>
-        public MainViewModel()
+		#region 構築・消滅
+
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
+		public MainViewModel()
             : base(null)
         {
             //コンテンツの生成
@@ -81,6 +86,18 @@ namespace WpfAppForLearning.ViewModel
 
             SelectedItem = ContentsTree.ContentsTree.FirstOrDefault();
         }
+
+        #endregion
+
+        #region 初期化
+
+        protected override void RegisterCommands()
+        {
+            base.RegisterCommands();
+            StartXamlPadCommand = new DelegateCommand(StartXamlPad, CanStartXamlPad);
+        }
+
+        #endregion
 
         #region イベントハンドラ
 
@@ -139,6 +156,20 @@ namespace WpfAppForLearning.ViewModel
             ContentViewModel = m_ViewModelDictionary[SelectedItem];
         }
 
-        #endregion
-    }
+		#endregion
+
+		#region 内部処理
+
+        private void StartXamlPad()
+        {
+            App.WindowService.Show(new XamlPadWindowViewModel());
+        }
+
+        private bool CanStartXamlPad()
+        {
+            return true;
+        }
+
+		#endregion
+	}
 }

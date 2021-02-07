@@ -62,7 +62,10 @@
 		<Menu Grid.Row="0" Grid.ColumnSpan="3"
               BorderBrush="Gray" BorderThickness="0,1,0,1">
 			<MenuItem Header="ファイル"/>
-			<MenuItem Header="編集" />
+			<MenuItem Header="編集"/>
+			<MenuItem Header="ツール">
+				<MenuItem Header="XamlPad" Command="{Binding StartXamlPadCommand}"/>
+			</MenuItem>
 			<MenuItem Header="ヘルプ" />
 		</Menu>
 		
