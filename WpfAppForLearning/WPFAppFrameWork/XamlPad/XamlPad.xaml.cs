@@ -53,8 +53,8 @@ namespace WPFAppFrameWork.XamlPad
 			}
 			catch (Exception ex)
 			{
-				errorTextBlock.Text += DateTime.Now + "¥n";
-				errorTextBlock.Text += ex.Message + "¥n¥n";
+				errorTextBlock.Text += DateTime.Now + "  ";
+				errorTextBlock.Text += ex.Message + Environment.NewLine;
 			}
 		}
 
