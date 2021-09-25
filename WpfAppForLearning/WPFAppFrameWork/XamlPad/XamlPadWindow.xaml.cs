@@ -12,10 +12,5 @@ namespace WPFAppFrameWork.XamlPad
 		{
 			InitializeComponent();
 		}
-
-		private void Window_Closed(object sender, EventArgs e)
-		{
-			m_XamlPad.SaveXamlText();
-		}
 	}
 }
