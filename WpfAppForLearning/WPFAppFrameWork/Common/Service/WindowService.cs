@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading;
 using System.Windows;
 
 namespace WPFAppFrameWork.Common.Service
@@ -47,7 +45,7 @@ namespace WPFAppFrameWork.Common.Service
 			}
 			var windowType = m_WindowDictionary[vm.GetType()];
 			var w = Activator.CreateInstance(windowType) as Window;
-			if(w == null)
+			if (w == null)
 			{
 				return null;
 			}

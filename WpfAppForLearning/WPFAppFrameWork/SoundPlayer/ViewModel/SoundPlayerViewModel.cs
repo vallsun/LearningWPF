@@ -49,7 +49,7 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 		/// ミュートするか
 		/// </summary>
 		private bool m_IsMuted = false;
-		
+
 		/// <summary>
 		/// 音量のキャッシュ
 		/// </summary>
@@ -147,7 +147,7 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 			{
 				if (SetProperty(ref m_IsMuted, value))
 				{
-					if(m_IsMuted)
+					if (m_IsMuted)
 					{
 						m_VolumeCache = Volume;
 						Volume = 0.0;
@@ -177,11 +177,11 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 		{
 			get { return m_CanPlaySource; }
 			set
-			{ 
-				if(SetProperty(ref m_CanPlaySource, value) && value)
+			{
+				if (SetProperty(ref m_CanPlaySource, value) && value)
 				{
 					CommandManager.InvalidateRequerySuggested();
-					if(CanPlay())
+					if (CanPlay())
 					{
 						Play();
 					}
@@ -236,7 +236,7 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 		/// コンストラクタ
 		/// </summary>
 		public SoundPlayerViewModel()
-			:base(null)
+			: base(null)
 		{
 
 		}
@@ -268,7 +268,7 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 
 		public event EventHandler StopRequested;
 
-		public event EventHandler PauseRequested; 
+		public event EventHandler PauseRequested;
 
 		#endregion
 
@@ -316,7 +316,7 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 		/// </summary>
 		private void Stop()
 		{
-			if(SoundSource == null)
+			if (SoundSource == null)
 			{
 				return;
 			}
@@ -358,7 +358,7 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 		private void FileOpen()
 		{
 			var filePath = FileService.OpenFileDialog();
-			if(string.IsNullOrEmpty(filePath))
+			if (string.IsNullOrEmpty(filePath))
 			{
 				SoundSource = null;
 				return;
@@ -389,14 +389,14 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 		/// </summary>
 		private void DeleteItem(MediaSource item)
 		{
-			if(!SourceList.Contains(item))
+			if (!SourceList.Contains(item))
 			{
 				//　フェールセーフ
 				return;
 			}
 			var index = SourceList.IndexOf(item);
 			SourceList.Remove(item);
-			if(SourceList.Count == 0)
+			if (SourceList.Count == 0)
 			{
 				SelectedSource = null;
 				return;
@@ -431,7 +431,7 @@ namespace WPFAppFrameWork.SoundPlayer.ViewModel
 		/// <param name="item"></param>
 		private void ChangeItemOrderUpper(MediaSource item)
 		{
-			if(!SourceList.Contains(item))
+			if (!SourceList.Contains(item))
 			{
 				return;
 			}

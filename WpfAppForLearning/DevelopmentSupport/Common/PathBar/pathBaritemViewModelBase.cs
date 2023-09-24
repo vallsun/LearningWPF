@@ -1,135 +1,135 @@
-﻿using DevelopmentSupport.Common.Hierarchical;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Input;
+using DevelopmentSupport.Common.Hierarchical;
 using DevelopmentSupport.Common.Namable;
 using DevelopmentSupport.Common.PathBar.Command;
 using DevelopmentSupport.Common.Selectable;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows.Input;
 using WPFAppFrameWork.Common;
 
 namespace DevelopmentSupport.Common.PathBar
 {
-    /// <summary>
-    /// パスバー要素のVMベース
-    /// </summary>
-    public class PathBarItemViewModelBase<T> : ViewModelBase, ISelectableItem
-        where T : HierarchicalItemBase<T>, INamable, ISelectableItem
-    {
-        #region プロパティ
+	/// <summary>
+	/// パスバー要素のVMベース
+	/// </summary>
+	public class PathBarItemViewModelBase<T> : ViewModelBase, ISelectableItem
+		where T : HierarchicalItemBase<T>, INamable, ISelectableItem
+	{
+		#region プロパティ
 
-        /// <summary>
-        /// オーナービューモデル
-        /// </summary>
-        public PathBarViewModelBase<T> Owner { get; set; }
+		/// <summary>
+		/// オーナービューモデル
+		/// </summary>
+		public PathBarViewModelBase<T> Owner { get; set; }
 
-        #region IHierarchicalItemメンバ
+		#region IHierarchicalItemメンバ
 
-        /// <summary>
-        /// 親
-        /// </summary>
-        public PathBarItemViewModelBase<T> Parent { get; set; }
+		/// <summary>
+		/// 親
+		/// </summary>
+		public PathBarItemViewModelBase<T> Parent { get; set; }
 
-        /// <summary>
-        /// 子要素のコレクション
-        /// </summary>
-        public ObservableCollection<PathBarItemViewModelBase<T>> Children { get; set; }
+		/// <summary>
+		/// 子要素のコレクション
+		/// </summary>
+		public ObservableCollection<PathBarItemViewModelBase<T>> Children { get; set; }
 
-        #endregion
+		#endregion
 
-        #region ISelectableItemメンバ
+		#region ISelectableItemメンバ
 
-        /// <summary>
-        /// 選択されているか
-        /// </summary>
-        public bool IsSelected { get; set; }
+		/// <summary>
+		/// 選択されているか
+		/// </summary>
+		public bool IsSelected { get; set; }
 
-        #endregion
+		#endregion
 
-        #region INamableメンバ
+		#region INamableメンバ
 
-        /// <summary>
-        /// 名前
-        /// </summary>
-        public string Name
-        {
-            get { return ((T)Model).Name; }
-        }
+		/// <summary>
+		/// 名前
+		/// </summary>
+		public string Name
+		{
+			get { return ((T)Model).Name; }
+		}
 
-        #endregion
+		#endregion
 
-        /// <summary>
-        /// 兄弟リスト
-        /// </summary>
-        public ObservableCollection<PathBarItemViewModelBase<T>> SiblingList { get; set; }
+		/// <summary>
+		/// 兄弟リスト
+		/// </summary>
+		public ObservableCollection<PathBarItemViewModelBase<T>> SiblingList { get; set; }
 
-        /// <summary>
-        /// 子要素を持つか
-        /// </summary>
-        public bool HasChildren
-        {
-            get
-            {
-                return ((T)Model).Children?.Any() ?? false;
-            }
-        }
+		/// <summary>
+		/// 子要素を持つか
+		/// </summary>
+		public bool HasChildren
+		{
+			get
+			{
+				return ((T)Model).Children?.Any() ?? false;
+			}
+		}
 
-        /// <summary>
-        /// ページ遷移コマンド
-        /// </summary>
-        public ICommand PageTransisitonCommand { get; set; }
+		/// <summary>
+		/// ページ遷移コマンド
+		/// </summary>
+		public ICommand PageTransisitonCommand { get; set; }
 
-        #endregion
+		#endregion
 
-        #region 構築・消滅
+		#region 構築・消滅
 
-        /// <summary>
-        /// コンストラクタ
-        /// </summary>
-        /// <param name="content"></param>
-        public PathBarItemViewModelBase(PathBarViewModelBase<T> vm, HierarchicalItemBase<T> model)
-            : base(model)
-        {
-            Owner = vm;
-            SiblingListBuilder(model);
-        }
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
+		/// <param name="content"></param>
+		public PathBarItemViewModelBase(PathBarViewModelBase<T> vm, HierarchicalItemBase<T> model)
+			: base(model)
+		{
+			Owner = vm;
+			SiblingListBuilder(model);
+		}
 
-        #endregion
+		#endregion
 
-        #region 初期化
+		#region 初期化
 
-        /// <summary>
-        /// 兄弟リストの生成
-        /// </summary>
-        /// <param name="content"></param>
-        private void SiblingListBuilder(HierarchicalItemBase<T> content)
-        {
-            SiblingList = new ObservableCollection<PathBarItemViewModelBase<T>>();
+		/// <summary>
+		/// 兄弟リストの生成
+		/// </summary>
+		/// <param name="content"></param>
+		private void SiblingListBuilder(HierarchicalItemBase<T> content)
+		{
+			SiblingList = new ObservableCollection<PathBarItemViewModelBase<T>>();
 
-            if (content.Children == null)
-            {
-                return;
-            };
+			if (content.Children == null)
+			{
+				return;
+			};
 
-            foreach (var contentItem in content.Children)
-            {
-                
-                SiblingList.Add(new PathBarItemViewModelBase<T>(Owner, contentItem));
-            }
-        }
+			foreach (var contentItem in content.Children)
+			{
 
-        /// <summary>
-        /// コマンドの登録
-        /// </summary>
-        protected override void RegisterCommands()
-        {
-            base.RegisterCommands();
+				SiblingList.Add(new PathBarItemViewModelBase<T>(Owner, contentItem));
+			}
+		}
+
+		/// <summary>
+		/// コマンドの登録
+		/// </summary>
+		protected override void RegisterCommands()
+		{
+			base.RegisterCommands();
 
 
-            //コマンドのインスタンス化
-            PageTransisitonCommand = new PageTransitionCommand<T>(this);
+			//コマンドのインスタンス化
+			PageTransisitonCommand = new PageTransitionCommand<T>(this);
 
-        }
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Windows;
 using System.Windows.Data;
 
 namespace WPFAppFrameWork.Common.Converters
@@ -20,7 +19,7 @@ namespace WPFAppFrameWork.Common.Converters
 		/// <returns></returns>
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			if(value is bool a)
+			if (value is bool a)
 			{
 				return !a;
 			}

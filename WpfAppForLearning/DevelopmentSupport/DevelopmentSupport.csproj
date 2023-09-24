@@ -13,11 +13,17 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
-    <Resource Include="Resources\Image\Chain.png" />
+    <Compile Remove="Common\Styles\**" />
+    <Compile Remove="FileStarter\**" />
+    <EmbeddedResource Remove="Common\Styles\**" />
+    <EmbeddedResource Remove="FileStarter\**" />
+    <None Remove="Common\Styles\**" />
+    <None Remove="FileStarter\**" />
+    <Page Remove="Common\Styles\**" />
+    <Page Remove="FileStarter\**" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Common\Styles\" />
-    <Folder Include="FileStarter\" />
+    <Resource Include="Resources\Image\Chain.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />

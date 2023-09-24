@@ -34,20 +34,20 @@ namespace WPFAppFrameWork.Ribbon
 	///
 	/// </summary>
 	public class RibbonToggleButton : ToggleButton
-    {
-        public ImageSource ImageSource
-        {
-            get => (ImageSource)GetValue(ImageSourceProperty);
-            set => SetValue(ImageSourceProperty, value);
-        }
+	{
+		public ImageSource ImageSource
+		{
+			get => (ImageSource)GetValue(ImageSourceProperty);
+			set => SetValue(ImageSourceProperty, value);
+		}
 
-        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ImageSourceProperty =
-            DependencyProperty.Register(nameof(ImageSource), typeof(ImageSource), typeof(RibbonToggleButton), new PropertyMetadata(null));
+		// Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+		public static readonly DependencyProperty ImageSourceProperty =
+			DependencyProperty.Register(nameof(ImageSource), typeof(ImageSource), typeof(RibbonToggleButton), new PropertyMetadata(null));
 
-        static RibbonToggleButton()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonToggleButton), new FrameworkPropertyMetadata(typeof(RibbonToggleButton)));
-        }
-    }
+		static RibbonToggleButton()
+		{
+			DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonToggleButton), new FrameworkPropertyMetadata(typeof(RibbonToggleButton)));
+		}
+	}
 }

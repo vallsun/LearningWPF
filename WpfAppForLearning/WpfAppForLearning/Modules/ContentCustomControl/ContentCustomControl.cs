@@ -33,32 +33,32 @@ namespace WpfAppForLearning.Modules.ContentCustomControl
 	///
 	/// </summary>
 	public class ContentCustomControl : Control
-    {
-        /// <summary>
-        /// メタデータ
-        /// </summary>
-        static ContentCustomControl()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(ContentCustomControl), new FrameworkPropertyMetadata(typeof(ContentCustomControl)));
-        }
+	{
+		/// <summary>
+		/// メタデータ
+		/// </summary>
+		static ContentCustomControl()
+		{
+			DefaultStyleKeyProperty.OverrideMetadata(typeof(ContentCustomControl), new FrameworkPropertyMetadata(typeof(ContentCustomControl)));
+		}
 
-        /// <summary>
-        /// コンストラクタ
-        /// </summary>
-        public ContentCustomControl()
-        {
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
+		public ContentCustomControl()
+		{
 
-        }
+		}
 
-        /// <summary>
-        /// 要素削除ボタンが生成された時の処理
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void RemoveClick(object sender, RoutedEventArgs e)
-        {
-            var listBox = ((ContentCustomControl)(((Button)sender).TemplatedParent)).GetTemplateChild("CustomListBox") as ListBox;
-            listBox.Items.Remove(listBox.SelectedItem);
-        }
-    }
+		/// <summary>
+		/// 要素削除ボタンが生成された時の処理
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void RemoveClick(object sender, RoutedEventArgs e)
+		{
+			var listBox = ((ContentCustomControl)(((Button)sender).TemplatedParent)).GetTemplateChild("CustomListBox") as ListBox;
+			listBox.Items.Remove(listBox.SelectedItem);
+		}
+	}
 }

@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Diagnostics.Eventing.Reader;
 using System.IO;
-using System.Text;
 using System.Windows;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Markup;
 using WPFAppFrameWork.Common;
 

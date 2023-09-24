@@ -17,7 +17,7 @@ namespace DevelopmentCommon.Common
 
 		public void Save<T>(string folder, string fileName, T target)
 		{
-			if(!Directory.Exists(folder))
+			if (!Directory.Exists(folder))
 			{
 				Directory.CreateDirectory(folder);
 			}

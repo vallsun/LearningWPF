@@ -33,21 +33,21 @@ namespace WPFAppFrameWork.Ribbon
 	///
 	/// </summary>
 	public class RibbonGroup : ContentControl
-    {
-        public string Header
-        {
-            get => (string)GetValue(HeaderProperty);
-            set => SetValue(HeaderProperty, value);
-        }
+	{
+		public string Header
+		{
+			get => (string)GetValue(HeaderProperty);
+			set => SetValue(HeaderProperty, value);
+		}
 
-        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register(nameof(Header), typeof(string), typeof(RibbonButton), new PropertyMetadata(string.Empty));
+		// Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+		public static readonly DependencyProperty HeaderProperty =
+			DependencyProperty.Register(nameof(Header), typeof(string), typeof(RibbonButton), new PropertyMetadata(string.Empty));
 
 
-        static RibbonGroup()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonGroup), new FrameworkPropertyMetadata(typeof(RibbonGroup)));
-        }
-    }
+		static RibbonGroup()
+		{
+			DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonGroup), new FrameworkPropertyMetadata(typeof(RibbonGroup)));
+		}
+	}
 }

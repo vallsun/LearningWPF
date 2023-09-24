@@ -4,87 +4,87 @@ using System.Windows.Interop;
 
 namespace DevelopmentSupport.ClipboardWatcher
 {
-    /// <summary>
-    /// クリップボードを監視するクラス。
-    /// 使用後は必ずDispose()メソッドを呼び出して下さい。
-    /// </summary>
-    public class ClipboardWatcher : IDisposable
-    {
-        [DllImport("user32.dll")]
-        private static extern IntPtr SetClipboardViewer(IntPtr hwnd);
-        [DllImport("user32.dll")]
-        private static extern int SendMessage(IntPtr hwnd, int wMsg, IntPtr wParam, IntPtr lParam);
-        [DllImport("user32.dll")]
-        private static extern bool ChangeClipboardChain(IntPtr hwnd, IntPtr hWndNext);
+	/// <summary>
+	/// クリップボードを監視するクラス。
+	/// 使用後は必ずDispose()メソッドを呼び出して下さい。
+	/// </summary>
+	public class ClipboardWatcher : IDisposable
+	{
+		[DllImport("user32.dll")]
+		private static extern IntPtr SetClipboardViewer(IntPtr hwnd);
+		[DllImport("user32.dll")]
+		private static extern int SendMessage(IntPtr hwnd, int wMsg, IntPtr wParam, IntPtr lParam);
+		[DllImport("user32.dll")]
+		private static extern bool ChangeClipboardChain(IntPtr hwnd, IntPtr hWndNext);
 
-        const int WM_DRAWCLIPBOARD = 0x0308;
-        const int WM_CHANGECBCHAIN = 0x030D;
+		const int WM_DRAWCLIPBOARD = 0x0308;
+		const int WM_CHANGECBCHAIN = 0x030D;
 
-        IntPtr nextHandle;
-        IntPtr handle;
+		IntPtr nextHandle;
+		IntPtr handle;
 
-        HwndSource hwndSource = null;
+		HwndSource hwndSource = null;
 
-        /// <summary>
-        /// クリップボードに内容に変更があると発生します。
-        /// </summary>
-        public event EventHandler DrawClipboard;
+		/// <summary>
+		/// クリップボードに内容に変更があると発生します。
+		/// </summary>
+		public event EventHandler DrawClipboard;
 
-        /// <summary>
-        /// ClipBoardWatcherクラスを初期化して
-        /// クリップボードビューアチェインに登録します。
-        /// 使用後は必ずDispose()メソッドを呼び出して下さい。
-        /// </summary>
-        public ClipboardWatcher(IntPtr handle)
-        {
-            this.hwndSource = HwndSource.FromHwnd(handle);
-            this.hwndSource.AddHook(this.WndProc);
-            this.handle = handle;
-            this.nextHandle = SetClipboardViewer(this.handle);
-        }
+		/// <summary>
+		/// ClipBoardWatcherクラスを初期化して
+		/// クリップボードビューアチェインに登録します。
+		/// 使用後は必ずDispose()メソッドを呼び出して下さい。
+		/// </summary>
+		public ClipboardWatcher(IntPtr handle)
+		{
+			this.hwndSource = HwndSource.FromHwnd(handle);
+			this.hwndSource.AddHook(this.WndProc);
+			this.handle = handle;
+			this.nextHandle = SetClipboardViewer(this.handle);
+		}
 
-        ~ClipboardWatcher()
-        {
-            Dispose();
-        }
+		~ClipboardWatcher()
+		{
+			Dispose();
+		}
 
-        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-        {
-            if (msg == WM_DRAWCLIPBOARD)
-            {
-                SendMessage(nextHandle, msg, wParam, lParam);
-                this.RaiseDrawClipboard();
-                handled = true;
-            }
-            else if (msg == WM_CHANGECBCHAIN)
-            {
-                if (wParam == nextHandle)
-                {
-                    nextHandle = lParam;
-                }
-                else
-                {
-                    SendMessage(nextHandle, msg, wParam, lParam);
-                }
-                handled = true;
-            }
+		private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+		{
+			if (msg == WM_DRAWCLIPBOARD)
+			{
+				SendMessage(nextHandle, msg, wParam, lParam);
+				this.RaiseDrawClipboard();
+				handled = true;
+			}
+			else if (msg == WM_CHANGECBCHAIN)
+			{
+				if (wParam == nextHandle)
+				{
+					nextHandle = lParam;
+				}
+				else
+				{
+					SendMessage(nextHandle, msg, wParam, lParam);
+				}
+				handled = true;
+			}
 
-            return IntPtr.Zero;
-        }
+			return IntPtr.Zero;
+		}
 
-        private void RaiseDrawClipboard()
-        {
-            DrawClipboard?.Invoke(this, EventArgs.Empty);
-        }
+		private void RaiseDrawClipboard()
+		{
+			DrawClipboard?.Invoke(this, EventArgs.Empty);
+		}
 
-        /// <summary>
-        /// ClipBoardWatcherクラスを
-        /// クリップボードビューアチェインから削除します。
-        /// </summary>
-        public void Dispose()
-        {
-            ChangeClipboardChain(this.handle, nextHandle);
-            this.hwndSource.Dispose();
-        }
-    }
+		/// <summary>
+		/// ClipBoardWatcherクラスを
+		/// クリップボードビューアチェインから削除します。
+		/// </summary>
+		public void Dispose()
+		{
+			ChangeClipboardChain(this.handle, nextHandle);
+			this.hwndSource.Dispose();
+		}
+	}
 }

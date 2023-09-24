@@ -7,51 +7,51 @@ namespace WpfAppForLearning.Modules.Common.ExtendedControl
 	/// SelectedItem をバインド可能にする TreeView の拡張コントロールです。
 	/// </summary>
 	public class BindableSelectedItemTreeView : TreeView
-    {
-        //
-        // Bindable Definitions
-        // - - - - - - - - - - - - - - - - - - - -
+	{
+		//
+		// Bindable Definitions
+		// - - - - - - - - - - - - - - - - - - - -
 
-        public static readonly DependencyProperty BindableSelectedItemProperty
-        #region...
-        = DependencyProperty.Register(nameof(BindableSelectedItem),
-                    typeof(object), typeof(BindableSelectedItemTreeView), new UIPropertyMetadata(null));
-        #endregion
+		public static readonly DependencyProperty BindableSelectedItemProperty
+		#region...
+		= DependencyProperty.Register(nameof(BindableSelectedItem),
+					typeof(object), typeof(BindableSelectedItemTreeView), new UIPropertyMetadata(null));
+		#endregion
 
-        //
-        // Properties
-        // - - - - - - - - - - - - - - - - - - - -
+		//
+		// Properties
+		// - - - - - - - - - - - - - - - - - - - -
 
-        /// <summary>
-        /// Bind 可能な SelectedItem を表し、SelectedItem を設定または取得します。
-        /// </summary>
-        public object BindableSelectedItem
-        {
-            get { return (object)this.GetValue(BindableSelectedItemProperty); }
-            set { this.SetValue(BindableSelectedItemProperty, value); }
-        }
+		/// <summary>
+		/// Bind 可能な SelectedItem を表し、SelectedItem を設定または取得します。
+		/// </summary>
+		public object BindableSelectedItem
+		{
+			get { return (object)this.GetValue(BindableSelectedItemProperty); }
+			set { this.SetValue(BindableSelectedItemProperty, value); }
+		}
 
-        //
-        // Constructors
-        // - - - - - - - - - - - - - - - - - - - -
+		//
+		// Constructors
+		// - - - - - - - - - - - - - - - - - - - -
 
-        public BindableSelectedItemTreeView()
-        {
-            this.SelectedItemChanged += this.OnSelectedItemChanged;
-        }
+		public BindableSelectedItemTreeView()
+		{
+			this.SelectedItemChanged += this.OnSelectedItemChanged;
+		}
 
-        //
-        // Event Handlers
-        // - - - - - - - - - - - - - - - - - - - -
+		//
+		// Event Handlers
+		// - - - - - - - - - - - - - - - - - - - -
 
-        protected virtual void OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            if (this.SelectedItem == null)
-            {
-                return;
-            }
+		protected virtual void OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+		{
+			if (this.SelectedItem == null)
+			{
+				return;
+			}
 
-            this.SetValue(BindableSelectedItemProperty, this.SelectedItem);
-        }
-    }
+			this.SetValue(BindableSelectedItemProperty, this.SelectedItem);
+		}
+	}
 }

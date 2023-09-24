@@ -131,7 +131,7 @@ namespace WPFAppFrameWork.Calculator.ViewModel
 		{
 			InputedString += " " + TanslateOperator(parameter) + " ";
 			//最初の入力が減算記号の場合には、負数を表す演算子と判定するため、計算対象演算子を更新しない
-			if(string.IsNullOrEmpty(m_InputedOperand) && parameter == CalculateKind.Sub)
+			if (string.IsNullOrEmpty(m_InputedOperand) && parameter == CalculateKind.Sub)
 			{
 				m_InputedOperand = TanslateOperator(parameter);
 				return;
@@ -162,7 +162,7 @@ namespace WPFAppFrameWork.Calculator.ViewModel
 		{
 			m_InputedOperand += param;
 			double.TryParse(m_InputedOperand, out var result);
-			if(m_CalculatableModel.CalculateState == CalculateKind.None)
+			if (m_CalculatableModel.CalculateState == CalculateKind.None)
 			{
 				m_CalculatableModel.Operand1 = result;
 			}
@@ -170,7 +170,7 @@ namespace WPFAppFrameWork.Calculator.ViewModel
 			{
 				m_CalculatableModel.Operand2 = result;
 			}
-			
+
 			InputedString += param;
 		}
 
@@ -180,7 +180,7 @@ namespace WPFAppFrameWork.Calculator.ViewModel
 
 		private bool CanClear()
 		{
-			return m_CalculatableModel.Operand1 != null ;
+			return m_CalculatableModel.Operand1 != null;
 		}
 
 		private void Clear()
@@ -198,7 +198,7 @@ namespace WPFAppFrameWork.Calculator.ViewModel
 		/// <returns></returns>
 		private string TanslateOperator(CalculateKind kind)
 		{
-			string ret="";
+			string ret = "";
 			switch (kind)
 			{
 				case CalculateKind.Add:

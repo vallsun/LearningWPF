@@ -82,17 +82,17 @@ namespace WPFAppFrameWork.Calculator.Model
 		/// </summary>
 		public void Calculate()
 		{
-			if(Operand1== null || Operand2 == null)
+			if (Operand1 == null || Operand2 == null)
 			{
 				return;
 			}
 
 			switch (m_CalculateState)
 			{
-				case CalculateKind.Add :
+				case CalculateKind.Add:
 					Add(Operand1, Operand2);
 					break;
-				case CalculateKind.Sub :
+				case CalculateKind.Sub:
 					Sub(Operand1, Operand2);
 					break;
 				case CalculateKind.Multi:

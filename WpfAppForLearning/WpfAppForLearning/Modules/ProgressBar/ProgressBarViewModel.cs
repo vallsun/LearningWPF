@@ -9,7 +9,7 @@ using WPFAppFrameWork.Common;
 namespace WpfAppForLearning.Modules.ProgressBar
 {
 	internal class ProgressBarViewModel : ContentViewModel
-    {
+	{
 		#region 内部フィールド
 
 		/// <summary>
@@ -97,10 +97,10 @@ namespace WpfAppForLearning.Modules.ProgressBar
 		#region 構築・消滅
 
 		public ProgressBarViewModel(INotifyPropertyChanged model)
-            :base(model)
-        {
+			: base(model)
+		{
 
-        }
+		}
 
 		#endregion
 

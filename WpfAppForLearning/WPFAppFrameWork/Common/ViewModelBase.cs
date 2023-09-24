@@ -7,36 +7,36 @@ namespace WPFAppFrameWork.Common
 	/// コマンドの初期化とプロパティの変更通知機能を持つ。
 	/// </summary>
 	public class ViewModelBase : BindableBase
-    {
-        #region プロパティ
+	{
+		#region プロパティ
 
-        public virtual INotifyPropertyChanged Model { get; set; }
+		public virtual INotifyPropertyChanged Model { get; set; }
 
-        #endregion
+		#endregion
 
-        #region 構築・消滅
+		#region 構築・消滅
 
-        /// <summary>
-        /// コンストラクタ
-        /// </summary>
-        public ViewModelBase(INotifyPropertyChanged model)
-        {
-            RegisterCommands();
-            Model = model;
-        }
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
+		public ViewModelBase(INotifyPropertyChanged model)
+		{
+			RegisterCommands();
+			Model = model;
+		}
 
-        #endregion
+		#endregion
 
-        #region 初期化
+		#region 初期化
 
-        /// <summary>
-        /// コマンドの初期化
-        /// </summary>
-        protected virtual void RegisterCommands()
-        {
-            // 派生先で実装
-        }
+		/// <summary>
+		/// コマンドの初期化
+		/// </summary>
+		protected virtual void RegisterCommands()
+		{
+			// 派生先で実装
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

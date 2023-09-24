@@ -52,7 +52,7 @@ namespace WpfAppForLearning.ViewModel
 		/// </summary>
 		/// <param name="model"></param>
 		public ContentViewModel(INotifyPropertyChanged model)
-			:base(model)
+			: base(model)
 		{
 
 		}

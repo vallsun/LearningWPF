@@ -25,7 +25,7 @@ namespace DevelopmentSupportTool.Converters
 				return null;
 			}
 
-			if ((bool) value)
+			if ((bool)value)
 			{
 				return Enum.Parse(typeof(ApplicationMode), parameter.ToString());
 			}

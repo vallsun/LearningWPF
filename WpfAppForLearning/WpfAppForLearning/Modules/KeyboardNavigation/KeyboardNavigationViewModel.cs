@@ -6,80 +6,80 @@ using WPFAppFrameWork.Common;
 
 namespace WpfAppForLearning.Modules.KeyboardNavigation
 {
-    /// <summary>
-    /// KeyboardNavigationコンテンツのVM
-    /// </summary>
-    internal class KeyboardNavigationViewModel : ContentViewModel
-    {
-        #region フィールド
+	/// <summary>
+	/// KeyboardNavigationコンテンツのVM
+	/// </summary>
+	internal class KeyboardNavigationViewModel : ContentViewModel
+	{
+		#region フィールド
 
-        private string n_NavigationMode1 = "Coontained";
-        private string n_NavigationMode2 = "Coontained";
+		private string n_NavigationMode1 = "Coontained";
+		private string n_NavigationMode2 = "Coontained";
 
-        #endregion
+		#endregion
 
-        #region プロパティ
+		#region プロパティ
 
-        public string NavigationMode1 { get { return n_NavigationMode1; } set { SetProperty(ref n_NavigationMode1, value); } }
-        public string NavigationMode2 { get { return n_NavigationMode2; } set { SetProperty(ref n_NavigationMode2, value); } }
+		public string NavigationMode1 { get { return n_NavigationMode1; } set { SetProperty(ref n_NavigationMode1, value); } }
+		public string NavigationMode2 { get { return n_NavigationMode2; } set { SetProperty(ref n_NavigationMode2, value); } }
 
-        public DelegateCommand<Uri> NavigateCommand { get; set; }
+		public DelegateCommand<Uri> NavigateCommand { get; set; }
 
-        #endregion
+		#endregion
 
-        #region 構築・消滅
+		#region 構築・消滅
 
-        public KeyboardNavigationViewModel()
-            : base(null)
-        {
+		public KeyboardNavigationViewModel()
+			: base(null)
+		{
 
-        }
+		}
 
-        /// <summary>
-        /// コマンドの初期化
-        /// </summary>
+		/// <summary>
+		/// コマンドの初期化
+		/// </summary>
 		protected override void RegisterCommands()
 		{
 			base.RegisterCommands();
 
-            NavigateCommand = new DelegateCommand<Uri>(Navigate,CanNavigate);
+			NavigateCommand = new DelegateCommand<Uri>(Navigate, CanNavigate);
 		}
 
-        #endregion
+		#endregion
 
-        #region 内部処理
+		#region 内部処理
 
-        /// <summary>
-        /// 指定されたURLへナビゲート可能か
-        /// </summary>
-        /// <param name="url">URL</param>
-        private bool CanNavigate(Uri url)
-        {
-            if(url == null)
+		/// <summary>
+		/// 指定されたURLへナビゲート可能か
+		/// </summary>
+		/// <param name="url">URL</param>
+		private bool CanNavigate(Uri url)
+		{
+			if (url == null)
 			{
-                return false;
+				return false;
 			}
 
-            return true;
+			return true;
 
-        }
+		}
 
-        /// <summary>
-        /// 指定されたURLへナビゲートする
-        /// </summary>
-        /// <param name="url">URL</param>
-        private void Navigate(Uri url)
+		/// <summary>
+		/// 指定されたURLへナビゲートする
+		/// </summary>
+		/// <param name="url">URL</param>
+		private void Navigate(Uri url)
 		{
-            try
-            {
-                ProcessService.Navigate(url);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message, App.Current.MainWindow.Title, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
+			try
+			{
+				ProcessService.Navigate(url);
+			}
+			catch (Exception e)
+			{
+				MessageBox.Show(e.Message, App.Current.MainWindow.Title, MessageBoxButton.OK, MessageBoxImage.Error);
+			}
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

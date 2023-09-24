@@ -33,10 +33,10 @@ namespace WPFAppFrameWork.Ribbon
 	///
 	/// </summary>
 	public class RibbonTabItem : TabItem
-    {
-        static RibbonTabItem()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(typeof(RibbonTabItem)));
-        }
-    }
+	{
+		static RibbonTabItem()
+		{
+			DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(typeof(RibbonTabItem)));
+		}
+	}
 }
