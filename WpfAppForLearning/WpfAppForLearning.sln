@@ -38,7 +38,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GamingTools", "GamingTools"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FF14", "FF14", "{C0E3ABD9-DF75-4032-82F9-80D7C0E629A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TacticsAnalysisTool", "TacticsAnalysisTool\TacticsAnalysisTool.csproj", "{BE0D7915-3988-4E6C-A03A-C49893DEC3E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TacticsAnalysisTool", "TacticsAnalysisTool\TacticsAnalysisTool.csproj", "{BE0D7915-3988-4E6C-A03A-C49893DEC3E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerializeTestDriver", "SerializeTestDriver\SerializeTestDriver.csproj", "{C1A2336B-5509-463D-93BB-EB72F57FF04A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -82,6 +84,10 @@ Global
 		{BE0D7915-3988-4E6C-A03A-C49893DEC3E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE0D7915-3988-4E6C-A03A-C49893DEC3E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE0D7915-3988-4E6C-A03A-C49893DEC3E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1A2336B-5509-463D-93BB-EB72F57FF04A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1A2336B-5509-463D-93BB-EB72F57FF04A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1A2336B-5509-463D-93BB-EB72F57FF04A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1A2336B-5509-463D-93BB-EB72F57FF04A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,6 +98,7 @@ Global
 		{2156B504-BD3A-4C6B-AD86-3D40BBF13232} = {4010E0B8-6027-4B6C-8C26-3C7E625CF50D}
 		{C0E3ABD9-DF75-4032-82F9-80D7C0E629A6} = {9B438690-E60A-494C-930A-43DBF875D38D}
 		{BE0D7915-3988-4E6C-A03A-C49893DEC3E4} = {C0E3ABD9-DF75-4032-82F9-80D7C0E629A6}
+		{C1A2336B-5509-463D-93BB-EB72F57FF04A} = {4010E0B8-6027-4B6C-8C26-3C7E625CF50D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C4BB47DF-E3A2-40DB-9672-826A5CCF43B5}
