@@ -1,6 +1,4 @@
-﻿using WPFAppFrameWork.Common;
-
-namespace WPFAppFrameWork.Calculator.Model
+﻿namespace WPFAppFrameWork.Calculator.Model
 {
 	public class CalculatableModel : BindableBase, ICalculatable
 	{

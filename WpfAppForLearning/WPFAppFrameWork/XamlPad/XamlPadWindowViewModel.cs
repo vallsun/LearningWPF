@@ -2,7 +2,6 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Markup;
-using WPFAppFrameWork.Common;
 
 namespace WPFAppFrameWork.XamlPad
 {
@@ -110,14 +109,11 @@ namespace WPFAppFrameWork.XamlPad
 		private void Run()
 		{
 			File.WriteAllText(fileName, m_XamlText);
-			Window myWindow = null;
 			try
 			{
-				using (Stream sr = File.Open(fileName, FileMode.Open))
-				{
-					myWindow = (Window)XamlReader.Load(sr);
-					myWindow.ShowDialog();
-				}
+				using Stream sr = File.Open(fileName, FileMode.Open);
+				Window myWindow = (Window)XamlReader.Load(sr);
+				myWindow.ShowDialog();
 			}
 			catch (Exception ex)
 			{

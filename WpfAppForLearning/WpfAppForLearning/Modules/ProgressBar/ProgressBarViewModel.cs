@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WpfAppForLearning.ViewModel;
-using WPFAppFrameWork.Common;
+using WPFAppFrameWork;
 
 namespace WpfAppForLearning.Modules.ProgressBar
 {

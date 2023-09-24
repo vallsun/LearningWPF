@@ -9,7 +9,7 @@ namespace DevelopmentCommon.Common
 	{
 		#region 内部フィールド
 
-		private Encoding m_DefaultEncoding = new UTF8Encoding(false);
+		private readonly Encoding m_DefaultEncoding = new UTF8Encoding(false);
 
 		#endregion
 
@@ -45,7 +45,5 @@ namespace DevelopmentCommon.Common
 		}
 
 		#endregion
-
-
 	}
 }

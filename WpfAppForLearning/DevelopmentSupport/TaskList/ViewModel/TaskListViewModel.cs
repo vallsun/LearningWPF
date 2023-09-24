@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Input;
-using DevelopmentSupport.Common.Selectable;
-using WPFAppFrameWork.Common;
+using WPFAppFrameWork;
 using Task = DevelopmentSupport.TaskList.Model.Task;
 using TaskStatus = DevelopmentSupport.TaskList.Model.TaskStatus;
 
@@ -49,16 +48,18 @@ namespace DevelopmentSupport.TaskList.ViewModel
         public TaskListViewModel()
         :base(null)
         {
-            Tasks = new List<Task>();
-            Tasks.Add(new Task()
-            {
-                Title = "SAmple1",
-                Description = "Description1",
-                RegisterDate = DateTime.Today,
-                DeadLine = DateTime.Parse("2020/4/5"),
-                Status = TaskStatus.NotStarted
-            });
-        }
+			Tasks = new List<Task>
+			{
+				new Task()
+				{
+					Title = "SAmple1",
+					Description = "Description1",
+					RegisterDate = DateTime.Today,
+					DeadLine = DateTime.Parse("2020/4/5"),
+					Status = TaskStatus.NotStarted
+				}
+			};
+		}
 
         #endregion
 

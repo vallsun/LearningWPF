@@ -2,7 +2,7 @@
 using System.Windows;
 using DevelopmentCommon.Common;
 using WpfAppForLearning.ViewModel;
-using WPFAppFrameWork.Common;
+using WPFAppFrameWork;
 
 namespace WpfAppForLearning.Modules.KeyboardNavigation
 {

@@ -44,8 +44,7 @@ namespace WPFAppFrameWork.Common.Service
 				return null;
 			}
 			var windowType = m_WindowDictionary[vm.GetType()];
-			var w = Activator.CreateInstance(windowType) as Window;
-			if (w == null)
+			if (!(Activator.CreateInstance(windowType) is Window w))
 			{
 				return null;
 			}

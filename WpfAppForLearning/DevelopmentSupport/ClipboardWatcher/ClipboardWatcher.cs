@@ -21,9 +21,8 @@ namespace DevelopmentSupport.ClipboardWatcher
 		const int WM_CHANGECBCHAIN = 0x030D;
 
 		IntPtr nextHandle;
-		IntPtr handle;
-
-		HwndSource hwndSource = null;
+		readonly IntPtr handle;
+		readonly HwndSource hwndSource = null;
 
 		/// <summary>
 		/// クリップボードに内容に変更があると発生します。

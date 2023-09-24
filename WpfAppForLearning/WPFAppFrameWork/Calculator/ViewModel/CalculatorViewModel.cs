@@ -1,5 +1,5 @@
 ﻿using WPFAppFrameWork.Calculator.Model;
-using WPFAppFrameWork.Common;
+using WPFAppFrameWork;
 
 namespace WPFAppFrameWork.Calculator.ViewModel
 {

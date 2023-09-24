@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using WPFAppFrameWork.Common;
+using WPFAppFrameWork;
 
 namespace WpfAppForLearning.ViewModel
 {
@@ -39,8 +39,8 @@ namespace WpfAppForLearning.ViewModel
 		/// </summary>
 		public string Usage
 		{
-			get { return m_Usage; }
-			set { SetProperty(ref m_Usage, value); }
+			get => m_Usage;
+			set => _ = SetProperty(ref m_Usage, value);
 		}
 
 		#endregion

@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using WPFAppFrameWork.Common;
+using WPFAppFrameWork;
 
 namespace DevelopmentSupport.ClipboardWatcher
 {
@@ -89,7 +89,7 @@ namespace DevelopmentSupport.ClipboardWatcher
 		/// </summary>
 		protected void RemoveItem()
 		{
-			var index = ItemList.IndexOf(SelectedItem);
+			int index = ItemList.IndexOf(SelectedItem);
 
 			ItemList.Remove(SelectedItem);
 
@@ -97,11 +97,10 @@ namespace DevelopmentSupport.ClipboardWatcher
 			if (ItemList.Count == 0)
 			{
 				//表示対象がない
-				index = -1;
 			}
 			else if (ItemList.Count <= index)
 			{
-				index = ItemList.Count - 1;
+				_ = ItemList.Count - 1;
 			}
 			else
 			{

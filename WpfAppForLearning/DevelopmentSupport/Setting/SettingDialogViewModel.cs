@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using WPFAppFrameWork.Common;
+using WPFAppFrameWork;
 
 namespace DevelopmentSupport.Setting
 {

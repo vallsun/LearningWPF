@@ -19,9 +19,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common\DevelopmentCommon.csproj" />
-    <ProjectReference Include="..\DevelopmentSupport\DevelopmentSupport.csproj" />
-    <ProjectReference Include="..\WPFAppFrameWork\WPFAppFrameWork.csproj" />
+    <Reference Include="DevelopmentSupport">
+      <HintPath>..\DevelopmentSupport\Libs\netcoreapp3.1\DevelopmentSupport.dll</HintPath>
+    </Reference>
+    <Reference Include="WPFAppFrameWork">
+      <HintPath>..\WPFAppFrameWork\Libs\netcoreapp3.1\WPFAppFrameWork.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

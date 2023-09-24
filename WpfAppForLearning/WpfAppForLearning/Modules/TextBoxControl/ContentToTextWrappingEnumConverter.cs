@@ -16,26 +16,19 @@ namespace WpfAppForLearning.Modules.TextBoxControl
 				return TextWrapping.NoWrap;
 			}
 
-			var content = value as ContentControl;
-
-			if (content == null)
+			if (!(value is ContentControl content))
 			{
 				//規定値を返す
 				return TextWrapping.NoWrap;
 			}
 
-			switch (content.Content.ToString())
+			return content.Content.ToString() switch
 			{
-				case "NoWrap":
-					return TextWrapping.NoWrap;
-				case "Wrap":
-					return TextWrapping.Wrap;
-				case "WrapWithOverflow":
-					return TextWrapping.WrapWithOverflow;
-				default:
-					return TextWrapping.NoWrap;
-			}
-
+				"NoWrap" => TextWrapping.NoWrap,
+				"Wrap" => TextWrapping.Wrap,
+				"WrapWithOverflow" => TextWrapping.WrapWithOverflow,
+				_ => TextWrapping.NoWrap,
+			};
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

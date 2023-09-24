@@ -11,7 +11,7 @@
         xmlns:taskListView="clr-namespace:DevelopmentSupport.TaskList.View;assembly=DevelopmentSupport"
 		xmlns:taskListViewModel="clr-namespace:DevelopmentSupport.TaskList.ViewModel;assembly=DevelopmentSupport"
         xmlns:converter="clr-namespace:DevelopmentSupportTool.Converters"
-        xmlns:commonConverter="clr-namespace:WPFAppFrameWork.Common.Converters;assembly=WPFAppFrameWork"
+        xmlns:converters="clr-namespace:WPFAppFrameWork;assembly=WPFAppFrameWork"
         mc:Ignorable="d"
         Title="DevelopmentSupportTool" Width="900" Height="700"
         Icon="/Resources/Image/DSIcon3.png" Background="#26799f"
@@ -19,11 +19,11 @@
         SnapsToDevicePixels="True"
         UseLayoutRounding="True">
     <Window.Resources>
-		<commonConverter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-	    <commonConverter:ReverseBooleanConverter x:Key="ReverseBooleanConverter"/>
-	    <converter:ApplicationModeToVisibilityConverter x:Key="ApplicationModeToVisibilityConverter"/>
-        <converter:ApplicationModeToBooleanConverter x:Key="ApplicationModeToBooleanConverter"/>
-		
+		<converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+		<converters:ReverseBooleanConverter x:Key="ReverseBooleanConverter"/>
+		<converter:ApplicationModeToVisibilityConverter x:Key="ApplicationModeToVisibilityConverter"/>
+		<converter:ApplicationModeToBooleanConverter x:Key="ApplicationModeToBooleanConverter"/>
+
 		<ImageSource x:Key="LuncherIcon">../Resources/Image/lunchar.png</ImageSource>
 		<ImageSource x:Key="ClipBoardIcon">../Resources/Image/ClipBoard.png</ImageSource>
 		<ImageSource x:Key="TaskListIcon">../Resources/Image/lunchar.png</ImageSource>

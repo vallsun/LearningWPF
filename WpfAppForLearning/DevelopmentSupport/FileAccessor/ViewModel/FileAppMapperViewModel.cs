@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Windows;
-using WPFAppFrameWork.Common;
+using WPFAppFrameWork;
 
 namespace DevelopmentSupport.FileAccessor.ViewModel
 {

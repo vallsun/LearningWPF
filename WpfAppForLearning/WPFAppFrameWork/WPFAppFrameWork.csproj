@@ -5,6 +5,10 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>Libs\</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Resources\Images\**" />
     <EmbeddedResource Remove="Resources\Images\**" />
@@ -17,10 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common\DevelopmentCommon.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="win.xaml">
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -29,6 +29,19 @@
 
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="Libs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="CustomTreeView\Style\BindableSelectedItemTreeViewStyle.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="PathBar\Style\PathBarStyle.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="PathBar\View\PathBarControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
   </ItemGroup>
 
 </Project>

@@ -5,7 +5,7 @@ using ApplicationMode = DevelopmentSupportTool.ViewModels.ApplicationMode;
 
 namespace DevelopmentSupportTool.Converters
 {
-	class ApplicationModeToBooleanConverter : IValueConverter
+	public class ApplicationModeToBooleanConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{

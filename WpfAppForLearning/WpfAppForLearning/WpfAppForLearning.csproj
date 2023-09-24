@@ -30,9 +30,6 @@
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DevelopmentSupport\DevelopmentSupport.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.6.1 %28x86 および x64%29</ProductName>
@@ -53,6 +50,14 @@
     <Compile Remove="ViewModels\MainViewModel.cs" />
     <Page Remove="Modules\PathBarControl\Style\PathBarStyle.xaml" />
     <Page Remove="Modules\PathBarControl\View\PathBarControl.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="DevelopmentCommon">
+      <HintPath>..\Common\Libs\netcoreapp3.1\DevelopmentCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="WPFAppFrameWork">
+      <HintPath>..\WPFAppFrameWork\Libs\netcoreapp3.1\WPFAppFrameWork.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Settings.Designer.cs">

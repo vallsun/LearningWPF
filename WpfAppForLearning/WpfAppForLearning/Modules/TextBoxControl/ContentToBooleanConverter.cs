@@ -13,9 +13,8 @@ namespace WpfAppForLearning.Modules.TextBoxControl
 			{
 				return false;
 			}
-			var str = value as ContentControl;
-			var ret = str.Content.ToString() == "True" ? true : false;
-			return ret;
+			ContentControl str = value as ContentControl;
+			return str.Content.ToString() == "True";
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using DevelopmentSupport.FileAccessor.View;
-using WPFAppFrameWork.Common;
+using WPFAppFrameWork;
 
 namespace DevelopmentSupport.FileAccessor.ViewModel
 {
@@ -115,12 +115,14 @@ namespace DevelopmentSupport.FileAccessor.ViewModel
                 new Browser() { Name = "FireFox", Path = "" }
             };
 
-            //　拡張子リストの初期化
-            ExtensionList = new ObservableCollection<Extension>();
-            ExtensionList.Add(new Extension("(指定なし)"));
+			//　拡張子リストの初期化
+			ExtensionList = new ObservableCollection<Extension>
+			{
+				new Extension("(指定なし)")
+			};
 
-            // コマンドの初期化
-            ProcessCloseCommand = new DelegateCommand(ProcessClose, CanProcessClose);
+			// コマンドの初期化
+			ProcessCloseCommand = new DelegateCommand(ProcessClose, CanProcessClose);
             RemoveItemCommand = new DelegateCommand(RemoveItem, CanRemoveItem);
             ChangeItemOrderUpperCommand = new DelegateCommand(ChangeItemOrderUpper, CanChangeItemOrderUpper);
             ChangeItemOrderLowerCommand = new DelegateCommand(ChangeItemOrderLower, CanChangeItemOrderLower);

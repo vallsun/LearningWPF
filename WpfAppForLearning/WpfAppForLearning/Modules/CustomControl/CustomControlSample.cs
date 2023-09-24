@@ -139,7 +139,7 @@ namespace WpfAppForLearning.Modules.CustomControl
 			}
 			else if (index > listBox.Items.Count - 1)
 			{
-				index = index - 1;
+				index--;
 			}
 			listBox.SelectedItem = listBox.Items.GetItemAt(index);
 		}

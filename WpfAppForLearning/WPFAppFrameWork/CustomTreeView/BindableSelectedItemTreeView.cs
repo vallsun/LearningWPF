@@ -1,0 +1,56 @@
+﻿using System.Windows;
+using System.Windows.Controls;
+
+namespace WPFAppFrameWork.CustomTreeView
+{
+	/// <summary>
+	/// SelectedItem をバインド可能にする TreeView の拡張コントロールです。
+	/// </summary>
+	public class BindableSelectedItemTreeView : TreeView
+	{
+		//
+		// Bindable Definitions
+		// - - - - - - - - - - - - - - - - - - - -
+
+		public static readonly DependencyProperty BindableSelectedItemProperty
+		= DependencyProperty.Register(nameof(BindableSelectedItem),
+					typeof(object), typeof(BindableSelectedItemTreeView), new UIPropertyMetadata(null));
+
+		//
+		// Properties
+		// - - - - - - - - - - - - - - - - - - - -
+
+		/// <summary>
+		/// Bind 可能な SelectedItem を表し、SelectedItem を設定または取得します。
+		/// </summary>
+		public object BindableSelectedItem
+		{
+			get => GetValue(BindableSelectedItemProperty);
+			set => SetValue(BindableSelectedItemProperty, value);
+		}
+
+		//
+		// Constructors
+		// - - - - - - - - - - - - - - - - - - - -
+
+		public BindableSelectedItemTreeView()
+		{
+			//DefaultStyleKeyProperty.OverrideMetadata(typeof(BindableSelectedItemTreeView), new FrameworkPropertyMetadata(typeof(BindableSelectedItemTreeView)));
+			SelectedItemChanged += OnSelectedItemChanged;
+		}
+
+		//
+		// Event Handlers
+		// - - - - - - - - - - - - - - - - - - - -
+
+		protected virtual void OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+		{
+			if (SelectedItem == null)
+			{
+				return;
+			}
+
+			SetValue(BindableSelectedItemProperty, SelectedItem);
+		}
+	}
+}

@@ -1,168 +1,167 @@
-﻿using DevelopmentSupport.FileAccessor.ViewModel;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using DevelopmentSupport.FileAccessor.ViewModel;
 
 namespace DevelopmentSupport.FileAccessor.View
 {
-    /// <summary>
-    /// FileStarterView.xaml の相互作用ロジック
-    /// </summary>
-    public partial class FileAppMapperView : UserControl
-    {
-        public FileAppMapperView()
-        {
-            InitializeComponent();
-        }
+	/// <summary>
+	/// FileStarterView.xaml の相互作用ロジック
+	/// </summary>
+	public partial class FileAppMapperView : UserControl
+	{
+		public FileAppMapperView()
+		{
+			InitializeComponent();
+		}
 
-        private void UserControl_Drop(object sender, DragEventArgs e)
-        {
-            var vm = this.DataContext as FileAppMapperViewModel;
-            var list = vm.FileInfoList;
-            var pathList = vm.FileInfoList.Select(x => x.FilePath);
-            var DuplicateFilePathList = new List<string>();
+		private void UserControl_Drop(object sender, DragEventArgs e)
+		{
+			var vm = this.DataContext as FileAppMapperViewModel;
+			var list = vm.FileInfoList;
+			var pathList = vm.FileInfoList.Select(x => x.FilePath);
+			var DuplicateFilePathList = new List<string>();
 
-            if (!(e.Data.GetData(DataFormats.FileDrop) is string[] files))
-            {
-                return;
-            }
-            foreach (var s in files)
-            {
-                if (Directory.Exists(s))
-                {
-                    continue;
-                }
-                if (pathList.Contains(s))
-                {
-                    DuplicateFilePathList.Add(s);
-                    continue;
-                }
-                var fileInfo = new ViewModel.FileInfo(s);
-                list.Add(fileInfo);
-                vm.SynchronizeDisplayFileList();
+			if (!(e.Data.GetData(DataFormats.FileDrop) is string[] files))
+			{
+				return;
+			}
+			foreach (var s in files)
+			{
+				if (Directory.Exists(s))
+				{
+					continue;
+				}
+				if (pathList.Contains(s))
+				{
+					DuplicateFilePathList.Add(s);
+					continue;
+				}
+				var fileInfo = new ViewModel.FileInfo(s);
+				list.Add(fileInfo);
+				vm.SynchronizeDisplayFileList();
 
-                var extension = Path.GetExtension(s);
-	            var extensionItems = vm.ExtensionList.Where(x => x.Name == extension);
+				var extension = Path.GetExtension(s);
+				var extensionItems = vm.ExtensionList.Where(x => x.Name == extension);
 
-	            if (!extensionItems.Any())
-	            {
-		            foreach (var extItem in extensionItems)
-		            {
+				if (!extensionItems.Any())
+				{
+					foreach (var extItem in extensionItems)
+					{
 						vm.ExtensionList.Add(extItem);
 					}
-	            }
-            }
+				}
+			}
 
-            if (DuplicateFilePathList.Any())
-            {
-                var message = "下記のアイテムは既に登録済みのため登録されませんでした。\n";
-                foreach (var item in DuplicateFilePathList)
-                {
-                    message += " " + item + "\n";
-                }
-                MessageBox.Show(message);
-            }
-            this.WatermarkTextBox.Visibility = Visibility.Collapsed;
-        }
+			if (DuplicateFilePathList.Any())
+			{
+				var message = "下記のアイテムは既に登録済みのため登録されませんでした。\n";
+				foreach (var item in DuplicateFilePathList)
+				{
+					message += " " + item + "\n";
+				}
+				MessageBox.Show(message);
+			}
+			this.WatermarkTextBox.Visibility = Visibility.Collapsed;
+		}
 
-        private void UserControl_PreviewDragOver(object sender, DragEventArgs e)
-        {
-            string[] files = e.Data.GetData(DataFormats.FileDrop) as string[];
-            var fileFlag = false;
-            foreach (var item in files)
-            {
-                if (File.Exists(item))
-                {
-                    fileFlag = true;
-                    break;
-                }
-            }
-            if (e.Data.GetDataPresent(DataFormats.FileDrop, true) && fileFlag)
-                e.Effects = DragDropEffects.Copy;
-            else
-            {
-                e.Effects = DragDropEffects.None;
-            }
+		private void UserControl_PreviewDragOver(object sender, DragEventArgs e)
+		{
+			string[] files = e.Data.GetData(DataFormats.FileDrop) as string[];
+			var fileFlag = false;
+			foreach (var item in files)
+			{
+				if (File.Exists(item))
+				{
+					fileFlag = true;
+					break;
+				}
+			}
+			if (e.Data.GetDataPresent(DataFormats.FileDrop, true) && fileFlag)
+				e.Effects = DragDropEffects.Copy;
+			else
+			{
+				e.Effects = DragDropEffects.None;
+			}
 
-            e.Handled = true;
-        }
+			e.Handled = true;
+		}
 
-        /// <summary>
-        /// コンボボックス項目が選択されたときのイベントハンドラ
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var vm = this.DataContext as FileAppMapperViewModel;
-	        if (vm == null)
-	        {
+		/// <summary>
+		/// コンボボックス項目が選択されたときのイベントハンドラ
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (!(this.DataContext is FileAppMapperViewModel vm))
+			{
 				return;
-	        }
-            var filterkeyword = ((Extension)e?.AddedItems[0]).DisplayName;
-            if (filterkeyword == "(指定なし)")
-            {
-                vm.SynchronizeDisplayFileList();
-                return;
-            }
-            var list = vm.FileInfoList;
-            var filteredList = list.Where(x => Path.GetExtension(x.FilePath) == filterkeyword);
-            if (!filteredList.Any())
-            {
-                MessageBox.Show("該当なし");
-                return;
-            }
-            vm.DisplayFileInfoList.Clear();
-            foreach (var item in filteredList)
-            {
-                vm.DisplayFileInfoList.Add(item);
-            }
-        }
+			}
+			var filterkeyword = ((Extension)e?.AddedItems[0]).DisplayName;
+			if (filterkeyword == "(指定なし)")
+			{
+				vm.SynchronizeDisplayFileList();
+				return;
+			}
+			var list = vm.FileInfoList;
+			var filteredList = list.Where(x => Path.GetExtension(x.FilePath) == filterkeyword);
+			if (!filteredList.Any())
+			{
+				MessageBox.Show("該当なし");
+				return;
+			}
+			vm.DisplayFileInfoList.Clear();
+			foreach (var item in filteredList)
+			{
+				vm.DisplayFileInfoList.Add(item);
+			}
+		}
 
-        private void ListBox_Drop(object sender, DragEventArgs e)
-        {
-            var vm = this.DataContext as FileAppMapperViewModel;
-            var list = vm.ExeInfoList;
-            var pathList = vm.ExeInfoList.Select(x => x.FilePath);
-            var DuplicateFilePathList = new List<string>();
+		private void ListBox_Drop(object sender, DragEventArgs e)
+		{
+			var vm = this.DataContext as FileAppMapperViewModel;
+			var list = vm.ExeInfoList;
+			var pathList = vm.ExeInfoList.Select(x => x.FilePath);
+			var DuplicateFilePathList = new List<string>();
 
-            if (!(e.Data.GetData(DataFormats.FileDrop) is string[] files))
-            {
-                return;
-            }
-            foreach (var s in files)
-            {
-                if (Directory.Exists(s))
-                {
-                    continue;
-                }
-                if (pathList.Contains(s))
-                {
-                    DuplicateFilePathList.Add(s);
-                    continue;
-                }
-                var fileInfo = new ViewModel.FileInfo(s);
-                list.Add(fileInfo);
-                vm.SychronizeDisplayExeList();
-            }
+			if (!(e.Data.GetData(DataFormats.FileDrop) is string[] files))
+			{
+				return;
+			}
+			foreach (var s in files)
+			{
+				if (Directory.Exists(s))
+				{
+					continue;
+				}
+				if (pathList.Contains(s))
+				{
+					DuplicateFilePathList.Add(s);
+					continue;
+				}
+				var fileInfo = new ViewModel.FileInfo(s);
+				list.Add(fileInfo);
+				vm.SychronizeDisplayExeList();
+			}
 
-            if (DuplicateFilePathList.Any())
-            {
-                var message = "下記のアイテムは既に登録済みのため登録されませんでした。\n";
-                foreach (var item in DuplicateFilePathList)
-                {
-                    message += " " + item + "\n";
-                }
-                MessageBox.Show(message);
-            }
-            this.WatermarkTextBox2.Visibility = Visibility.Collapsed;
-        }
+			if (DuplicateFilePathList.Any())
+			{
+				var message = "下記のアイテムは既に登録済みのため登録されませんでした。\n";
+				foreach (var item in DuplicateFilePathList)
+				{
+					message += " " + item + "\n";
+				}
+				MessageBox.Show(message);
+			}
+			this.WatermarkTextBox2.Visibility = Visibility.Collapsed;
+		}
 
-        private void ListBox_PreviewDragOver(object sender, DragEventArgs e)
-        {
+		private void ListBox_PreviewDragOver(object sender, DragEventArgs e)
+		{
 
-        }
-    }
+		}
+	}
 }

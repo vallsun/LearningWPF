@@ -1,6 +1,6 @@
 ﻿namespace WPFAppFrameWork.Calculator.Model
 {
-	class CalculateState
+	public class CalculateState
 	{
 	}
 }

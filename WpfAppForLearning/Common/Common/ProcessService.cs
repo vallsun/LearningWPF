@@ -17,12 +17,14 @@ namespace DevelopmentCommon.Common
 		/// <remarks>例外処理は使用側で実施すること</remarks>
 		public static void Navigate(Uri url)
 		{
-			ProcessStartInfo info = new ProcessStartInfo();
-			info.FileName = url.AbsoluteUri;
-			// .NET Coreから、パスの指定だけではURLを開く事ができないため、
-			// ProcessStartInfo.UseShellExecuteをtrueに設定する必要がある
-			// https://github.com/dotnet/runtime/issues/17938
-			info.UseShellExecute = true;
+			ProcessStartInfo info = new ProcessStartInfo
+			{
+				FileName = url.AbsoluteUri,
+				// .NET Coreから、パスの指定だけではURLを開く事ができないため、
+				// ProcessStartInfo.UseShellExecuteをtrueに設定する必要がある
+				// https://github.com/dotnet/runtime/issues/17938
+				UseShellExecute = true
+			};
 			Process.Start(info);
 		}
 

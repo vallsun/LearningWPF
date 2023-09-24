@@ -9,24 +9,17 @@ namespace WpfAppForLearning.Modules.KeyboardNavigation
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			var inputString = value as string;
-			switch (inputString)
+			string inputString = value as string;
+			return inputString switch
 			{
-				case "Local":
-					return KeyboardNavigationMode.Local;
-				case "Continue":
-					return KeyboardNavigationMode.Continue;
-				case "Contained":
-					return KeyboardNavigationMode.Contained;
-				case "Cycle":
-					return KeyboardNavigationMode.Cycle;
-				case "Once":
-					return KeyboardNavigationMode.Once;
-				case "None":
-					return KeyboardNavigationMode.None;
-				default:
-					return KeyboardNavigationMode.Continue;
-			}
+				"Local" => KeyboardNavigationMode.Local,
+				"Continue" => KeyboardNavigationMode.Continue,
+				"Contained" => KeyboardNavigationMode.Contained,
+				"Cycle" => KeyboardNavigationMode.Cycle,
+				"Once" => KeyboardNavigationMode.Once,
+				"None" => KeyboardNavigationMode.None,
+				_ => KeyboardNavigationMode.Continue,
+			};
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -3,7 +3,7 @@ using DevelopmentSupport.ClipboardWatcher;
 using DevelopmentSupport.FileAccessor.ViewModel;
 using DevelopmentSupport.Setting;
 using DevelopmentSupport.TaskList.ViewModel;
-using WPFAppFrameWork.Common;
+using WPFAppFrameWork;
 
 namespace DevelopmentSupportTool.ViewModels
 {

@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace WPFAppFrameWork.Common.Converters
+namespace WPFAppFrameWork
 {
 	/// <summary>
 	/// bool値を反転するコンバータ

@@ -40,7 +40,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FF14", "FF14", "{C0E3ABD9-D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TacticsAnalysisTool", "TacticsAnalysisTool\TacticsAnalysisTool.csproj", "{BE0D7915-3988-4E6C-A03A-C49893DEC3E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerializeTestDriver", "SerializeTestDriver\SerializeTestDriver.csproj", "{C1A2336B-5509-463D-93BB-EB72F57FF04A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerializeTestDriver", "SerializeTestDriver\SerializeTestDriver.csproj", "{C1A2336B-5509-463D-93BB-EB72F57FF04A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

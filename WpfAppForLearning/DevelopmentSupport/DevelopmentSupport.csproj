@@ -12,14 +12,13 @@
   <PropertyGroup>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>Libs\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Common\Styles\**" />
     <Compile Remove="FileStarter\**" />
-    <EmbeddedResource Remove="Common\Styles\**" />
     <EmbeddedResource Remove="FileStarter\**" />
-    <None Remove="Common\Styles\**" />
     <None Remove="FileStarter\**" />
-    <Page Remove="Common\Styles\**" />
     <Page Remove="FileStarter\**" />
   </ItemGroup>
   <ItemGroup>
@@ -31,7 +30,11 @@
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\DevelopmentCommon.csproj" />
-    <ProjectReference Include="..\WPFAppFrameWork\WPFAppFrameWork.csproj" />
+    <Reference Include="WPFAppFrameWork">
+      <HintPath>..\WPFAppFrameWork\Libs\netcoreapp3.1\WPFAppFrameWork.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Libs\" />
   </ItemGroup>
 </Project>

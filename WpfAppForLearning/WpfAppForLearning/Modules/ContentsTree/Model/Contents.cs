@@ -1,8 +1,6 @@
 ﻿using System.Collections.ObjectModel;
-using DevelopmentSupport.Common.Hierarchical;
-using DevelopmentSupport.Common.Namable;
-using DevelopmentSupport.Common.Selectable;
 using WpfAppForLearning.Properties;
+using WPFAppFrameWork;
 
 namespace WpfAppForLearning.Modules.ContentsTree.Model
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace WPFAppFrameWork.Common
+namespace WPFAppFrameWork
 {
 	#region No parameter DelegateCommand
 
@@ -172,11 +172,7 @@ namespace WPFAppFrameWork.Common
 		/// <returns></returns>
 		private T Cast(object parameter)
 		{
-			if (parameter == null && IS_VALUE_TYPE)
-			{
-				return default(T);
-			}
-			return (T)parameter;
+			return parameter == null && IS_VALUE_TYPE ? default : (T)parameter;
 		}
 	}
 	#endregion

@@ -1,6 +1,5 @@
 ﻿using System;
-using DevelopmentSupport.Common.Selectable;
-using WPFAppFrameWork.Common;
+using WPFAppFrameWork;
 
 namespace DevelopmentSupport.TaskList.Model
 {

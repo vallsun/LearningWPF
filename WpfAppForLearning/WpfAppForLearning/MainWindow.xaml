@@ -6,22 +6,19 @@
         xmlns:local="clr-namespace:WpfAppForLearning"
         xmlns:vm="clr-namespace:WpfAppForLearning.ViewModel"
 		xmlns:common="clr-namespace:WpfAppForLearning.Modules.Common"
-		xmlns:extendedControl="clr-namespace:WpfAppForLearning.Modules.Common.ExtendedControl"
+		xmlns:extendedControl="clr-namespace:WPFAppFrameWork.CustomTreeView;assembly=WPFAppFrameWork"
 		xmlns:startControl="clr-namespace:WpfAppForLearning.Modules.StartControl"
         xmlns:customControl="clr-namespace:WpfAppForLearning.Modules.CustomControl"
 		xmlns:progressBar="clr-namespace:WpfAppForLearning.Modules.ProgressBar"
 		xmlns:keyboardNavigation="clr-namespace:WpfAppForLearning.Modules.KeyboardNavigation"
         xmlns:contentsModel="clr-namespace:WpfAppForLearning.Modules.ContentsTree.Model"
-        xmlns:pathBarControl="clr-namespace:DevelopmentSupport.Common.PathBar.View;assembly=DevelopmentSupport"
+        xmlns:pathBarControl="clr-namespace:WPFAppFrameWork.PathBar;assembly=WPFAppFrameWork"
 		xmlns:dragDropControl="clr-namespace:WpfAppForLearning.Modules.DragDropControl"
 		xmlns:textBoxControl="clr-namespace:WpfAppForLearning.Modules.TextBoxControl"
         mc:Ignorable="d"
         Title="LearningWPF" Height="600" Width="800">
     <Window.Resources>
 		<ResourceDictionary>
-			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="./Modules/Common/ExtendedControl/Style/BindableSelectedItemTreeViewStyle.xaml" />
-			</ResourceDictionary.MergedDictionaries>
 			<DataTemplate DataType="{x:Type startControl:StartControlViewModel}">
 				<startControl:StartControl />
 			</DataTemplate>

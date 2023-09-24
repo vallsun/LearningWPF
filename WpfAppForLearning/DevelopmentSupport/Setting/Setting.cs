@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using WPFAppFrameWork.Common;
+using WPFAppFrameWork;
 
 namespace DevelopmentSupport.Setting
 {

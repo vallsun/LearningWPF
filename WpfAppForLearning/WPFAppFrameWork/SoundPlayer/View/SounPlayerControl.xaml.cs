@@ -56,8 +56,7 @@ namespace WPFAppFrameWork.SoundPlayer.View
 
 		private void UserControl_Loaded(object sender, RoutedEventArgs e)
 		{
-			var vm = m_MediaElement.DataContext as SoundPlayerViewModel;
-			if (vm != null)
+			if (m_MediaElement.DataContext is SoundPlayerViewModel vm)
 			{
 				vm.PlayRequested += (sender, e) =>
 				{
@@ -199,8 +198,7 @@ namespace WPFAppFrameWork.SoundPlayer.View
 		/// <param name="e"></param>
 		private void DispatcherTimer_Tick(object sender, EventArgs e)
 		{
-			var vm = m_MediaElement.DataContext as SoundPlayerViewModel;
-			if (vm == null)
+			if (!(m_MediaElement.DataContext is SoundPlayerViewModel vm))
 			{
 				return;
 			}
