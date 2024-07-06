@@ -5,6 +5,8 @@
 
 	<SolidColorBrush x:Key="GlyphBrush" Color="#444" />
 
+	<Style TargetType="{x:Type local:BindableSelectedItemTreeView}"/>
+	
 	<!--=================================================================
 		TreeViewItem
 	==================================================================-->

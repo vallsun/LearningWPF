@@ -4,8 +4,9 @@
     xmlns:ribbon="clr-namespace:WPFAppFrameWork.Ribbon">
 
 	<ResourceDictionary.MergedDictionaries  >
-		<ResourceDictionary Source="/WPFAppFrameWork;component/CustomTreeView/Style/BindableSelectedItemTreeView.xaml"/>
+		<ResourceDictionary Source="/WPFAppFrameWork;component/CustomTreeView/BindableSelectedItemTreeView.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
+	
 		<Style TargetType="{x:Type ribbon:RibbonButton}">
         <Setter Property="Width" Value="Auto"/>
         <Setter Property="MaxWidth" Value="100"/>
