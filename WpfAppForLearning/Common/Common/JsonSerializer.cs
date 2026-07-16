@@ -5,6 +5,9 @@ using System.Text.Json;
 
 namespace DevelopmentCommon.Common
 {
+	/// <summary>
+	/// Jsonのシリアライザ
+	/// </summary>
 	public class JsonSerializer
 	{
 		#region 内部フィールド
